@@ -602,6 +602,42 @@ code, .mono {
 .cal-day.milestone.ms-blue::after { background: #3b82f6; }
 .cal-day.milestone.ms-purple::after { background: #8b5cf6; }
 .cal-day.milestone.ms-gray::after { background: #94A3B8; }
+.cal-day.milestone { cursor: pointer; }
+.cal-popover {
+  position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  z-index: 400; width: 260px; padding: 14px 16px;
+  background: var(--paper); border: 1px solid var(--card-border);
+  border-radius: var(--radius-default); box-shadow: var(--dropdown-shadow);
+  pointer-events: auto; opacity: 0; visibility: hidden;
+  transition: opacity 150ms, visibility 150ms;
+}
+.cal-day.milestone:hover .cal-popover,
+.cal-day.milestone.pop-open .cal-popover { opacity: 1; visibility: visible; }
+.cal-popover::after {
+  content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+  border: 6px solid transparent; border-top-color: var(--paper);
+}
+.cal-popover-title {
+  font-size: 0.8125rem; font-weight: 600; color: var(--text); margin-bottom: 6px;
+}
+.cal-popover-date {
+  font-family: var(--font-mono); font-size: 0.625rem; color: var(--text-secondary);
+  margin-bottom: 8px; letter-spacing: 0.02em;
+}
+.cal-popover-desc {
+  font-size: 0.75rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 10px;
+}
+.cal-popover-owner {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 0.6875rem; font-weight: 500; color: var(--text);
+  background: var(--code-bg); padding: 3px 10px; border-radius: 100px;
+}
+.cal-popover-owner .material-icons { font-size: 13px; color: var(--text-secondary); }
+.cal-popover-ws {
+  display: inline-block; font-family: var(--font-mono); font-size: 0.5625rem;
+  font-weight: 600; letter-spacing: 0.04em; padding: 2px 6px;
+  border-radius: 4px; margin-bottom: 8px;
+}
 .cal-legend {
   display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px;
   font-size: 0.6875rem; color: var(--text-secondary);
@@ -804,7 +840,7 @@ code, .mono {
   border-radius: var(--radius-card); padding: 20px;
   display: flex; flex-direction: column; align-items: center;
   gap: 10px; text-align: center; cursor: pointer;
-  transition: all 200ms;
+  transition: all 200ms; text-decoration: none; color: inherit;
 }
 .doc-card:hover {
   transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15);
@@ -1623,36 +1659,36 @@ code, .mono {
   <p>Key reference documents for the execution plan.</p>
 
   <div class="doc-grid">
-    <div class="doc-card">
+    <a class="doc-card" href="docs/execution-plan.html">
       <span class="material-icons">description</span>
       <div class="doc-title">Execution Plan</div>
       <div class="doc-desc">This document &mdash; the master 30-60-90 day plan</div>
-    </div>
-    <div class="doc-card">
+    </a>
+    <a class="doc-card" href="docs/api-spec-request.html">
       <span class="material-icons">api</span>
       <div class="doc-title">Diligent API Spec Request</div>
       <div class="doc-desc">8 blocking questions for the London workshop</div>
-    </div>
-    <div class="doc-card">
+    </a>
+    <a class="doc-card" href="docs/architecture-decisions.html">
       <span class="material-icons">architecture</span>
       <div class="doc-title">Architecture Decision Records</div>
       <div class="doc-desc">ADRs for Bedrock, agent framework, data model</div>
-    </div>
-    <div class="doc-card">
+    </a>
+    <a class="doc-card" href="docs/hiring-jd-pack.html">
       <span class="material-icons">badge</span>
       <div class="doc-title">Hiring JD Pack</div>
-      <div class="doc-desc">Job descriptions for all 7 founding roles</div>
-    </div>
-    <div class="doc-card">
+      <div class="doc-desc">Job descriptions for all 8 founding roles</div>
+    </a>
+    <a class="doc-card" href="docs/aws-runbook.html">
       <span class="material-icons">cloud</span>
       <div class="doc-title">AWS Infrastructure Runbook</div>
       <div class="doc-desc">Terraform modules, environment configs, deploy playbook</div>
-    </div>
-    <div class="doc-card">
+    </a>
+    <a class="doc-card" href="docs/review-repo-playbook.html">
       <span class="material-icons">cleaning_services</span>
       <div class="doc-title">Review Repo Playbook</div>
       <div class="doc-desc">Sanitization steps for the riskapture-review repo</div>
-    </div>
+    </a>
   </div>
 </section>
 
@@ -1700,6 +1736,10 @@ function closeQuickAccess() {
 document.addEventListener('click', function(e) {
   var wrapper = document.getElementById('quickAccessWrapper');
   if (wrapper && !wrapper.contains(e.target)) closeQuickAccess();
+  // Close calendar popovers on click-away
+  if (!e.target.closest('.cal-day.milestone')) {
+    document.querySelectorAll('.cal-day.pop-open').forEach(function(o) { o.classList.remove('pop-open'); });
+  }
 });
 
 // ── Fullscreen ──────────────────────────────────────────
@@ -1791,17 +1831,39 @@ window.addEventListener('resize', checkWidth);
 // ── Calendar Renderer ────────────────────────────────────
 (function() {
   var milestones = [
-    { y:2026, m:3, d:18, label:'Plan Start', cls:'ms-red' },
-    { y:2026, m:3, d:30, label:'Workshop Start', cls:'ms-red' },
-    { y:2026, m:4, d:4, label:'Workshop End', cls:'ms-red' },
-    { y:2026, m:4, d:11, label:'Bedrock Complete', cls:'ms-purple' },
-    { y:2026, m:4, d:25, label:'End Month 1', cls:'ms-gray' },
-    { y:2026, m:5, d:5, label:'UC3 Starts', cls:'ms-red' },
-    { y:2026, m:5, d:30, label:'Feature Complete', cls:'ms-green' },
-    { y:2026, m:6, d:1, label:'AWS Deploy Start', cls:'ms-purple' },
-    { y:2026, m:6, d:5, label:'AWS Deploy End', cls:'ms-purple' },
-    { y:2026, m:6, d:15, label:'Ship Week Start', cls:'ms-green' },
-    { y:2026, m:6, d:18, label:'SHIP DATE', cls:'ms-red' }
+    { y:2026, m:3, d:18, label:'Plan Start', cls:'ms-red', ws:'Plan', wsColor:'#EE312E',
+      desc:'Execution plan formally kicks off. Pre-workshop sprint begins — Bedrock swap, rebrand tokens, API spec prep.',
+      owner:'Anton Merk' },
+    { y:2026, m:3, d:30, label:'London Workshop Start', cls:'ms-red', ws:'All', wsColor:'#EE312E',
+      desc:'5-day on-site at Diligent London. Align all API specs, agree AWS topology, auth federation, transcription service.',
+      owner:'Anton Merk + Diligent Team' },
+    { y:2026, m:4, d:4, label:'London Workshop End', cls:'ms-red', ws:'All', wsColor:'#EE312E',
+      desc:'Workshop close. All blocking API questions answered. Integration kick-off complete.',
+      owner:'Anton Merk + Diligent Team' },
+    { y:2026, m:4, d:11, label:'Bedrock Migration Complete', cls:'ms-purple', ws:'W5 Infra', wsColor:'#8b5cf6',
+      desc:'All LLM calls verified on AWS Bedrock. Python + Java layers migrated. No direct Anthropic calls remaining.',
+      owner:'Anton Merk' },
+    { y:2026, m:4, d:25, label:'End of Month 1', cls:'ms-gray', ws:'General', wsColor:'#94A3B8',
+      desc:'UC1 and UC2 agent cores done. Rebrand string replacement complete. Tenant landing page built. AWS environment provisioned.',
+      owner:'Anton Merk' },
+    { y:2026, m:5, d:5, label:'UC3 Build Starts', cls:'ms-red', ws:'W3 Reporting', wsColor:'#EE312E',
+      desc:'9-agent LangGraph orchestration graph design begins. Agents 1-3: Board Concierge, Intelligence Scout, Risk Synthesizer.',
+      owner:'AI/LLM Engineer (TBH)' },
+    { y:2026, m:5, d:30, label:'Feature Complete', cls:'ms-green', ws:'W1+W2', wsColor:'#22c55e',
+      desc:'UC1 Interview Co-Pilot and UC2 Control Testing are feature-complete. Entering production hardening. UC3 demo-capable on synthetic data.',
+      owner:'Anton Merk + Lead Engineer (TBH)' },
+    { y:2026, m:6, d:1, label:'AWS Production Deploy', cls:'ms-purple', ws:'W5 Infra', wsColor:'#8b5cf6',
+      desc:'AWS production environment live. DNS cutover planning. DMS data migration from Hetzner begins.',
+      owner:'DevOps Engineer (TBH)' },
+    { y:2026, m:6, d:5, label:'AWS Deploy Complete', cls:'ms-purple', ws:'W5 Infra', wsColor:'#8b5cf6',
+      desc:'All traffic routes through AWS EKS + Bedrock. Hetzner decommission ready. Monitoring and alerting active.',
+      owner:'DevOps Engineer (TBH)' },
+    { y:2026, m:6, d:15, label:'Ship Week Begins', cls:'ms-green', ws:'All', wsColor:'#22c55e',
+      desc:'Final ship week. UC1 + UC2 production launch. UC3 demo delivered. Rebrand verified across all portals.',
+      owner:'Anton Merk + Full Team' },
+    { y:2026, m:6, d:18, label:'SHIP DATE', cls:'ms-red', ws:'All', wsColor:'#EE312E',
+      desc:'Deadline. UC1 ships. UC2 ships. UC3 demo delivered. Rebrand complete. AWS in production. Full founding team in post.',
+      owner:'Anton Merk' }
   ];
 
   var months = [
@@ -1856,7 +1918,20 @@ window.addEventListener('resize', checkWidth);
         var ms = milestones[mi];
         if (ms.y === mo.y && ms.m === mo.m && ms.d === d) {
           cell.classList.add('milestone', ms.cls);
-          cell.title = ms.label;
+          var dateStr = d + ' ' + ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][ms.m] + ' ' + ms.y;
+          var pop = document.createElement('div');
+          pop.className = 'cal-popover';
+          pop.innerHTML = '<div class="cal-popover-title">' + ms.label + '</div>'
+            + '<div class="cal-popover-date">' + dateStr + '</div>'
+            + '<div class="cal-popover-ws" style="background:' + ms.wsColor + '22;color:' + ms.wsColor + ';">' + ms.ws + '</div>'
+            + '<div class="cal-popover-desc">' + ms.desc + '</div>'
+            + '<div class="cal-popover-owner"><span class="material-icons">person</span>' + ms.owner + '</div>';
+          cell.appendChild(pop);
+          cell.addEventListener('click', (function(c) { return function(e) {
+            e.stopPropagation();
+            document.querySelectorAll('.cal-day.pop-open').forEach(function(o) { if(o!==c) o.classList.remove('pop-open'); });
+            c.classList.toggle('pop-open');
+          }; })(cell));
           break;
         }
       }

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Architecture Decision Records — Stealth Labs</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 35'%3E%3Cpath fill='%23EE312E' d='M31.87 17.5C31.87 22.84 29.99 27.14 26.72 30.14C26.72 30.14 26.72 30.14 26.62 30.23C24.19 32.48 21.1 33.89 17.35 34.45L17.07 34.17L22.5 2.71L22.69 2.14C28.31 4.86 31.77 10.29 31.77 17.41'/%3E%3Cpath fill='%23AF292E' d='M22.78 2.24L22.6 2.43L0.59 18.81H0.5V0.27H13.89C14.83 0.27 15.67 0.27 16.6 0.46C18.76 0.74 20.82 1.3 22.6 2.14H22.78'/%3E%3Cpath fill='%23D3222A' d='M22.78 2.24L0.5 18.72V34.73H13.89C15.11 34.73 16.23 34.73 17.35 34.45L22.78 2.14'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --transition-speed: 280ms;
+  --transition-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --font-primary: 'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  --radius-default: 12px;
+  --radius-card: 16px;
+  --radius-pill: 100px;
+  --primary: #EE312E;
+  --primary-light: #D3222A;
+  --primary-dark: #AF292E;
+}
+[data-theme="light"] {
+  --bg: #F3F3F3; --paper: #FFFFFF; --text: #282E37; --text-secondary: #6F7377;
+  --divider: rgba(0,0,0,0.08); --card-bg: #FFFFFF; --card-border: rgba(0,0,0,0.08);
+  --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --header-bg: #FFFFFF; --header-border: rgba(0,0,0,0.08); --header-blur: blur(20px);
+  --code-bg: rgba(0,0,0,0.05); --link: #EE312E;
+  --scroll-thumb: rgba(0,0,0,0.15); --body-gradient: none;
+  --primary-main: #EE312E;
+}
+[data-theme="dark"] {
+  --bg: #121212; --paper: #1E1E1E; --text: #E2E8F0; --text-secondary: #94A3B8;
+  --divider: rgba(255,255,255,0.08); --card-bg: #1E1E1E; --card-border: rgba(255,255,255,0.05);
+  --card-shadow: 0 2px 14px 0 rgba(0,0,0,0.2);
+  --header-bg: rgba(30,30,30,0.85); --header-border: rgba(255,255,255,0.08); --header-blur: blur(20px);
+  --code-bg: rgba(255,255,255,0.06); --link: #EE312E;
+  --scroll-thumb: rgba(255,255,255,0.1); --body-gradient: none;
+  --primary-main: #EE312E;
+}
+[data-theme="pureBlack"] {
+  --bg: #000000; --paper: #121212; --text: #FFFFFF; --text-secondary: #B0B0B0;
+  --divider: rgba(255,255,255,0.12); --card-bg: #121212; --card-border: rgba(255,255,255,0.1);
+  --card-shadow: 0 2px 14px 0 rgba(0,0,0,0.4);
+  --header-bg: rgba(0,0,0,0.9); --header-border: rgba(255,255,255,0.12); --header-blur: blur(20px);
+  --code-bg: rgba(255,255,255,0.08); --link: #EE312E;
+  --scroll-thumb: rgba(255,255,255,0.15); --body-gradient: none;
+  --primary-main: #EE312E;
+}
+[data-theme="galaxy"] {
+  --bg: #0d0a1a; --paper: #1a1428; --text: #E8E8FF; --text-secondary: #9090B0;
+  --divider: rgba(238,49,46,0.15); --card-bg: rgba(26,20,40,0.85); --card-border: rgba(238,49,46,0.15);
+  --card-shadow: 0 2px 14px 0 rgba(0,0,0,0.3);
+  --header-bg: rgba(26,20,40,0.85); --header-border: rgba(238,49,46,0.15); --header-blur: blur(20px);
+  --code-bg: rgba(238,49,46,0.1); --link: #EE312E;
+  --scroll-thumb: rgba(238,49,46,0.2);
+  --body-gradient: linear-gradient(to bottom, #0A0A0A 0%, #0E0E0E 40%, #141414 70%, #1A1A1A 100%);
+  --primary-main: #EE312E;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-primary);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition: background var(--transition-speed) var(--transition-ease), color var(--transition-speed) var(--transition-ease);
+}
+[data-theme="galaxy"] body { background: var(--body-gradient); background-attachment: fixed; }
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--scroll-thumb); border-radius: 3px; }
+
+.top-bar {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 44px; padding: 0 20px;
+  background: var(--header-bg); backdrop-filter: var(--header-blur);
+  border-bottom: 1px solid var(--header-border);
+}
+.top-bar-left { display: flex; align-items: center; gap: 12px; }
+.top-bar-left a { display: flex; align-items: center; gap: 6px; font-size: 0.8125rem; font-weight: 500; color: var(--text-secondary); }
+.top-bar-left a:hover { color: var(--text); text-decoration: none; }
+.top-bar-title { font-size: 0.8125rem; font-weight: 600; color: var(--text); }
+.theme-dots { display: flex; gap: 6px; }
+.theme-dot {
+  width: 12px; height: 12px; border-radius: 50%; cursor: pointer;
+  border: 2px solid transparent; transition: border-color 0.2s;
+}
+.theme-dot:hover { border-color: var(--text-secondary); }
+.theme-dot.active { border-color: var(--text); }
+.theme-dot[data-theme="light"] { background: #F3F3F3; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.15); }
+.theme-dot[data-theme="dark"] { background: #1E1E1E; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15); }
+.theme-dot[data-theme="pureBlack"] { background: #000000; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.25); }
+.theme-dot[data-theme="galaxy"] { background: linear-gradient(135deg, #1a1428, #0d0a1a); box-shadow: inset 0 0 0 1px rgba(238,49,46,0.3); }
+
+.page-content { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+.card {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: var(--radius-card); box-shadow: var(--card-shadow);
+  padding: 32px; margin-bottom: 24px;
+}
+.card-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+.card-icon {
+  width: 48px; height: 48px; border-radius: var(--radius-default);
+  background: rgba(238,49,46,0.1); display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.card-icon .material-icons { font-size: 24px; color: var(--primary); }
+.card-title-group { flex: 1; }
+.card-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 4px; }
+.badge-draft {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+  padding: 3px 10px; border-radius: var(--radius-pill);
+  background: rgba(245,158,11,0.12); color: #F59E0B;
+}
+.card-desc { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px; }
+.card-meta { font-size: 0.75rem; color: var(--text-secondary); opacity: 0.7; }
+
+.section-title {
+  font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--text-secondary); margin-bottom: 12px;
+}
+.planned-list { list-style: none; padding: 0; }
+.planned-list li {
+  position: relative; padding: 8px 0 8px 20px;
+  font-size: 0.875rem; color: var(--text-secondary);
+  border-bottom: 1px solid var(--divider);
+}
+.planned-list li:last-child { border-bottom: none; }
+.planned-list li::before {
+  content: ''; position: absolute; left: 0; top: 15px;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--text-secondary); opacity: 0.4;
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="top-bar-left">
+    <a href="../"><span class="material-icons" style="font-size:18px">arrow_back</span> Plan</a>
+    <span class="top-bar-title">Architecture Decision Records</span>
+  </div>
+  <div class="theme-dots">
+    <div class="theme-dot" data-theme="light" title="Light"></div>
+    <div class="theme-dot" data-theme="dark" title="Dark"></div>
+    <div class="theme-dot" data-theme="pureBlack" title="Pure Black"></div>
+    <div class="theme-dot" data-theme="galaxy" title="Galaxy"></div>
+  </div>
+</div>
+
+<div class="page-content">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon"><span class="material-icons">architecture</span></div>
+      <div class="card-title-group">
+        <div class="card-title">Architecture Decision Records</div>
+        <span class="badge-draft">Draft &mdash; Content Coming Soon</span>
+      </div>
+    </div>
+    <div class="card-desc">Key technical decisions for the Stealth Labs platform &mdash; Bedrock migration, agent framework, data model, and infrastructure choices.</div>
+    <div class="card-meta">Last updated: Not yet created</div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">Planned Contents</div>
+    <ul class="planned-list">
+      <li>ADR-001: AWS Bedrock over Anthropic Direct</li>
+      <li>ADR-002: LangGraph for Agent Orchestration</li>
+      <li>ADR-003: Cohere Embeddings via Bedrock (replacing VoyageAI)</li>
+      <li>ADR-004: EKS over ECS for Container Orchestration</li>
+      <li>ADR-005: DiligentMCP as Integration Layer</li>
+      <li>ADR-006: Multi-Tenant Data Isolation Model</li>
+      <li>ADR-007: Real-Time Transcription Provider Selection</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+(function() {
+  const STORAGE_KEY = 'stealthlabs-plan-theme';
+  const saved = localStorage.getItem(STORAGE_KEY) || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+  document.querySelectorAll('.theme-dot').forEach(dot => {
+    if (dot.dataset.theme === saved) dot.classList.add('active');
+    dot.addEventListener('click', () => {
+      const t = dot.dataset.theme;
+      document.documentElement.setAttribute('data-theme', t);
+      localStorage.setItem(STORAGE_KEY, t);
+      document.querySelectorAll('.theme-dot').forEach(d => d.classList.remove('active'));
+      dot.classList.add('active');
+    });
+  });
+})();
+</script>
+</body>
+</html>
