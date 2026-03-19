@@ -138,6 +138,48 @@ a:hover { text-decoration: underline; }
   width: 6px; height: 6px; border-radius: 50%;
   background: var(--text-secondary); opacity: 0.4;
 }
+.page-content { max-width: 800px; }
+.jd-card {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: var(--radius-card); box-shadow: var(--card-shadow);
+  padding: 28px 32px; margin-bottom: 20px; border-left: 4px solid var(--primary);
+}
+.jd-num {
+  font-family: var(--font-mono); font-size: 0.625rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--primary);
+  margin-bottom: 6px;
+}
+.jd-title { font-size: 1.125rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.jd-dept {
+  font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.06em;
+  color: var(--text-secondary); margin-bottom: 12px;
+}
+.jd-badges { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+.badge {
+  display: inline-block; padding: 3px 10px; border-radius: 100px;
+  font-size: 0.6875rem; font-weight: 600;
+  font-family: var(--font-mono); letter-spacing: 0.03em;
+}
+.badge-critical { background: rgba(239,68,68,0.12); color: #ef4444; }
+.badge-high { background: rgba(245,158,11,0.12); color: #f59e0b; }
+.badge-medium { background: rgba(34,197,94,0.12); color: #22c55e; }
+.badge-gray { background: var(--code-bg); color: var(--text-secondary); }
+.jd-section { margin-bottom: 14px; }
+.jd-section-title {
+  font-family: var(--font-mono); font-size: 0.625rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary);
+  margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--divider);
+}
+.jd-section p { font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.65; }
+.jd-section ul { list-style: none; padding: 0; }
+.jd-section li {
+  padding: 4px 0 4px 16px; position: relative;
+  font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.6;
+}
+.jd-section li::before {
+  content: ''; position: absolute; left: 0; top: 11px;
+  width: 6px; height: 6px; border-radius: 2px; background: var(--primary); opacity: 0.5;
+}
 </style>
 </head>
 <body>
@@ -158,28 +200,214 @@ a:hover { text-decoration: underline; }
 <div class="page-content">
   <div class="card">
     <div class="card-header">
-      <div class="card-icon"><span class="material-icons">badge</span></div>
+      <div class="card-icon"><span class="material-icons">people</span></div>
       <div class="card-title-group">
         <div class="card-title">Hiring JD Pack</div>
-        <span class="badge-draft">Draft &mdash; Content Coming Soon</span>
+        <span class="badge-draft" style="background:rgba(238,49,46,0.12);color:#EE312E;">8 Founding Team Roles</span>
       </div>
     </div>
-    <div class="card-desc">Job descriptions for all 8 founding team roles. Each JD includes role summary, responsibilities, requirements, and interview process.</div>
-    <div class="card-meta">Last updated: Not yet created</div>
+    <div class="card-desc">Job descriptions for the Stealth Labs founding team. Each role includes a summary, responsibilities, and requirements. Director of Product is the #1 hire &mdash; needed by W2 to share cross-workstream coordination.</div>
+    <div class="card-meta">Last updated: 19 Mar 2026</div>
   </div>
 
-  <div class="card">
-    <div class="section-title">Planned Contents</div>
-    <ul class="planned-list">
-      <li>Lead Full Stack Engineer (Critical &mdash; W3)</li>
-      <li>AI/LLM Engineer (Critical &mdash; W7)</li>
-      <li>Director of Product (Critical &mdash; W3)</li>
-      <li>DevOps/Platform Engineer (High &mdash; W8)</li>
-      <li>Backend/API Engineer (High &mdash; W9)</li>
-      <li>QA/Automation Engineer (High &mdash; W8)</li>
-      <li>UX/Product Designer (Medium &mdash; W10)</li>
-      <li>Product Marketing Manager (Medium &mdash; W11)</li>
-    </ul>
+  <!-- 1. Director of Product -->
+  <div class="jd-card" style="border-left-color:#EE312E; background: color-mix(in srgb, #EE312E 3%, var(--card-bg));">
+    <div class="jd-num">Role 1 of 8 &mdash; Priority #1</div>
+    <div class="jd-title">Director of Product</div>
+    <div class="jd-dept">Product &mdash; Cross-workstream delivery lead</div>
+    <div class="jd-badges"><span class="badge badge-critical">Critical</span><span class="badge badge-gray">By W2</span></div>
+    <div class="jd-section"><div class="jd-section-title">Role Summary</div><p>Owns cross-workstream coordination, delivery management, and stakeholder communications across all 5 parallel workstreams. Reports to Head of Stealth Labs. This is the #1 hire &mdash; without this role, Anton is a single point of failure across delivery, hiring, and stakeholder management.</p></div>
+    <div class="jd-section"><div class="jd-section-title">Responsibilities</div><ul>
+      <li>Own day-to-day delivery management across all 5 workstreams (UC1, UC2, UC3, Rebrand, AWS Migration)</li>
+      <li>Run sprint ceremonies, stand-ups, and cross-team dependency resolution</li>
+      <li>Manage hiring pipeline alongside Head of Stealth Labs &mdash; screen candidates, coordinate interviews, close offers</li>
+      <li>Own backlog prioritisation and trade-off decisions when workstreams compete for shared resources</li>
+      <li>Coordinate with Diligent stakeholders &mdash; workshop prep, API spec follow-ups, integration alignment</li>
+      <li>Track and escalate risks from the risk register; own mitigation execution</li>
+      <li>Prepare weekly status reports and board-level summaries for Diligent leadership</li>
+    </ul></div>
+    <div class="jd-section"><div class="jd-section-title">Requirements</div><ul>
+      <li>8+ years in product management, with 3+ in a Director or Senior PM role</li>
+      <li>Experience managing multiple parallel workstreams in a startup or scale-up environment</li>
+      <li>Strong technical literacy &mdash; can engage with engineering on architecture, API design, and infrastructure decisions</li>
+      <li>GRC, audit, or compliance domain experience is a strong plus</li>
+      <li>Proven ability to operate autonomously and make trade-off decisions under ambiguity</li>
+      <li>Experience with AI/ML product delivery is highly desirable</li>
+      <li>London-based or willing to relocate; on-site at Diligent London office</li>
+    </ul></div>
+  </div>
+
+  <!-- 2. Lead Full Stack Engineer -->
+  <div class="jd-card">
+    <div class="jd-num">Role 2 of 8</div>
+    <div class="jd-title">Lead Full Stack Engineer</div>
+    <div class="jd-dept">Engineering</div>
+    <div class="jd-badges"><span class="badge badge-critical">Critical</span><span class="badge badge-gray">By W3</span></div>
+    <div class="jd-section"><div class="jd-section-title">Role Summary</div><p>Owns portal architecture, multi-tenant DB design, integration points with GRC Brain and Agentic Cortex. Blocker for UC1 and UC2 feature delivery at scale.</p></div>
+    <div class="jd-section"><div class="jd-section-title">Responsibilities</div><ul>
+      <li>Own the full-stack architecture of the Stealth Labs GRC portal (React + Node/Python)</li>
+      <li>Design and implement multi-tenant database schema and data isolation</li>
+      <li>Build integration points between the portal frontend, GRC Brain (AI backend), and Agentic Cortex (agent orchestration)</li>
+      <li>Lead UC1 Interview Co-Pilot frontend &mdash; real-time transcript + agent suggestions split view</li>
+      <li>Lead UC2 Automated Control Testing UI &mdash; test scheduling, results dashboard, exception queue</li>
+      <li>Mentor and onboard subsequent engineering hires as the team scales</li>
+    </ul></div>
+    <div class="jd-section"><div class="jd-section-title">Requirements</div><ul>
+      <li>6+ years full-stack development with React and a backend language (Python or Node.js)</li>
+      <li>Strong PostgreSQL / relational DB design skills including multi-tenant patterns</li>
+      <li>Experience with real-time data (WebSockets, streaming) is a strong plus</li>
+      <li>Comfortable owning architecture decisions in a small, fast-moving team</li>
+      <li>GRC or enterprise SaaS experience is a plus</li>
+    </ul></div>
+  </div>
+
+  <!-- 3. AI/LLM Engineer -->
+  <div class="jd-card">
+    <div class="jd-num">Role 3 of 8</div>
+    <div class="jd-title">AI / LLM Engineer</div>
+    <div class="jd-dept">Engineering</div>
+    <div class="jd-badges"><span class="badge badge-critical">Critical</span><span class="badge badge-gray">By W7</span></div>
+    <div class="jd-section"><div class="jd-section-title">Role Summary</div><p>Owns GRC Brain and Agentic Cortex. UC3 9-agent orchestration graph is their primary deliverable. Must onboard by Week 7 at the latest to deliver UC3 MVP.</p></div>
+    <div class="jd-section"><div class="jd-section-title">Responsibilities</div><ul>
+      <li>Own the GRC Brain (AI reasoning layer) and Agentic Cortex (agent orchestration framework)</li>
+      <li>Build the UC3 Automated Audit Reporting 9-agent LangGraph orchestration graph</li>
+      <li>Design and implement agent patterns: Board Concierge, Intelligence Scout, Risk Synthesizer, Narrator, CAE Steering, Forensic Analyst, Confidence Calibrator, Board Pack Curator, CAE Sign-off</li>
+      <li>Implement HITL (Human-in-the-Loop) gates across all agent workflows</li>
+      <li>Tune prompts and confidence scoring for Bedrock-hosted models</li>
+      <li>Own agent evaluation framework &mdash; measuring quality, latency, and reliability</li>
+    </ul></div>
+    <div class="jd-section"><div class="jd-section-title">Requirements</div><ul>
+      <li>4+ years in ML/AI engineering with 2+ years working with LLMs</li>
+      <li>Production experience with LangChain, LangGraph, or similar agent orchestration frameworks</li>
+      <li>Strong Python skills; experience with async workflows and streaming</li>
+      <li>Experience with AWS Bedrock, Anthropic Claude, or similar hosted LLM providers</li>
+      <li>Understanding of RAG patterns, embedding models, and vector stores</li>
+      <li>GRC domain knowledge is a significant plus but not required</li>
+    </ul></div>
+  </div>
+
+  <!-- 4. DevOps/Platform Engineer -->
+  <div class="jd-card">
+    <div class="jd-num">Role 4 of 8</div>
+    <div class="jd-title">DevOps / Platform Engineer</div>
+    <div class="jd-dept">Engineering</div>
+    <div class="jd-badges"><span class="badge badge-high">High</span><span class="badge badge-gray">By W8</span></div>
+    <div class="jd-section"><div class="jd-section-title">Role Summary</div><p>Owns AWS EKS, RDS, CI/CD pipelines, and Bedrock infrastructure. Critical for production deployment in June without solo execution bottleneck.</p></div>
+    <div class="jd-section"><div class="jd-section-title">Responsibilities</div><ul>
+      <li>Own AWS infrastructure &mdash; EKS clusters, RDS PostgreSQL, ElastiCache, OpenSearch</li>
+      <li>Build and maintain Terraform IaC modules for all environments</li>
+      <li>Design and implement CI/CD pipelines (GitHub Actions &rarr; EKS)</li>
+      <li>Manage the Hetzner &rarr; AWS migration including DMS data migration</li>
+      <li>Configure AWS Bedrock model access and monitoring</li>
+      <li>Own production deployment, DNS cutover, and zero-downtime deploy strategy</li>
+      <li>Set up monitoring, alerting, and incident response procedures</li>
+    </ul></div>
+    <div class="jd-section"><div class="jd-section-title">Requirements</div><ul>
+      <li>4+ years in DevOps / Platform Engineering</li>
+      <li>Deep AWS experience &mdash; EKS, RDS, IAM, VPC, Bedrock</li>
+      <li>Strong Terraform skills; experience with infrastructure-as-code at scale</li>
+      <li>Experience with Kubernetes in production</li>
+      <li>CI/CD pipeline design (GitHub Actions preferred)</li>
+      <li>Experience with database migration tools (AWS DMS or similar)</li>
+    </ul></div>
+  </div>
+
+  <!-- 5. Backend/API Engineer -->
+  <div class="jd-card">
+    <div class="jd-num">Role 5 of 8</div>
+    <div class="jd-title">Backend / API Engineer</div>
+    <div class="jd-dept">Engineering</div>
+    <div class="jd-badges"><span class="badge badge-high">High</span><span class="badge badge-gray">By W9</span></div>
+    <div class="jd-section"><div class="jd-section-title">Role Summary</div><p>Owns Data Hub, DiligentMCP expansion (15 new tools), and evidence store connectors. Frees the Lead Engineer from integration work in Month 2.</p></div>
+    <div class="jd-section"><div class="jd-section-title">Responsibilities</div><ul>
+      <li>Own the Data Hub &mdash; central data integration layer between Stealth Labs and Diligent</li>
+      <li>Expand DiligentMCP with 15+ new tools covering Frameworks, ERM, Compliance Maps, 3rd Party Risk, Vault</li>
+      <li>Build evidence store connectors for bidirectional sync with Diligent Projects</li>
+      <li>Implement API adapters for Diligent authentication, evidence storage, test plans, and board reporting</li>
+      <li>Design and build the data pipeline for UC2 control test results sync</li>
+      <li>Own API documentation and integration testing</li>
+    </ul></div>
+    <div class="jd-section"><div class="jd-section-title">Requirements</div><ul>
+      <li>4+ years backend development (Python or Node.js)</li>
+      <li>Strong API design skills &mdash; RESTful and/or GraphQL</li>
+      <li>Experience building integration layers / middleware between enterprise systems</li>
+      <li>Database skills &mdash; PostgreSQL, query optimisation</li>
+      <li>Experience with MCP (Model Context Protocol) or similar tool-use patterns is a plus</li>
+      <li>GRC or enterprise software integration experience is a plus</li>
+    </ul></div>
+  </div>
+
+  <!-- 6. QA/Automation Engineer -->
+  <div class="jd-card">
+    <div class="jd-num">Role 6 of 8</div>
+    <div class="jd-title">QA / Automation Engineer</div>
+    <div class="jd-dept">Engineering</div>
+    <div class="jd-badges"><span class="badge badge-high">High</span><span class="badge badge-gray">By W8</span></div>
+    <div class="jd-section"><div class="jd-section-title">Role Summary</div><p>Multi-tenant isolation testing is the most critical QA surface. Also owns test strategy for non-deterministic agent behaviour. Needed before production hardening phase.</p></div>
+    <div class="jd-section"><div class="jd-section-title">Responsibilities</div><ul>
+      <li>Own the test strategy for the entire Stealth Labs platform</li>
+      <li>Design and implement multi-tenant isolation tests &mdash; the most critical QA surface</li>
+      <li>Build test frameworks for non-deterministic agent behaviour (LLM outputs, confidence scores)</li>
+      <li>Create end-to-end test suites for UC1 (Interview Co-Pilot) and UC2 (Control Testing)</li>
+      <li>Establish performance benchmarks and regression testing for agent quality</li>
+      <li>Own production hardening test plan for the June ship date</li>
+    </ul></div>
+    <div class="jd-section"><div class="jd-section-title">Requirements</div><ul>
+      <li>4+ years in QA / Test Automation</li>
+      <li>Experience with testing AI/ML systems or non-deterministic outputs</li>
+      <li>Strong automation skills &mdash; Playwright, Cypress, or similar</li>
+      <li>Experience with multi-tenant SaaS testing patterns</li>
+      <li>API testing experience (Postman, REST-assured, or similar)</li>
+      <li>Security testing awareness (PII handling, data isolation)</li>
+    </ul></div>
+  </div>
+
+  <!-- 7. UX/Product Designer -->
+  <div class="jd-card">
+    <div class="jd-num">Role 7 of 8</div>
+    <div class="jd-title">UX / Product Designer</div>
+    <div class="jd-dept">Product &amp; Design</div>
+    <div class="jd-badges"><span class="badge badge-medium">Medium</span><span class="badge badge-gray">By W10</span></div>
+    <div class="jd-section"><div class="jd-section-title">Role Summary</div><p>Owns the design system, agent UX patterns (confidence indicators, HITL approval flows), and AI Assistant experience. Impact is highest from Month 2 onward.</p></div>
+    <div class="jd-section"><div class="jd-section-title">Responsibilities</div><ul>
+      <li>Own the Stealth Labs GRC design system &mdash; extending the Diligent brand foundation</li>
+      <li>Design agent UX patterns: confidence indicators, HITL approval flows, suggestion cards</li>
+      <li>Design the AI Assistant / Co-Pilot experience for UC1 Interview Co-Pilot</li>
+      <li>Create the control testing dashboard and exception review queue UX for UC2</li>
+      <li>Design the board pack report viewer for UC3</li>
+      <li>Collaborate with engineering on component implementation using MUI</li>
+    </ul></div>
+    <div class="jd-section"><div class="jd-section-title">Requirements</div><ul>
+      <li>5+ years in UX/Product Design for SaaS products</li>
+      <li>Strong design system experience &mdash; Figma, component libraries, token-based theming</li>
+      <li>Experience designing for AI-powered products (confidence UX, HITL patterns)</li>
+      <li>Enterprise / B2B design experience preferred</li>
+      <li>Ability to work closely with engineers and ship iteratively</li>
+    </ul></div>
+  </div>
+
+  <!-- 8. Product Marketing Manager -->
+  <div class="jd-card">
+    <div class="jd-num">Role 8 of 8</div>
+    <div class="jd-title">Product Marketing Manager</div>
+    <div class="jd-dept">Product</div>
+    <div class="jd-badges"><span class="badge badge-medium">Medium</span><span class="badge badge-gray">By W11</span></div>
+    <div class="jd-section"><div class="jd-section-title">Role Summary</div><p>GTM positioning, sales enablement, and launch coordination for UC1 and UC2 ship date. Can onboard in final two weeks and still shape the launch narrative.</p></div>
+    <div class="jd-section"><div class="jd-section-title">Responsibilities</div><ul>
+      <li>Own GTM positioning for UC1 Interview Co-Pilot and UC2 Automated Control Testing</li>
+      <li>Create sales enablement materials &mdash; pitch decks, one-pagers, demo scripts</li>
+      <li>Coordinate the June 18 launch with Diligent marketing</li>
+      <li>Define competitive positioning against existing GRC tools</li>
+      <li>Build customer-facing messaging for the Stealth Labs brand</li>
+      <li>Plan post-launch campaigns and customer onboarding materials</li>
+    </ul></div>
+    <div class="jd-section"><div class="jd-section-title">Requirements</div><ul>
+      <li>4+ years in Product Marketing for B2B SaaS</li>
+      <li>Experience in GRC, audit, compliance, or enterprise risk management space</li>
+      <li>Strong writing skills &mdash; can produce compelling narratives for technical products</li>
+      <li>Experience with product launches and coordinating across sales, product, and engineering</li>
+      <li>Familiarity with AI/ML product messaging is a plus</li>
+    </ul></div>
   </div>
 </div>
 
