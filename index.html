@@ -541,8 +541,10 @@ code, .mono {
   letter-spacing: 0.08em; opacity: 0.7; margin-bottom: 4px;
 }
 .ws-card .ws-name {
-  font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 8px;
+  font-size: 1rem; font-weight: 600; color: var(--link); margin-bottom: 8px;
+  cursor: pointer; transition: opacity 150ms;
 }
+.ws-card .ws-name:hover { opacity: 0.8; text-decoration: underline; }
 .ws-card .ws-target {
   font-size: 0.75rem; color: var(--text-secondary);
   font-family: var(--font-mono);
@@ -1221,27 +1223,27 @@ code, .mono {
   <div class="ws-grid">
     <div class="ws-card" style="border-top-color:#22c55e;">
       <div class="ws-tag" style="color:#22c55e;">W1</div>
-      <div class="ws-name">Interview Co-Pilot</div>
+      <div class="ws-name" onclick="openWsModal('w1')">Interview Co-Pilot</div>
       <div class="ws-target"><span class="badge badge-green">Ship June 18</span></div>
     </div>
     <div class="ws-card" style="border-top-color:#f59e0b;">
       <div class="ws-tag" style="color:#f59e0b;">W2</div>
-      <div class="ws-name">Control Testing</div>
+      <div class="ws-name" onclick="openWsModal('w2')">Control Testing</div>
       <div class="ws-target"><span class="badge badge-amber">Ship June 18</span></div>
     </div>
     <div class="ws-card" style="border-top-color:#EE312E;">
       <div class="ws-tag" style="color:#EE312E;">W3</div>
-      <div class="ws-name">Audit Reporting</div>
+      <div class="ws-name" onclick="openWsModal('w3')">Audit Reporting</div>
       <div class="ws-target"><span class="badge badge-red">Demo June 18</span></div>
     </div>
     <div class="ws-card" style="border-top-color:#3b82f6;">
       <div class="ws-tag" style="color:#3b82f6;">W4</div>
-      <div class="ws-name">Rebrand + Landing</div>
+      <div class="ws-name" onclick="openWsModal('w4')">Rebrand + Landing</div>
       <div class="ws-target"><span class="badge badge-blue">Complete June 18</span></div>
     </div>
     <div class="ws-card" style="border-top-color:#8b5cf6;">
       <div class="ws-tag" style="color:#8b5cf6;">W5</div>
-      <div class="ws-name">AWS/Bedrock Infra</div>
+      <div class="ws-name" onclick="openWsModal('w5')">AWS/Bedrock Infra</div>
       <div class="ws-target"><span class="badge badge-purple">Production June 18</span></div>
     </div>
   </div>
@@ -2315,8 +2317,172 @@ function closeJdModal() {
 }
 
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeJdModal();
+  if (e.key === 'Escape') { closeJdModal(); closeWsModal(); }
 });
+
+// ── Workstream Modal ─────────────────────────────────────
+var wsData = {
+  w1: {
+    tag: 'Workstream 1 · Fieldwork', tagColor: '#22c55e',
+    title: 'AI Interview Co-Pilot',
+    subtitle: 'Agent-assisted auditee conversations',
+    target: 'Ship', targetDate: 'June 18',
+    description: 'An AI agent conducts or assists the auditor during live interviews with auditees. As the conversation unfolds, the agent listens, transcribes, and reasons in real time \u2014 matching what is said against the defined control scope, surfacing follow-up questions, flagging potential findings, and automatically collecting evidence. The full transcript and any generated artefacts are stored as formal audit evidence within the engagement.',
+    problem: 'Auditors manually take notes during interviews, then spend hours writing up findings, linking evidence, and drafting work papers \u2014 often from memory.',
+    capabilities: [
+      'Real-time transcription of auditee interviews with contextual awareness of the audit scope',
+      'Agent surfaces relevant follow-up questions the auditor might miss under time pressure',
+      'Findings are auto-drafted during the conversation as control gaps emerge',
+      'Evidence (transcript, supporting data) is automatically linked to the relevant control and stored in the engagement',
+      'Auditor remains in control \u2014 the agent assists, never replaces professional judgment'
+    ],
+    hitl: [
+      'Auditor steers the conversation and decides which threads to pursue',
+      'Finding drafts require auditor review before being raised',
+      'Evidence inclusion is confirmed by the auditor'
+    ],
+    dependencies: ['AWS Transcribe Streaming or Deepgram for real-time transcription', 'Diligent Evidence Storage API (Q2 from API Spec Request)', 'Bedrock migration complete (LLM calls via Bedrock)'],
+    phases: 'W0\u2013W1: API spec prep | W2: Workshop alignment | W3\u2013W5: Audio infra + agent build | W6\u2013W9: Integration + E2E testing | W10\u2013W11: Hardening | W12\u2013W13: Ship'
+  },
+  w2: {
+    tag: 'Workstream 2 · Control Testing', tagColor: '#f59e0b',
+    title: 'Automated Control Testing',
+    subtitle: 'Agent-run tests against evidence documents',
+    target: 'Ship', targetDate: 'June 18',
+    description: 'Pre-configured agents execute control tests directly against the evidence population \u2014 documents, data exports, transaction records \u2014 without requiring manual auditor review of every item. Each agent understands the control objective, the required test procedure, and the expected evidence standard. It executes the test, records the result, and flags exceptions for auditor review. This is the most time-consuming part of the audit workflow and the highest-value automation target.',
+    problem: 'Auditors manually review evidence items one by one against control requirements \u2014 a process that can consume 60\u201370% of total engagement time.',
+    capabilities: [
+      'Agent receives the control definition, test plan, and evidence population as inputs',
+      'Executes the defined test procedure across the full evidence set \u2014 not a sample by default',
+      'Produces a structured test result: pass, fail, or exception with supporting rationale',
+      'Exceptions are surfaced for auditor judgment; clean results are documented automatically',
+      'Full audit trail maintained \u2014 every test step traceable and re-executable'
+    ],
+    hitl: [
+      'Control test plans are reviewed and approved before agent execution',
+      'Exceptions and failures require auditor judgment to classify',
+      'Final test conclusion is signed off by the auditor'
+    ],
+    dependencies: ['Diligent Test Plan & Test Result API (Q3 from API Spec Request)', 'Diligent Evidence Storage API (Q2)', 'Bedrock migration complete'],
+    phases: 'W3: Framework + data models | W4\u2013W5: Executor + HITL + exception routing | W6\u2013W7: Scale testing + scheduling UI | W8\u2013W9: Diligent sync + production readiness | W10\u2013W11: Hardening | W12\u2013W13: Ship'
+  },
+  w3: {
+    tag: 'Workstream 3 · Reporting', tagColor: '#EE312E',
+    title: 'Automated Audit Reporting',
+    subtitle: 'From crisis signal to board-ready assurance \u2014 in hours, not weeks',
+    target: 'Demo', targetDate: 'June 18',
+    description: 'When a board member or executive needs an assurance report \u2014 triggered by a regulatory incident, a peer enforcement action, or an upcoming committee meeting \u2014 they press a single button in Diligent Boards. Nine specialised AI agents then orchestrate in sequence: a Board Concierge frames the scope, an Intelligence Scout harvests signals in parallel from every connected application, a Risk Synthesizer correlates findings across domains, a Narrator drafts the situational overview, a Forensic Analyst runs targeted deep-dives, a Confidence Calibrator scores every conclusion by evidence strength, and a Board Pack Curator assembles the final report. The CAE steers, reviews, and signs off throughout. The result: a complete, defensible board report in 18 hours instead of three weeks.',
+    problem: 'Six or more teams manually retrieve data from separate systems, collate results, and draft reports over 2\u20133 weeks. Executive decisions are delayed; fines and opportunity costs compound while the report is being written.',
+    capabilities: [
+      'Triggered directly from Boards \u2014 the \u201cmagic button\u201d initiates the full nine-agent workflow without a single email or manual handoff',
+      'Intelligence Scout queries Projects, Frameworks, ERM, AI Risk Essentials, Compliance Maps, 3rd Risk, and Vault simultaneously \u2014 replacing 6 teams working 3\u20135 days',
+      'Risk Synthesizer cross-references findings across domains: a control failure in access management linked to a vendor assessment linked to a speak-up theme',
+      'Every conclusion is confidence-scored \u2014 HIGH, MEDIUM, or LOW \u2014 so the board understands not just what is known but how much to rely on it',
+      'The Narrator explicitly tags each statement as FACT, ASSUMPTION, or EMERGING RISK, giving the board full transparency on information quality',
+      'CAE applies professional judgment at five defined HITL gates \u2014 scope, focus areas, boundaries, refinement, and final sign-off',
+      'Full evidence chain preserved and re-executable: every conclusion traceable to its source'
+    ],
+    hitl: [
+      'CAE authorises investigation scope and legal boundaries',
+      'CAE selects 2\u20134 focus areas for deep-dive',
+      'CAE sets inclusion/exclusion boundaries (e.g. individual accountability, historical depth)',
+      'CAE steers, annotates, and requests refinements on the draft',
+      'CAE gives final professional sign-off before board distribution'
+    ],
+    agents: ['Board Concierge', 'Intelligence Scout', 'Risk Synthesizer', 'Narrator', 'CAE Steering (HITL)', 'Forensic Analyst', 'Confidence Calibrator', 'Board Pack Curator', 'CAE Sign-off (HITL)'],
+    dependencies: ['ERM Risk Register API (Q4)', 'Board Reporting / Boards API (Q5)', 'Compliance Framework Mapping API (Q6)', 'Third-Party Risk Management API (Q7)', 'Vault / Document Management API (Q8)'],
+    phases: 'W6: 9-agent graph design + Agents 1\u20133 | W7: Agents 4\u20136 | W8: Agents 7\u20139 + HITL gates | W9: E2E MVP on synthetic data | W10\u2013W11: Polish + demo rehearsal | W12\u2013W13: Demo delivered'
+  },
+  w4: {
+    tag: 'Workstream 4 · Brand', tagColor: '#3b82f6',
+    title: 'Rebrand + Landing Page',
+    subtitle: 'Riskapture \u2192 Diligent across all portals',
+    target: 'Complete', targetDate: 'June 18',
+    description: 'A full visual and identity rebrand from Riskapture to Diligent across all four portals (Customer, Builder, Admin, Demo). This includes replacing the colour system with Diligent brand tokens, swapping all logo assets, updating 51+ string occurrences across the codebase, and building a new unified tenant landing page with aggregated metrics and configurable widgets.',
+    problem: 'The platform currently carries the Riskapture brand. For the Diligent acquisition to be credible, every touchpoint \u2014 login screens, headers, emails, documentation \u2014 must reflect Diligent\u2019s visual identity from day one.',
+    capabilities: [
+      'Diligent colour system integrated into portal theme tokens',
+      '51+ Riskapture \u2192 Diligent string replacements across all frontends',
+      'SVG logo assets collected and deployed across all portals',
+      'Unified tenant landing page with aggregated metrics dashboard',
+      'Configurable widget grid for per-tenant customisation',
+      'Verified across all 3 portals (Customer, Builder, Admin) before ship'
+    ],
+    hitl: [],
+    dependencies: ['Diligent SVG logo assets (collected at London workshop)', 'Diligent brand guidelines and colour specifications'],
+    phases: 'W0\u2013W1: Token integration + string replacement starts | W2: Logo assets collected | W3: Rebrand complete across frontends | W4\u2013W5: Landing page design + build | W11: Final verification | W12\u2013W13: Complete'
+  },
+  w5: {
+    tag: 'Workstream 5 · Infrastructure', tagColor: '#8b5cf6',
+    title: 'AWS / Bedrock Migration',
+    subtitle: 'Hetzner \u2192 AWS EKS · Anthropic direct \u2192 Bedrock · VoyageAI \u2192 Cohere',
+    target: 'Production', targetDate: 'June 18',
+    description: 'A full infrastructure migration from Hetzner bare-metal to AWS EKS, with all LLM calls moved from direct Anthropic API to AWS Bedrock, and embedding model swapped from VoyageAI to Cohere via Bedrock. This is a zero-downtime migration using AWS DMS for data, Terraform IaC for infrastructure provisioning, and a blue/green deployment strategy for the cutover.',
+    problem: 'The current infrastructure is on Hetzner bare-metal with direct Anthropic API calls. This doesn\u2019t meet Diligent\u2019s enterprise requirements for AWS-native hosting, Bedrock model governance, and SOC 2 compliant infrastructure.',
+    capabilities: [
+      'AWS EKS cluster with RDS PostgreSQL, ElastiCache, and OpenSearch',
+      'All LLM calls via AWS Bedrock \u2014 no direct Anthropic API calls remaining',
+      'Cohere embedding adapter (1024-dim) replacing VoyageAI via Bedrock',
+      'Terraform IaC for all infrastructure provisioning',
+      'AWS DMS for zero-downtime data migration from Hetzner',
+      'CI/CD pipeline: GitHub Actions \u2192 EKS',
+      'Monitoring, alerting, and incident response procedures',
+      'DNS cutover with zero-downtime blue/green deployment'
+    ],
+    hitl: [],
+    dependencies: ['AWS account and Bedrock model access provisioned by Diligent', 'Agreement on AWS topology at London workshop'],
+    phases: 'W0\u2013W1: Bedrock provider swap + Cohere adapter | W2: AWS topology agreed | W3: Bedrock migration complete | W4: AWS environment provisioned | W5: Java Bedrock adapter | W10: Production deploy + DNS cutover | W12\u2013W13: Production live'
+  }
+};
+
+function openWsModal(wsKey) {
+  var ws = wsData[wsKey];
+  if (!ws) return;
+  document.getElementById('jdTitle').textContent = ws.title;
+  document.getElementById('jdDept').innerHTML = '<span style="color:' + ws.tagColor + ';">' + ws.tag + '</span>';
+
+  var badgesEl = document.getElementById('jdBadges');
+  var targetCls = ws.target === 'Ship' ? 'badge-green' : ws.target === 'Demo' ? 'badge-red' : ws.target === 'Production' ? 'badge-purple' : 'badge-blue';
+  badgesEl.innerHTML = '<span class="badge ' + targetCls + '">' + ws.target + ' \u2014 ' + ws.targetDate + '</span>';
+
+  var body = '';
+  body += '<div class="jd-modal-section"><div class="jd-modal-section-title">Overview</div><p>' + ws.description + '</p></div>';
+  if (ws.subtitle) {
+    body += '<div class="jd-modal-section" style="margin-top:-8px;margin-bottom:16px;"><p style="font-style:italic;border-left:3px solid ' + ws.tagColor + ';padding-left:12px;">' + ws.subtitle + '</p></div>';
+  }
+  body += '<div class="jd-modal-section"><div class="jd-modal-section-title">Current State Problem</div><p>' + ws.problem + '</p></div>';
+  body += '<div class="jd-modal-section"><div class="jd-modal-section-title">Key Capabilities</div><ul>';
+  ws.capabilities.forEach(function(c) { body += '<li>' + c + '</li>'; });
+  body += '</ul></div>';
+  if (ws.hitl && ws.hitl.length > 0) {
+    body += '<div class="jd-modal-section"><div class="jd-modal-section-title">Human-in-the-Loop Gates</div><ul>';
+    ws.hitl.forEach(function(h) { body += '<li>' + h + '</li>'; });
+    body += '</ul></div>';
+  }
+  if (ws.agents) {
+    body += '<div class="jd-modal-section"><div class="jd-modal-section-title">Agent Architecture</div><div style="display:flex;flex-wrap:wrap;gap:6px;">';
+    ws.agents.forEach(function(a, i) {
+      var isHitl = a.indexOf('HITL') > -1;
+      var bg = isHitl ? 'rgba(238,49,46,0.1)' : 'var(--code-bg)';
+      var color = isHitl ? 'var(--primary-main)' : 'var(--text)';
+      body += '<span style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:6px;font-size:0.75rem;background:' + bg + ';color:' + color + ';"><span style="font-family:var(--font-mono);font-size:0.625rem;font-weight:600;opacity:0.6;">' + (isHitl ? '\u21B5' : (i+1)) + '</span>' + a.replace(' (HITL)','') + '</span>';
+    });
+    body += '</div></div>';
+  }
+  body += '<div class="jd-modal-section"><div class="jd-modal-section-title">Diligent API Dependencies</div><ul>';
+  ws.dependencies.forEach(function(d) { body += '<li>' + d + '</li>'; });
+  body += '</ul></div>';
+  body += '<div class="jd-modal-section"><div class="jd-modal-section-title">Timeline</div><p style="font-family:var(--font-mono);font-size:0.75rem;line-height:1.8;background:var(--code-bg);padding:12px 16px;border-radius:8px;">' + ws.phases.replace(/\|/g, '<br>') + '</p></div>';
+
+  document.getElementById('jdBody').innerHTML = body;
+  document.getElementById('jdBackdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeWsModal() {
+  // Uses same backdrop as JD modal
+  closeJdModal();
+}
 
 // ── Calendar Renderer ────────────────────────────────────
 (function() {
