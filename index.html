@@ -1,0 +1,1852 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stealth Labs — 30-60-90 Day Execution Plan</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 35'%3E%3Cpath fill='%23EE312E' d='M31.87 17.5C31.87 22.84 29.99 27.14 26.72 30.14C26.72 30.14 26.72 30.14 26.62 30.23C24.19 32.48 21.1 33.89 17.35 34.45L17.07 34.17L22.5 2.71L22.69 2.14C28.31 4.86 31.77 10.29 31.77 17.41'/%3E%3Cpath fill='%23AF292E' d='M22.78 2.24L22.6 2.43L0.59 18.81H0.5V0.27H13.89C14.83 0.27 15.67 0.27 16.6 0.46C18.76 0.74 20.82 1.3 22.6 2.14H22.78'/%3E%3Cpath fill='%23D3222A' d='M22.78 2.24L0.5 18.72V34.73H13.89C15.11 34.73 16.23 34.73 17.35 34.45L22.78 2.14'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════════════════════════════
+   CSS CUSTOM PROPERTIES — THEME TOKENS
+   ══════════════════════════════════════════════════════════════════════ */
+:root {
+  --sidebar-width: 250px;
+  --sidebar-collapsed: 64px;
+  --header-height: 44px;
+  --transition-speed: 280ms;
+  --transition-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --font-primary: 'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  --unit: 8px;
+  --page-padding: 24px;
+  --card-padding: 16px;
+  --grid-gap: 24px;
+  --section-gap: 24px;
+  --radius-button: 8px;
+  --radius-default: 12px;
+  --radius-card: 16px;
+  --radius-pill: 100px;
+  --primary: #EE312E;
+  --primary-light: #D3222A;
+  --primary-lighter: #FFEBEE;
+  --primary-dark: #AF292E;
+  --secondary: #282E37;
+  --secondary-light: #A0A2A5;
+  --secondary-lighter: #F3F3F3;
+  --secondary-dark: #6F7377;
+}
+
+/* ── LIGHT THEME ──────────────────────────────────────── */
+[data-theme="light"] {
+  --bg: #F3F3F3; --paper: #FFFFFF; --text: #282E37; --text-secondary: #6F7377;
+  --divider: rgba(0,0,0,0.08); --card-bg: #FFFFFF; --card-border: rgba(0,0,0,0.08);
+  --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --sidebar-bg: #FFFFFF; --sidebar-border: rgba(0,0,0,0.12);
+  --sidebar-text: #6F7377; --sidebar-text-active: #282E37;
+  --sidebar-hover: rgba(0,0,0,0.04); --header-bg: #FFFFFF;
+  --header-border: rgba(0,0,0,0.08); --header-blur: blur(20px);
+  --code-bg: rgba(0,0,0,0.05); --link: #EE312E;
+  --scroll-thumb: rgba(0,0,0,0.15); --body-gradient: none;
+  --dropdown-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  --primary-main: #EE312E;
+}
+/* ── DARK THEME ───────────────────────────────────────── */
+[data-theme="dark"] {
+  --bg: #121212; --paper: #1E1E1E; --text: #E2E8F0; --text-secondary: #94A3B8;
+  --divider: rgba(255,255,255,0.08); --card-bg: #1E1E1E; --card-border: rgba(255,255,255,0.05);
+  --card-shadow: 0 2px 14px 0 rgba(0,0,0,0.2);
+  --sidebar-bg: #1E1E1E; --sidebar-border: rgba(255,255,255,0.08);
+  --sidebar-text: #94A3B8; --sidebar-text-active: #E2E8F0;
+  --sidebar-hover: rgba(255,255,255,0.04); --header-bg: rgba(30,30,30,0.85);
+  --header-border: rgba(255,255,255,0.08); --header-blur: blur(20px);
+  --code-bg: rgba(255,255,255,0.06); --link: #EE312E;
+  --scroll-thumb: rgba(255,255,255,0.1); --body-gradient: none;
+  --dropdown-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  --primary-main: #EE312E;
+}
+/* ── PURE BLACK THEME ─────────────────────────────────── */
+[data-theme="pureBlack"] {
+  --bg: #000000; --paper: #121212; --text: #FFFFFF; --text-secondary: #B0B0B0;
+  --divider: rgba(255,255,255,0.12); --card-bg: #121212; --card-border: rgba(255,255,255,0.1);
+  --card-shadow: 0 2px 14px 0 rgba(0,0,0,0.4);
+  --sidebar-bg: #0a0a0a; --sidebar-border: rgba(255,255,255,0.12);
+  --sidebar-text: #B0B0B0; --sidebar-text-active: #FFFFFF;
+  --sidebar-hover: rgba(255,255,255,0.06); --header-bg: rgba(0,0,0,0.9);
+  --header-border: rgba(255,255,255,0.12); --header-blur: blur(20px);
+  --code-bg: rgba(255,255,255,0.08); --link: #EE312E;
+  --scroll-thumb: rgba(255,255,255,0.15); --body-gradient: none;
+  --dropdown-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  --primary-main: #EE312E;
+}
+/* ── GALAXY THEME ─────────────────────────────────────── */
+[data-theme="galaxy"] {
+  --bg: #0d0a1a; --paper: #1a1428; --text: #E8E8FF; --text-secondary: #9090B0;
+  --divider: rgba(238,49,46,0.15); --card-bg: rgba(26,20,40,0.85); --card-border: rgba(238,49,46,0.15);
+  --card-shadow: 0 2px 14px 0 rgba(0,0,0,0.3);
+  --sidebar-bg: rgba(13,10,26,0.95); --sidebar-border: rgba(238,49,46,0.15);
+  --sidebar-text: #9090B0; --sidebar-text-active: #E8E8FF;
+  --sidebar-hover: rgba(238,49,46,0.08); --header-bg: rgba(26,20,40,0.85);
+  --header-border: rgba(238,49,46,0.15); --header-blur: blur(20px);
+  --code-bg: rgba(238,49,46,0.1); --link: #EE312E;
+  --scroll-thumb: rgba(238,49,46,0.2);
+  --body-gradient: linear-gradient(to bottom, #0A0A0A 0%, #0E0E0E 40%, #141414 70%, #1A1A1A 100%);
+  --dropdown-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  --primary-main: #EE312E;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   RESET & BASE
+   ══════════════════════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; scroll-padding-top: 60px; }
+body {
+  font-family: var(--font-primary);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition: background var(--transition-speed) var(--transition-ease), color var(--transition-speed) var(--transition-ease);
+}
+[data-theme="galaxy"] body { background: var(--body-gradient); background-attachment: fixed; }
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code, .mono {
+  font-family: var(--font-mono); font-size: 0.75rem;
+  background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
+}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--scroll-thumb); border-radius: 3px; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   LAYOUT
+   ══════════════════════════════════════════════════════════════════════ */
+.app-layout {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  grid-template-rows: var(--header-height) 1fr;
+  min-height: 100vh;
+  transition: grid-template-columns var(--transition-speed) var(--transition-ease);
+}
+.app-layout.sidebar-collapsed { grid-template-columns: var(--sidebar-collapsed) 1fr; }
+.app-layout.sidebar-auto { grid-template-columns: var(--sidebar-collapsed) 1fr; }
+.sidebar-auto .sidebar { width: var(--sidebar-collapsed); }
+.sidebar-auto .sidebar:hover { width: var(--sidebar-width); box-shadow: 4px 0 24px rgba(0,0,0,0.15), 8px 0 48px rgba(0,0,0,0.1); z-index: 300; }
+.sidebar-auto .sidebar-logo-text { opacity: 0; width: 0; overflow: hidden; }
+.sidebar-auto .sidebar:hover .sidebar-logo-text { opacity: 1; width: auto; }
+.sidebar-auto .nav-item-label { opacity: 0; width: 0; }
+.sidebar-auto .sidebar:hover .nav-item-label { opacity: 1; width: auto; }
+.sidebar-auto .nav-item { justify-content: center; padding: 10px 0; margin: 4px 2px; border-left: none; border-radius: 10px; }
+.sidebar-auto .sidebar:hover .nav-item { justify-content: flex-start; padding: 10px 12px; margin: 0 0 4px; border-left: 3px solid transparent; border-radius: 16px; }
+.sidebar-auto .nav-expand { display: none; }
+.sidebar-auto .sidebar:hover .nav-expand { display: block; }
+.sidebar-auto .nav-children { display: none; }
+.sidebar-auto .sidebar:hover .nav-children { display: block; max-height: 0; }
+.sidebar-auto .nav-group-label { font-size: 0; padding: 12px 0 4px; text-align: center; }
+.sidebar-auto .nav-group-label::after { content: ''; display: block; width: 20px; height: 1px; background: var(--divider); margin: 0 auto; }
+.sidebar-auto .sidebar:hover .nav-group-label { font-size: 0.5625rem; padding: 16px 4px 6px; text-align: left; }
+.sidebar-auto .sidebar:hover .nav-group-label::after { display: none; }
+.sidebar-auto .sidebar-footer-text { opacity: 0; width: 0; }
+.sidebar-auto .sidebar:hover .sidebar-footer-text { opacity: 1; width: auto; }
+.sidebar-auto .sidebar-footer .settings-link { display: none; }
+.sidebar-auto .sidebar:hover .sidebar-footer .settings-link { display: flex; }
+.sidebar-auto .sidebar-footer { justify-content: center; }
+.sidebar-auto .sidebar:hover .sidebar-footer { justify-content: space-between; }
+.sidebar-auto .sidebar-nav { padding: 16px 4px; }
+.sidebar-auto .sidebar:hover .sidebar-nav { padding: 16px 12px; }
+
+/* ── SIDEBAR ──────────────────────────────────────────── */
+.sidebar {
+  grid-row: 1 / -1; grid-column: 1;
+  position: fixed; top: 0; left: 0; bottom: 0;
+  width: var(--sidebar-width);
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--sidebar-border);
+  box-shadow: 4px 0 8px rgba(0,0,0,0.3);
+  z-index: 200;
+  display: flex; flex-direction: column;
+  overflow: visible;
+  transition: width 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+[data-theme="light"] .sidebar { box-shadow: none; border-color: rgba(0,0,0,0.12); }
+.sidebar-collapsed .sidebar { width: var(--sidebar-collapsed); }
+
+.sidebar-logo {
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; min-height: 56px; padding-inline: 20px; flex-shrink: 0;
+}
+.sidebar-collapsed .sidebar-logo { padding-inline: 8px; }
+.sidebar-logo svg { flex-shrink: 0; width: 36px; height: 36px; }
+.sidebar-logo-text { overflow: hidden; white-space: nowrap; }
+.sidebar-logo-text h1 {
+  font-size: 1.1rem; font-weight: 700; color: var(--text);
+  letter-spacing: -0.5px; line-height: 1.2;
+  transition: opacity 200ms ease-in-out 80ms;
+}
+.sidebar-logo-text .subtitle {
+  font-size: 0.625rem; color: var(--text-secondary); line-height: 1;
+}
+.sidebar-collapsed .sidebar-logo-text { opacity: 0; width: 0; overflow: hidden; }
+
+.sidebar-toggle { display: none; }
+
+.sidebar-nav {
+  flex: 1; overflow-y: auto; overflow-x: hidden;
+  padding: 16px 12px; scrollbar-width: none;
+}
+.sidebar-nav::-webkit-scrollbar { display: none; }
+.sidebar-collapsed .sidebar-nav { padding: 16px 4px; }
+
+.nav-group-label {
+  font-size: 0.5625rem; font-weight: 700; color: var(--text-secondary);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 16px 4px 6px; white-space: nowrap; overflow: hidden;
+}
+.sidebar-collapsed .nav-group-label {
+  text-align: center; font-size: 0; padding: 12px 0 4px;
+}
+.sidebar-collapsed .nav-group-label::after {
+  content: ''; display: block; width: 20px; height: 1px;
+  background: var(--divider); margin: 0 auto;
+}
+
+.nav-item {
+  display: flex; align-items: center; gap: 0;
+  padding: 10px 12px; margin-bottom: 4px;
+  border-radius: 16px; color: var(--text);
+  cursor: pointer; position: relative;
+  transition: all 150ms ease;
+  white-space: nowrap; text-decoration: none;
+  border-left: 3px solid transparent;
+  font-size: 0.9rem; font-weight: 500;
+}
+.nav-item:hover {
+  background: rgba(255,255,255,0.08); color: var(--sidebar-text-active);
+  transform: translateX(4px); text-decoration: none;
+}
+[data-theme="light"] .nav-item:hover { background: rgba(0,0,0,0.04); }
+.nav-item.active {
+  border-left-color: var(--nav-accent, var(--primary-main));
+  background: color-mix(in srgb, var(--nav-accent, var(--primary-main)) 12%, transparent);
+  color: var(--nav-accent, var(--primary-main)); font-weight: 600;
+}
+.nav-item.active:hover {
+  background: color-mix(in srgb, var(--nav-accent, var(--primary-main)) 19%, transparent);
+}
+.nav-item .material-icons {
+  font-size: 22px; flex-shrink: 0; width: 40px; text-align: center;
+  color: var(--text-secondary);
+}
+.nav-item.active .material-icons { color: var(--nav-accent, var(--primary-main)); }
+.nav-item-label { overflow: hidden; transition: opacity 200ms; flex: 1; }
+.sidebar-collapsed .nav-item-label { opacity: 0; width: 0; }
+.sidebar-collapsed .nav-item {
+  justify-content: center; padding: 10px 0; margin: 4px 2px;
+  border-left: none; border-radius: 10px;
+}
+
+.sidebar-footer {
+  padding: 12px; border-top: 1px solid var(--divider);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px; flex-shrink: 0; min-height: 64px;
+}
+.sidebar-footer .avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--primary-main);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 0.8rem; font-weight: 600;
+  flex-shrink: 0; cursor: pointer; transition: transform 200ms;
+}
+.sidebar-footer .avatar:hover { transform: scale(1.05); }
+.sidebar-footer-text { overflow: hidden; white-space: nowrap; flex: 1; min-width: 0; }
+.sidebar-footer-text .name {
+  font-size: 0.8125rem; color: var(--text); font-weight: 500;
+  overflow: hidden; text-overflow: ellipsis; max-width: 100px;
+}
+.sidebar-footer-text .role { font-size: 0.625rem; color: var(--text-secondary); }
+.sidebar-collapsed .sidebar-footer-text { opacity: 0; width: 0; }
+.sidebar-collapsed .sidebar-footer { justify-content: center; }
+.sidebar-footer .settings-link {
+  width: 28px; height: 28px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-secondary); cursor: pointer; transition: all 200ms ease-in-out;
+}
+.sidebar-footer .settings-link:hover {
+  background: rgba(255,255,255,0.06); color: var(--primary-main);
+}
+[data-theme="light"] .sidebar-footer .settings-link:hover { background: rgba(0,0,0,0.04); }
+.sidebar-collapsed .sidebar-footer .settings-link { display: none; }
+
+/* ── HEADER ──────────────────────────────────────────── */
+.header {
+  grid-column: 2; grid-row: 1; position: sticky; top: 0;
+  height: 44px; min-height: 44px; max-height: 44px;
+  background: var(--paper); border-bottom: 1px solid var(--divider);
+  box-shadow: none;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 4px 16px; z-index: 100;
+  transition: background var(--transition-speed) var(--transition-ease);
+}
+.breadcrumb { display: flex; align-items: center; gap: 2px; flex: 1; min-width: 0; }
+.breadcrumb span { font-size: 0.8125rem; font-weight: 400; color: var(--text-secondary); line-height: 1.3; }
+.breadcrumb span:last-child { font-size: 0.875rem; font-weight: 600; color: var(--text); }
+.breadcrumb .sep { color: var(--text-secondary); font-size: 0.75rem; margin: 0 2px; }
+.header-actions { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.theme-dots { display: flex; gap: 6px; align-items: center; }
+.theme-dot {
+  width: 20px; height: 20px; border-radius: 50%; cursor: pointer;
+  border: 2px solid var(--divider); transition: all 200ms; position: relative;
+}
+.theme-dot:hover { transform: scale(1.15); box-shadow: 0 0 8px rgba(238,49,46,0.3); }
+.theme-dot.active {
+  border-color: var(--primary-main);
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--primary-main);
+}
+.theme-dot[data-theme="light"] { background: #F3F3F3; }
+.theme-dot[data-theme="dark"] { background: #121212; }
+.theme-dot[data-theme="pureBlack"] { background: #000000; }
+.theme-dot[data-theme="galaxy"] { background: linear-gradient(135deg, #0A0A0A, #1A1A1A); }
+.header-icon {
+  width: 32px; height: 32px; border-radius: 8px; display: flex;
+  align-items: center; justify-content: center; cursor: pointer;
+  color: var(--text-secondary); transition: all 200ms;
+}
+.header-icon:hover { background: rgba(255,255,255,0.06); color: var(--text); }
+[data-theme="light"] .header-icon:hover { background: rgba(0,0,0,0.04); }
+
+/* ── MAIN CONTENT ─────────────────────────────────────── */
+.main-content {
+  grid-column: 2; grid-row: 2;
+  padding: var(--page-padding);
+  min-height: calc(100vh - var(--header-height));
+}
+
+/* ── CARDS ─────────────────────────────────────────────── */
+.card {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: var(--radius-card); padding: 20px;
+  box-shadow: var(--card-shadow);
+  transition: background var(--transition-speed), border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+[data-theme="galaxy"] .card { backdrop-filter: blur(10px); }
+[data-theme="galaxy"] .sidebar { background: rgba(10,10,10,0.95); backdrop-filter: blur(10px); }
+.card + .card { margin-top: 16px; }
+
+/* ── SECTIONS ─────────────────────────────────────────── */
+.section { padding-top: 48px; }
+.section:first-child { padding-top: 0; }
+.section-title {
+  font-size: 1.5rem; font-weight: 600; color: var(--text);
+  margin-bottom: 8px; padding-bottom: 12px;
+  border-bottom: 1px solid var(--divider);
+}
+.section h3 { font-size: 1.125rem; font-weight: 600; color: var(--text); margin: 28px 0 12px; }
+.section h4 {
+  font-size: 0.75rem; font-weight: 600; color: var(--text-secondary);
+  margin: 20px 0 8px; text-transform: uppercase; letter-spacing: 0.04em;
+}
+.section p { color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 16px; max-width: 720px; }
+
+/* ── QUICK ACCESS PILL ──────────────────────────────── */
+.quick-access-wrapper {
+  position: fixed; top: 8px; left: 50%; transform: translateX(-50%);
+  z-index: 500; display: flex; flex-direction: column; align-items: center;
+  pointer-events: none;
+}
+.quick-access-pill {
+  display: flex; align-items: center; justify-content: center;
+  padding: 8px 14px; border-radius: 9999px; cursor: pointer;
+  pointer-events: auto;
+  background: linear-gradient(135deg, rgba(30,30,35,0.85) 0%, rgba(20,20,25,0.9) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+[data-theme="light"] .quick-access-pill {
+  background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(245,245,250,0.98) 100%);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-color: rgba(0,0,0,0.1);
+}
+[data-theme="galaxy"] .quick-access-pill {
+  background: linear-gradient(135deg, rgba(26,26,26,0.9) 0%, rgba(18,18,18,0.95) 100%);
+  border-color: rgba(238,49,46,0.2);
+}
+.quick-access-pill:hover {
+  transform: scale(1.05); box-shadow: 0 6px 24px rgba(238,49,46,0.4);
+}
+.quick-access-pill.open {
+  background: linear-gradient(135deg, rgba(238,49,46,0.9) 0%, rgba(79,70,229,0.85) 100%);
+  border-color: rgba(255,255,255,0.2); box-shadow: 0 4px 20px rgba(238,49,46,0.4);
+}
+.pill-bars { display: flex; flex-direction: column; gap: 3px; align-items: center; }
+.pill-bars span {
+  display: block; height: 2px; border-radius: 1px;
+  background: rgba(255,255,255,0.9); transition: all 200ms;
+}
+[data-theme="light"] .pill-bars span { background: rgba(0,0,0,0.7); }
+.quick-access-pill.open .pill-bars span { background: white; }
+.pill-bars span:first-child { width: 14px; }
+.pill-bars span:last-child { width: 10px; opacity: 0.7; }
+.quick-access-pill.open .pill-bars { display: none; }
+.quick-access-pill.open::after {
+  content: ''; width: 8px; height: 8px; border-radius: 50%; background: white;
+}
+.quick-access-panel {
+  margin-top: 8px; padding: 14px; border-radius: 20px; width: 320px;
+  pointer-events: auto;
+  background: linear-gradient(135deg, rgba(20,20,35,0.92) 0%, rgba(30,25,50,0.95) 100%);
+  backdrop-filter: blur(40px) saturate(200%);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 32px 64px -16px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.1);
+  transform: translateY(-20px) scale(0.92);
+  opacity: 0; pointer-events: none;
+  transition: all 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+[data-theme="light"] .quick-access-panel {
+  background: linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(245,245,250,0.95) 100%);
+  border-color: rgba(0,0,0,0.08);
+  box-shadow: 0 32px 64px -16px rgba(0,0,0,0.15), inset 0 1px 1px rgba(255,255,255,0.8);
+}
+[data-theme="galaxy"] .quick-access-panel {
+  background: linear-gradient(135deg, rgba(12,12,12,0.92) 0%, rgba(18,18,18,0.95) 100%);
+  border-color: rgba(238,49,46,0.15);
+}
+.quick-access-panel.open { transform: translateY(0) scale(1); opacity: 1; pointer-events: auto; }
+.qa-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.qa-tile {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 4px; padding: 12px 8px; border-radius: 12px;
+  background: linear-gradient(165deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+  border: 1px solid rgba(255,255,255,0.08); cursor: pointer;
+  transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  color: rgba(255,255,255,0.9); position: relative; overflow: hidden;
+}
+[data-theme="light"] .qa-tile {
+  background: linear-gradient(165deg, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.01) 100%);
+  border-color: rgba(0,0,0,0.06); color: rgba(0,0,0,0.7);
+}
+.qa-tile::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 100%);
+  border-radius: inherit; pointer-events: none;
+}
+[data-theme="light"] .qa-tile::before { background: linear-gradient(180deg, rgba(255,255,255,0.6) 0%, transparent 100%); }
+.qa-tile:hover {
+  transform: scale(1.08) translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25), 0 0 40px rgba(238,49,46,0.25);
+  border-color: rgba(255,255,255,0.2);
+}
+[data-theme="light"] .qa-tile:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.1); border-color: rgba(0,0,0,0.12); }
+.qa-tile-label { font-size: 0.6rem; font-weight: 600; opacity: 0.5; }
+
+/* ── CUSTOMIZATION DRAWER ────────────────────────────── */
+.customization-backdrop {
+  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.3); z-index: 600;
+}
+.customization-backdrop.open { display: block; }
+.customization-drawer {
+  position: fixed; top: 0; right: -340px; bottom: 0; width: 320px;
+  background: var(--paper); border-left: 1px solid var(--divider);
+  z-index: 700; padding: 20px; overflow-y: auto;
+  transition: right 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: -4px 0 24px rgba(0,0,0,0.15);
+}
+.customization-drawer.open { right: 0; }
+.cust-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+.cust-section { margin-bottom: 16px; }
+.cust-label {
+  font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--text-secondary); margin-bottom: 8px;
+}
+.cust-divider { height: 1px; background: var(--divider); margin: 12px 0; }
+.cust-toggle-group { display: flex; gap: 0; border-radius: var(--radius-button); overflow: hidden; border: 1px solid var(--divider); }
+.cust-toggle {
+  flex: 1; padding: 6px 8px; font-size: 0.75rem; font-family: var(--font-primary);
+  background: transparent; border: none; color: var(--text-secondary);
+  cursor: pointer; transition: all 150ms; text-align: center;
+  border-right: 1px solid var(--divider);
+}
+.cust-toggle:last-child { border-right: none; }
+.cust-toggle:hover { background: var(--sidebar-hover); color: var(--text); }
+.cust-toggle.active { background: var(--primary-main); color: #fff; }
+.cust-colors { display: flex; flex-wrap: wrap; gap: 8px; }
+.cust-color {
+  width: 36px; height: 36px; border-radius: 50%; cursor: pointer;
+  border: 2px solid transparent; transition: all 200ms;
+}
+.cust-color:hover { transform: scale(1.1); border-color: var(--text); }
+.cust-color.active { border-color: var(--text); box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--text); }
+
+/* ── RESPONSIVE ───────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .app-layout { grid-template-columns: var(--sidebar-collapsed) 1fr; }
+  .sidebar { width: var(--sidebar-collapsed); }
+  .sidebar-logo-text { opacity: 0; width: 0; }
+  .nav-item-label { opacity: 0; width: 0; }
+  .nav-item { justify-content: center; padding: 9px 0; margin: 1px 4px; border-left: none; }
+  .nav-children { display: none; }
+  .sidebar-footer-text { opacity: 0; width: 0; }
+  .sidebar-footer .settings-link { display: none; }
+  .nav-group-label { font-size: 0; padding: 12px 0 4px; text-align: center; }
+  .nav-group-label::after { content: ''; display: block; width: 20px; height: 1px; background: var(--divider); margin: 0 auto; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   PLAN-SPECIFIC STYLES
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ── SUMMARY STATS GRID ──────────────────────────────── */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px; margin-bottom: 28px;
+}
+.stat-card {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: var(--radius-card); padding: 20px;
+  text-align: center; transition: all 200ms;
+}
+.stat-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+.stat-value {
+  font-size: 2rem; font-weight: 700; color: var(--text);
+  line-height: 1.1; margin-bottom: 4px;
+  font-family: var(--font-mono);
+}
+.stat-label {
+  font-size: 0.75rem; font-weight: 500; color: var(--text-secondary);
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.stat-sub {
+  font-size: 0.6875rem; color: var(--text-secondary); margin-top: 4px;
+  font-family: var(--font-mono);
+}
+
+/* ── WORKSTREAM CARDS ────────────────────────────────── */
+.ws-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px; margin-bottom: 24px;
+}
+.ws-card {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: var(--radius-card); padding: 20px;
+  border-top: 4px solid; transition: all 200ms; position: relative;
+}
+.ws-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+.ws-card .ws-tag {
+  font-size: 0.625rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; opacity: 0.7; margin-bottom: 4px;
+}
+.ws-card .ws-name {
+  font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 8px;
+}
+.ws-card .ws-target {
+  font-size: 0.75rem; color: var(--text-secondary);
+  font-family: var(--font-mono);
+}
+
+/* ── BADGE / PILL ────────────────────────────────────── */
+.badge {
+  display: inline-block; padding: 3px 10px; border-radius: 100px;
+  font-size: 0.6875rem; font-weight: 600;
+}
+.badge-green { background: rgba(34,197,94,0.15); color: #22c55e; }
+.badge-amber { background: rgba(245,158,11,0.15); color: #f59e0b; }
+.badge-red { background: rgba(238,49,46,0.15); color: #EE312E; }
+.badge-blue { background: rgba(59,130,246,0.15); color: #3b82f6; }
+.badge-purple { background: rgba(139,92,246,0.15); color: #8b5cf6; }
+.badge-gray { background: rgba(148,163,184,0.15); color: #94A3B8; }
+.badge-critical { background: rgba(238,49,46,0.2); color: #EE312E; }
+.badge-high { background: rgba(245,158,11,0.2); color: #f59e0b; }
+.badge-medium { background: rgba(59,130,246,0.2); color: #3b82f6; }
+
+/* ── CALENDAR ────────────────────────────────────────── */
+.calendar-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+.cal-month {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: var(--radius-card); padding: 16px; overflow: hidden;
+}
+.cal-month-title {
+  font-size: 0.9375rem; font-weight: 600; color: var(--text);
+  margin-bottom: 12px; text-align: center;
+}
+.cal-grid {
+  display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px;
+}
+.cal-head {
+  font-size: 0.5625rem; font-weight: 600; color: var(--text-secondary);
+  text-align: center; padding: 4px 0; text-transform: uppercase;
+}
+.cal-day {
+  aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+  font-size: 0.6875rem; color: var(--text-secondary); border-radius: 6px;
+  position: relative; cursor: default; transition: all 150ms;
+}
+.cal-day:not(.empty):hover { background: var(--sidebar-hover); }
+.cal-day.today { background: rgba(238,49,46,0.15); color: var(--primary-main); font-weight: 700; }
+.cal-day.milestone { font-weight: 700; color: var(--text); }
+.cal-day.milestone::after {
+  content: ''; position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%);
+  width: 5px; height: 5px; border-radius: 50%;
+}
+.cal-day.milestone.ms-green::after { background: #22c55e; }
+.cal-day.milestone.ms-amber::after { background: #f59e0b; }
+.cal-day.milestone.ms-red::after { background: #EE312E; }
+.cal-day.milestone.ms-blue::after { background: #3b82f6; }
+.cal-day.milestone.ms-purple::after { background: #8b5cf6; }
+.cal-day.milestone.ms-gray::after { background: #94A3B8; }
+.cal-legend {
+  display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px;
+  font-size: 0.6875rem; color: var(--text-secondary);
+}
+.cal-legend-item { display: flex; align-items: center; gap: 4px; }
+.cal-legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+/* ── GANTT CHART ─────────────────────────────────────── */
+.gantt-wrapper {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: var(--radius-card); padding: 20px; overflow-x: auto;
+}
+.gantt-chart {
+  display: grid;
+  grid-template-columns: 140px repeat(14, minmax(50px, 1fr));
+  gap: 0; min-width: 800px;
+}
+.gantt-header {
+  font-size: 0.625rem; font-weight: 600; color: var(--text-secondary);
+  text-align: center; padding: 8px 4px;
+  text-transform: uppercase; letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--divider);
+}
+.gantt-header.phase-zone {
+  border-bottom: 3px solid;
+}
+.gantt-label {
+  font-size: 0.8125rem; font-weight: 600; color: var(--text);
+  padding: 12px 8px; display: flex; align-items: center; gap: 8px;
+  border-bottom: 1px solid var(--divider);
+}
+.gantt-label .ws-dot {
+  width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0;
+}
+.gantt-cell {
+  padding: 12px 2px; border-bottom: 1px solid var(--divider);
+  position: relative;
+}
+.gantt-bar {
+  height: 24px; border-radius: 12px; opacity: 0.35;
+  border: 2px solid; position: relative;
+  transition: opacity 200ms;
+}
+.gantt-bar:hover { opacity: 0.6; }
+.gantt-bar.bar-start { border-radius: 12px 0 0 12px; margin-right: -2px; }
+.gantt-bar.bar-mid { border-radius: 0; margin: 0 -2px; }
+.gantt-bar.bar-end { border-radius: 0 12px 12px 0; margin-left: -2px; }
+.gantt-bar.bar-full { border-radius: 12px; }
+.gantt-bar.bar-single { border-radius: 12px; }
+.gantt-phase-labels {
+  display: grid;
+  grid-template-columns: 140px repeat(14, minmax(50px, 1fr));
+  gap: 0; min-width: 800px; margin-bottom: 4px;
+}
+.gantt-phase {
+  text-align: center; font-size: 0.5625rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 4px; border-radius: 4px; color: var(--text-secondary);
+}
+
+/* ── CRITICAL PATH ───────────────────────────────────── */
+.critical-path {
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start;
+}
+.cp-node {
+  background: var(--card-bg); border: 2px solid var(--card-border);
+  border-radius: var(--radius-default); padding: 14px 18px;
+  min-width: 180px; max-width: 240px; transition: all 200ms;
+  position: relative;
+}
+.cp-node:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+.cp-node .cp-label {
+  font-size: 0.8125rem; font-weight: 600; color: var(--text); margin-bottom: 4px;
+}
+.cp-node .cp-timing {
+  font-size: 0.6875rem; color: var(--text-secondary); font-family: var(--font-mono);
+}
+.cp-arrow {
+  display: flex; align-items: center; color: var(--text-secondary);
+  font-size: 1.5rem; align-self: center; flex-shrink: 0;
+}
+.cp-row {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.cp-row-label {
+  font-size: 0.6875rem; font-weight: 600; color: var(--text-secondary);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  width: 100%; margin-bottom: 4px;
+}
+
+/* ── PHASE BLOCKS ────────────────────────────────────── */
+.phase-header {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+}
+.phase-badge {
+  font-size: 0.625rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; padding: 4px 12px; border-radius: 100px;
+  background: rgba(238,49,46,0.15); color: var(--primary-main);
+}
+.phase-dates {
+  font-size: 0.8125rem; color: var(--text-secondary); font-family: var(--font-mono);
+}
+.week-block {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: var(--radius-card); padding: 16px; margin-bottom: 12px;
+}
+.week-block-title {
+  font-size: 0.875rem; font-weight: 600; color: var(--text);
+  margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+}
+.week-block-title .week-num {
+  font-size: 0.625rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; padding: 2px 8px; border-radius: 6px;
+  background: var(--code-bg); color: var(--text-secondary);
+  font-family: var(--font-mono);
+}
+.task-list { list-style: none; padding: 0; margin: 0; }
+.task-list li {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 6px 0; font-size: 0.8125rem; color: var(--text);
+  border-bottom: 1px solid color-mix(in srgb, var(--divider) 50%, transparent);
+}
+.task-list li:last-child { border-bottom: none; }
+.task-ws {
+  font-size: 0.5625rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.06em; padding: 2px 6px; border-radius: 4px;
+  white-space: nowrap; flex-shrink: 0; margin-top: 2px;
+}
+.task-ws.ws1 { background: rgba(34,197,94,0.15); color: #22c55e; }
+.task-ws.ws2 { background: rgba(245,158,11,0.15); color: #f59e0b; }
+.task-ws.ws3 { background: rgba(238,49,46,0.15); color: #EE312E; }
+.task-ws.ws4 { background: rgba(59,130,246,0.15); color: #3b82f6; }
+.task-ws.ws5 { background: rgba(139,92,246,0.15); color: #8b5cf6; }
+.task-ws.wsh { background: rgba(148,163,184,0.15); color: #94A3B8; }
+
+/* ── HIRING CARDS ────────────────────────────────────── */
+.hire-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+.hire-card {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: var(--radius-card); padding: 20px;
+  transition: all 200ms; display: flex; flex-direction: column; gap: 8px;
+}
+.hire-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+.hire-card .hire-role {
+  font-size: 0.9375rem; font-weight: 600; color: var(--text);
+}
+.hire-card .hire-meta {
+  display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+}
+.hire-card .hire-dept {
+  font-size: 0.6875rem; color: var(--text-secondary);
+}
+
+/* ── RISK TABLE ──────────────────────────────────────── */
+.risk-table {
+  width: 100%; border-collapse: collapse; margin-bottom: 24px;
+}
+.risk-table th, .risk-table td {
+  text-align: left; padding: 12px 16px;
+  border-bottom: 1px solid var(--divider); font-size: 0.8125rem;
+}
+.risk-table th {
+  font-size: 0.6875rem; font-weight: 600; color: var(--text-secondary);
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+.risk-table td { color: var(--text); }
+.risk-table tr:hover td { background: var(--sidebar-hover); }
+
+/* ── DOCUMENT CARDS ──────────────────────────────────── */
+.doc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+.doc-card {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: var(--radius-card); padding: 20px;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 10px; text-align: center; cursor: pointer;
+  transition: all 200ms;
+}
+.doc-card:hover {
+  transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  border-color: var(--primary-main);
+}
+.doc-card .material-icons {
+  font-size: 36px; color: var(--primary-main); opacity: 0.8;
+}
+.doc-card .doc-title {
+  font-size: 0.875rem; font-weight: 600; color: var(--text);
+}
+.doc-card .doc-desc {
+  font-size: 0.6875rem; color: var(--text-secondary);
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     APP LAYOUT
+     ═══════════════════════════════════════════════════════════════════ -->
+<div class="app-layout" id="appLayout">
+
+<!-- ── SIDEBAR ──────────────────────────────────────────────────────── -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 35" style="width:36px;height:36px;">
+      <path fill="#EE312E" d="M31.8673 17.5001C31.8673 22.8372 29.9946 27.1442 26.7175 30.1405C26.7175 30.1405 26.7175 30.1405 26.6239 30.2341C24.1895 32.4813 21.0996 33.8858 17.3543 34.4476L17.0734 34.1667L22.5041 2.70624L22.6913 2.14444C28.3093 4.85978 31.7737 10.2905 31.7737 17.4065"/>
+      <path fill="#AF292E" d="M22.7845 2.23789L22.5972 2.42517L0.593609 18.8108H0.5V0.271606H13.8894C14.8257 0.271606 15.6684 0.271618 16.6048 0.458882C18.7583 0.739779 20.8182 1.30156 22.5972 2.14425H22.7845"/>
+      <path fill="#D3222A" d="M22.7845 2.23808L0.5 18.7174V34.7285H13.8894C15.1066 34.7285 16.2302 34.7285 17.3538 34.4476L22.7845 2.14444"/>
+    </svg>
+    <div class="sidebar-logo-text">
+      <h1>Stealth Labs</h1>
+      <div class="subtitle">30-60-90 Plan</div>
+    </div>
+  </div>
+  <button class="sidebar-toggle" id="sidebarToggle" title="Toggle sidebar">
+    <span class="material-icons" style="font-size:14px;">chevron_left</span>
+  </button>
+  <nav class="sidebar-nav" id="sidebarNav">
+    <div class="nav-group-label">Planning</div>
+    <a class="nav-item active" href="#overview" data-section="overview">
+      <span class="material-icons">dashboard</span><span class="nav-item-label">Overview</span>
+    </a>
+    <a class="nav-item" href="#calendar" data-section="calendar">
+      <span class="material-icons">calendar_month</span><span class="nav-item-label">Calendar</span>
+    </a>
+    <a class="nav-item" href="#gantt" data-section="gantt">
+      <span class="material-icons">view_timeline</span><span class="nav-item-label">Gantt Chart</span>
+    </a>
+    <a class="nav-item" href="#critical-path" data-section="critical-path">
+      <span class="material-icons">route</span><span class="nav-item-label">Critical Path</span>
+    </a>
+
+    <div class="nav-group-label">Execution</div>
+    <a class="nav-item" href="#phase-0" data-section="phase-0">
+      <span class="material-icons">rocket_launch</span><span class="nav-item-label">Phase 0: Pre-Workshop</span>
+    </a>
+    <a class="nav-item" href="#phase-1" data-section="phase-1">
+      <span class="material-icons">foundation</span><span class="nav-item-label">Phase 1: Foundations</span>
+    </a>
+    <a class="nav-item" href="#phase-2" data-section="phase-2">
+      <span class="material-icons">merge_type</span><span class="nav-item-label">Phase 2: Integration</span>
+    </a>
+    <a class="nav-item" href="#phase-3" data-section="phase-3">
+      <span class="material-icons">local_shipping</span><span class="nav-item-label">Phase 3: Ship</span>
+    </a>
+
+    <div class="nav-group-label">Resources</div>
+    <a class="nav-item" href="#hiring" data-section="hiring">
+      <span class="material-icons">group_add</span><span class="nav-item-label">Hiring Plan</span>
+    </a>
+    <a class="nav-item" href="#risks" data-section="risks">
+      <span class="material-icons">warning</span><span class="nav-item-label">Risk Register</span>
+    </a>
+    <a class="nav-item" href="#documents" data-section="documents">
+      <span class="material-icons">folder_open</span><span class="nav-item-label">Documents</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="avatar">AM</div>
+    <div class="sidebar-footer-text">
+      <div class="name">Anton Merk</div>
+      <div class="role">Chief Audit Executive</div>
+    </div>
+    <a class="settings-link" title="Settings"><span class="material-icons" style="font-size:18px;">settings</span></a>
+  </div>
+</aside>
+
+<!-- ── QUICK ACCESS PILL ──────────────────────────────────────────── -->
+<div class="quick-access-wrapper" id="quickAccessWrapper">
+  <div class="quick-access-pill" id="quickAccessPill" onmouseenter="openQuickAccess()" title="Quick Access">
+    <div class="pill-bars" id="pillBars">
+      <span></span><span></span>
+    </div>
+  </div>
+  <div class="quick-access-panel" id="quickAccessPanel" onmouseenter="openQuickAccess()" onmouseleave="closeQuickAccess()">
+    <div class="qa-tiles">
+      <div class="qa-tile" onclick="toggleFullscreen()">
+        <span class="material-icons" style="font-size:22px;">fullscreen</span>
+        <span class="qa-tile-label">Full</span>
+      </div>
+      <div class="qa-tile" onclick="document.getElementById('appLayout').classList.toggle('sidebar-collapsed')">
+        <span class="material-icons" style="font-size:22px;">view_sidebar</span>
+        <span class="qa-tile-label">Sidebar</span>
+      </div>
+      <div class="qa-tile" onclick="closeQuickAccess();openCustomizationDrawer();">
+        <span class="material-icons" style="font-size:22px;">palette</span>
+        <span class="qa-tile-label">Theme</span>
+      </div>
+      <div class="qa-tile" onclick="closeQuickAccess();">
+        <span style="font-size:1.1rem;font-weight:600;line-height:1;">&#8984;K</span>
+        <span class="qa-tile-label">Keys</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── HEADER ─────────────────────────────────────────────────────── -->
+<header class="header">
+  <div class="breadcrumb">
+    <span>Execution Plan</span>
+    <span class="sep">/</span>
+    <span id="breadcrumbCurrent">Overview</span>
+  </div>
+  <div class="header-actions">
+    <div class="theme-dots">
+      <div class="theme-dot" data-theme="light" title="Light" onclick="setTheme('light')"></div>
+      <div class="theme-dot active" data-theme="dark" title="Dark" onclick="setTheme('dark')"></div>
+      <div class="theme-dot" data-theme="pureBlack" title="Pure Black" onclick="setTheme('pureBlack')"></div>
+      <div class="theme-dot" data-theme="galaxy" title="Galaxy" onclick="setTheme('galaxy')"></div>
+    </div>
+    <div class="header-icon" onclick="openCustomizationDrawer()" title="Customize">
+      <span class="material-icons" style="font-size:18px;">grid_view</span>
+    </div>
+  </div>
+</header>
+
+<!-- ── CUSTOMIZATION DRAWER ──────────────────────────────────────── -->
+<div class="customization-backdrop" id="custBackdrop" onclick="closeCustomizationDrawer()"></div>
+<aside class="customization-drawer" id="custDrawer">
+  <div class="cust-header">
+    <span style="font-size:0.9375rem;font-weight:600;color:var(--text);">Customize</span>
+    <span class="material-icons" style="font-size:18px;cursor:pointer;color:var(--text-secondary);" onclick="closeCustomizationDrawer()">close</span>
+  </div>
+  <div class="cust-section">
+    <div class="cust-label">Theme Mode</div>
+    <div class="cust-toggle-group" id="themeModeGroup">
+      <button class="cust-toggle" data-theme="light" onclick="setTheme('light')">Light</button>
+      <button class="cust-toggle active" data-theme="dark" onclick="setTheme('dark')">Dark</button>
+      <button class="cust-toggle" data-theme="pureBlack" onclick="setTheme('pureBlack')">Pure Black</button>
+      <button class="cust-toggle" data-theme="galaxy" onclick="setTheme('galaxy')">Galaxy</button>
+    </div>
+  </div>
+  <div class="cust-divider"></div>
+  <div class="cust-section">
+    <div class="cust-label">Sidebar</div>
+    <div class="cust-toggle-group">
+      <button class="cust-toggle active" onclick="setSidebarMode('full',this)">Full</button>
+      <button class="cust-toggle" onclick="setSidebarMode('mini',this)">Mini</button>
+      <button class="cust-toggle" onclick="setSidebarMode('auto',this)">Auto</button>
+    </div>
+  </div>
+  <div class="cust-divider"></div>
+  <div class="cust-section">
+    <div class="cust-label">Border Radius</div>
+    <div class="cust-toggle-group" id="radiusGroup">
+      <button class="cust-toggle" onclick="setRadius(4,this)">Sharp</button>
+      <button class="cust-toggle" onclick="setRadius(8,this)">Rounded</button>
+      <button class="cust-toggle active" onclick="setRadius(12,this)">Smooth</button>
+    </div>
+  </div>
+  <div class="cust-divider"></div>
+  <div class="cust-section">
+    <div class="cust-label">Accent Colour</div>
+    <div class="cust-colors">
+      <span class="cust-color active" style="background:#EE312E;" onclick="setAccent('#EE312E',this)" title="Diligent Red"></span>
+      <span class="cust-color" style="background:#D3222A;" onclick="setAccent('#D3222A',this)" title="Red 2"></span>
+      <span class="cust-color" style="background:#8b5cf6;" onclick="setAccent('#8b5cf6',this)" title="Purple"></span>
+      <span class="cust-color" style="background:#10b981;" onclick="setAccent('#10b981',this)" title="Emerald"></span>
+      <span class="cust-color" style="background:#f97316;" onclick="setAccent('#f97316',this)" title="Orange"></span>
+      <span class="cust-color" style="background:#f43f5e;" onclick="setAccent('#f43f5e',this)" title="Rose"></span>
+      <span class="cust-color" style="background:#06b6d4;" onclick="setAccent('#06b6d4',this)" title="Cyan"></span>
+      <span class="cust-color" style="background:#f59e0b;" onclick="setAccent('#f59e0b',this)" title="Amber"></span>
+    </div>
+  </div>
+</aside>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     MAIN CONTENT
+     ══════════════════════════════════════════════════════════════════ -->
+<main class="main-content">
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     1. OVERVIEW
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="overview">
+  <h2 class="section-title">Overview</h2>
+  <p><strong>Riskapture &times; Diligent</strong> &mdash; 3-Month Execution Plan. From plan start on March 18 to ship date June 18, 2026. Five parallel workstreams delivering three use cases, a full rebrand, and AWS/Bedrock infrastructure migration.</p>
+
+  <div class="summary-grid">
+    <div class="stat-card">
+      <div class="stat-value">13</div>
+      <div class="stat-label">Weeks</div>
+      <div class="stat-sub">3 months</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">5</div>
+      <div class="stat-label">Workstreams</div>
+      <div class="stat-sub">parallel tracks</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">3</div>
+      <div class="stat-label">Use Cases</div>
+      <div class="stat-sub">UC1+UC2 ship, UC3 demo</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">7</div>
+      <div class="stat-label">New Hires</div>
+      <div class="stat-sub">founding team</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" style="font-size:1.5rem;">Mar 30</div>
+      <div class="stat-label">London Workshop</div>
+      <div class="stat-sub">w/c 30 March</div>
+    </div>
+  </div>
+
+  <h3>Workstreams</h3>
+  <div class="ws-grid">
+    <div class="ws-card" style="border-top-color:#22c55e;">
+      <div class="ws-tag" style="color:#22c55e;">W1</div>
+      <div class="ws-name">Interview Co-Pilot</div>
+      <div class="ws-target"><span class="badge badge-green">Ship June 18</span></div>
+    </div>
+    <div class="ws-card" style="border-top-color:#f59e0b;">
+      <div class="ws-tag" style="color:#f59e0b;">W2</div>
+      <div class="ws-name">Control Testing</div>
+      <div class="ws-target"><span class="badge badge-amber">Ship June 18</span></div>
+    </div>
+    <div class="ws-card" style="border-top-color:#EE312E;">
+      <div class="ws-tag" style="color:#EE312E;">W3</div>
+      <div class="ws-name">Audit Reporting</div>
+      <div class="ws-target"><span class="badge badge-red">Demo June 18</span></div>
+    </div>
+    <div class="ws-card" style="border-top-color:#3b82f6;">
+      <div class="ws-tag" style="color:#3b82f6;">W4</div>
+      <div class="ws-name">Rebrand + Landing</div>
+      <div class="ws-target"><span class="badge badge-blue">Complete June 18</span></div>
+    </div>
+    <div class="ws-card" style="border-top-color:#8b5cf6;">
+      <div class="ws-tag" style="color:#8b5cf6;">W5</div>
+      <div class="ws-name">AWS/Bedrock Infra</div>
+      <div class="ws-target"><span class="badge badge-purple">Production June 18</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     2. CALENDAR
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="calendar">
+  <h2 class="section-title">Calendar</h2>
+  <p>Key milestones across the 3-month execution window.</p>
+
+  <div class="calendar-wrapper" id="calendarWrapper">
+    <!-- Calendars rendered by JS -->
+  </div>
+
+  <div class="cal-legend">
+    <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#EE312E;"></div>Plan milestone</div>
+    <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#22c55e;"></div>W1 Interview Co-Pilot</div>
+    <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#f59e0b;"></div>W2 Control Testing</div>
+    <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#8b5cf6;"></div>W5 Bedrock/AWS</div>
+    <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#3b82f6;"></div>W4 Rebrand</div>
+    <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#94A3B8;"></div>General</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     3. GANTT CHART
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="gantt">
+  <h2 class="section-title">Gantt Chart</h2>
+  <p>All 5 workstreams plus hiring across 13 weeks, overlaid with phase zones.</p>
+
+  <div class="gantt-wrapper">
+    <!-- Phase zone labels -->
+    <div class="gantt-phase-labels">
+      <div class="gantt-phase"></div>
+      <div class="gantt-phase" style="grid-column: span 2; background:rgba(238,49,46,0.06); color:var(--primary-main);">Phase 0</div>
+      <div class="gantt-phase" style="grid-column: span 4; background:rgba(59,130,246,0.06); color:#3b82f6;">Phase 1</div>
+      <div class="gantt-phase" style="grid-column: span 4; background:rgba(139,92,246,0.06); color:#8b5cf6;">Phase 2</div>
+      <div class="gantt-phase" style="grid-column: span 4; background:rgba(34,197,94,0.06); color:#22c55e;">Phase 3</div>
+    </div>
+
+    <!-- Header row -->
+    <div class="gantt-chart">
+      <div class="gantt-header"></div>
+      <div class="gantt-header">W0</div>
+      <div class="gantt-header">W1</div>
+      <div class="gantt-header">W2</div>
+      <div class="gantt-header">W3</div>
+      <div class="gantt-header">W4</div>
+      <div class="gantt-header">W5</div>
+      <div class="gantt-header">W6</div>
+      <div class="gantt-header">W7</div>
+      <div class="gantt-header">W8</div>
+      <div class="gantt-header">W9</div>
+      <div class="gantt-header">W10</div>
+      <div class="gantt-header">W11</div>
+      <div class="gantt-header">W12</div>
+      <div class="gantt-header">W13</div>
+
+      <!-- W1 Interview Co-Pilot: Weeks 0-13 -->
+      <div class="gantt-label"><span class="ws-dot" style="background:#22c55e;"></span>W1 Interview Co-Pilot</div>
+      <div class="gantt-cell"><div class="gantt-bar bar-start" style="background:#22c55e;border-color:#22c55e;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#22c55e;border-color:#22c55e;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#22c55e;border-color:#22c55e;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#22c55e;border-color:#22c55e;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#22c55e;border-color:#22c55e;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#22c55e;border-color:#22c55e;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#22c55e;border-color:#22c55e;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#22c55e;border-color:#22c55e;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#22c55e;border-color:#22c55e;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#22c55e;border-color:#22c55e;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#22c55e;border-color:#22c55e;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#22c55e;border-color:#22c55e;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#22c55e;border-color:#22c55e;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-end" style="background:#22c55e;border-color:#22c55e;"></div></div>
+
+      <!-- W2 Control Testing: Weeks 3-13 -->
+      <div class="gantt-label"><span class="ws-dot" style="background:#f59e0b;"></span>W2 Control Testing</div>
+      <div class="gantt-cell"></div>
+      <div class="gantt-cell"></div>
+      <div class="gantt-cell"></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-start" style="background:#f59e0b;border-color:#f59e0b;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#f59e0b;border-color:#f59e0b;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#f59e0b;border-color:#f59e0b;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#f59e0b;border-color:#f59e0b;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#f59e0b;border-color:#f59e0b;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#f59e0b;border-color:#f59e0b;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#f59e0b;border-color:#f59e0b;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#f59e0b;border-color:#f59e0b;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#f59e0b;border-color:#f59e0b;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#f59e0b;border-color:#f59e0b;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-end" style="background:#f59e0b;border-color:#f59e0b;"></div></div>
+
+      <!-- W3 Audit Reporting: Weeks 6-13 -->
+      <div class="gantt-label"><span class="ws-dot" style="background:#EE312E;"></span>W3 Audit Reporting</div>
+      <div class="gantt-cell"></div>
+      <div class="gantt-cell"></div>
+      <div class="gantt-cell"></div>
+      <div class="gantt-cell"></div>
+      <div class="gantt-cell"></div>
+      <div class="gantt-cell"></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-start" style="background:#EE312E;border-color:#EE312E;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#EE312E;border-color:#EE312E;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#EE312E;border-color:#EE312E;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#EE312E;border-color:#EE312E;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#EE312E;border-color:#EE312E;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#EE312E;border-color:#EE312E;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#EE312E;border-color:#EE312E;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-end" style="background:#EE312E;border-color:#EE312E;"></div></div>
+
+      <!-- W4 Rebrand + Landing: Weeks 0-11 -->
+      <div class="gantt-label"><span class="ws-dot" style="background:#3b82f6;"></span>W4 Rebrand + Landing</div>
+      <div class="gantt-cell"><div class="gantt-bar bar-start" style="background:#3b82f6;border-color:#3b82f6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#3b82f6;border-color:#3b82f6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#3b82f6;border-color:#3b82f6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#3b82f6;border-color:#3b82f6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#3b82f6;border-color:#3b82f6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#3b82f6;border-color:#3b82f6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#3b82f6;border-color:#3b82f6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#3b82f6;border-color:#3b82f6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#3b82f6;border-color:#3b82f6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#3b82f6;border-color:#3b82f6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#3b82f6;border-color:#3b82f6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-end" style="background:#3b82f6;border-color:#3b82f6;"></div></div>
+      <div class="gantt-cell"></div>
+      <div class="gantt-cell"></div>
+
+      <!-- W5 AWS/Bedrock Infra: Weeks 0-10 -->
+      <div class="gantt-label"><span class="ws-dot" style="background:#8b5cf6;"></span>W5 AWS/Bedrock Infra</div>
+      <div class="gantt-cell"><div class="gantt-bar bar-start" style="background:#8b5cf6;border-color:#8b5cf6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#8b5cf6;border-color:#8b5cf6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#8b5cf6;border-color:#8b5cf6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#8b5cf6;border-color:#8b5cf6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#8b5cf6;border-color:#8b5cf6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#8b5cf6;border-color:#8b5cf6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#8b5cf6;border-color:#8b5cf6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#8b5cf6;border-color:#8b5cf6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#8b5cf6;border-color:#8b5cf6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#8b5cf6;border-color:#8b5cf6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-end" style="background:#8b5cf6;border-color:#8b5cf6;"></div></div>
+      <div class="gantt-cell"></div>
+      <div class="gantt-cell"></div>
+      <div class="gantt-cell"></div>
+
+      <!-- Hiring: Weeks 0-13 -->
+      <div class="gantt-label"><span class="ws-dot" style="background:#94A3B8;"></span>Hiring</div>
+      <div class="gantt-cell"><div class="gantt-bar bar-start" style="background:#94A3B8;border-color:#94A3B8;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#94A3B8;border-color:#94A3B8;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#94A3B8;border-color:#94A3B8;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#94A3B8;border-color:#94A3B8;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#94A3B8;border-color:#94A3B8;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#94A3B8;border-color:#94A3B8;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#94A3B8;border-color:#94A3B8;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#94A3B8;border-color:#94A3B8;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#94A3B8;border-color:#94A3B8;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#94A3B8;border-color:#94A3B8;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#94A3B8;border-color:#94A3B8;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#94A3B8;border-color:#94A3B8;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#94A3B8;border-color:#94A3B8;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-end" style="background:#94A3B8;border-color:#94A3B8;"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     4. CRITICAL PATH
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="critical-path">
+  <h2 class="section-title">Critical Path</h2>
+  <p>The dependency chain that determines the earliest possible ship date. Any slip on these items delays the entire programme.</p>
+
+  <div class="card">
+    <div class="cp-row-label">Infrastructure Dependencies</div>
+    <div class="cp-row">
+      <div class="cp-node" style="border-color:#8b5cf6;">
+        <div class="cp-label" style="color:#8b5cf6;">Bedrock Migration</div>
+        <div class="cp-timing">W0 &rarr; W3</div>
+      </div>
+      <div class="cp-arrow">&rarr;</div>
+      <div class="cp-node" style="border-color:#94A3B8;">
+        <div class="cp-label">Blocks all LLM-dependent work</div>
+        <div class="cp-timing">UC1, UC2, UC3</div>
+      </div>
+    </div>
+
+    <div class="cp-row-label">Workshop &amp; API Dependencies</div>
+    <div class="cp-row">
+      <div class="cp-node" style="border-color:#EE312E;">
+        <div class="cp-label" style="color:#EE312E;">London Workshop</div>
+        <div class="cp-timing">W2 (Mar 30)</div>
+      </div>
+      <div class="cp-arrow">&rarr;</div>
+      <div class="cp-node" style="border-color:#f59e0b;">
+        <div class="cp-label">Diligent API Specs</div>
+        <div class="cp-timing">Unlocked at workshop</div>
+      </div>
+      <div class="cp-arrow">&rarr;</div>
+      <div class="cp-node" style="border-color:#94A3B8;">
+        <div class="cp-label">UC1 Evidence Linking<br>UC2 Sync<br>UC3 Data Agents</div>
+        <div class="cp-timing">Blocked until specs</div>
+      </div>
+    </div>
+
+    <div class="cp-row-label">Hiring Dependencies</div>
+    <div class="cp-row">
+      <div class="cp-node" style="border-color:#22c55e;">
+        <div class="cp-label" style="color:#22c55e;">Lead Engineer Hire</div>
+        <div class="cp-timing">By W7</div>
+      </div>
+      <div class="cp-arrow">&rarr;</div>
+      <div class="cp-node" style="border-color:#94A3B8;">
+        <div class="cp-label">Blocks scale execution</div>
+        <div class="cp-timing">Parallel capacity</div>
+      </div>
+    </div>
+    <div class="cp-row">
+      <div class="cp-node" style="border-color:#EE312E;">
+        <div class="cp-label" style="color:#EE312E;">AI/LLM Engineer Hire</div>
+        <div class="cp-timing">By W7</div>
+      </div>
+      <div class="cp-arrow">&rarr;</div>
+      <div class="cp-node" style="border-color:#94A3B8;">
+        <div class="cp-label">Blocks UC3 delivery</div>
+        <div class="cp-timing">9-agent graph</div>
+      </div>
+    </div>
+
+    <div class="cp-row-label">Ship Path</div>
+    <div class="cp-row">
+      <div class="cp-node" style="border-color:#22c55e;">
+        <div class="cp-label" style="color:#22c55e;">UC1+UC2 Feature Complete</div>
+        <div class="cp-timing">W9</div>
+      </div>
+      <div class="cp-arrow">&rarr;</div>
+      <div class="cp-node" style="border-color:#8b5cf6;">
+        <div class="cp-label" style="color:#8b5cf6;">Production Hardening</div>
+        <div class="cp-timing">W10 &rarr; W11</div>
+      </div>
+      <div class="cp-arrow">&rarr;</div>
+      <div class="cp-node" style="border-color:#EE312E;">
+        <div class="cp-label" style="color:#EE312E;">SHIP</div>
+        <div class="cp-timing">W12 &rarr; W13 (Jun 18)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     5. PHASE 0 — PRE-WORKSHOP
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="phase-0">
+  <h2 class="section-title">Phase 0 &mdash; Pre-Workshop</h2>
+  <div class="phase-header">
+    <span class="phase-badge">Weeks 0&ndash;1</span>
+    <span class="phase-dates">Mar 18 &rarr; Mar 28</span>
+  </div>
+
+  <div class="week-block">
+    <div class="week-block-title"><span class="week-num">W0&ndash;W1</span> Pre-Workshop Sprint</div>
+    <ul class="task-list">
+      <li><span class="task-ws ws5">W5</span>Start Bedrock provider swap</li>
+      <li><span class="task-ws ws5">W5</span>Start Cohere embedding adapter</li>
+      <li><span class="task-ws ws4">W4</span>Rebrand token integration</li>
+      <li><span class="task-ws ws4">W4</span>Begin string replacement across codebase</li>
+      <li><span class="task-ws ws1">W1</span>Prepare Diligent API specs request (8 blocking questions)</li>
+      <li><span class="task-ws ws1">W1</span>Clean up riskapture-review repo</li>
+      <li><span class="task-ws wsh">Hire</span>Post JDs: Lead Engineer, AI/LLM Engineer, Product Owner, DevOps</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     6. PHASE 1 — WORKSHOP + FOUNDATIONS
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="phase-1">
+  <h2 class="section-title">Phase 1 &mdash; Workshop + Foundations</h2>
+  <div class="phase-header">
+    <span class="phase-badge">Weeks 2&ndash;5</span>
+    <span class="phase-dates">Mar 30 &rarr; Apr 25</span>
+  </div>
+
+  <div class="week-block">
+    <div class="week-block-title"><span class="week-num">W2</span> London Workshop (Mar 30 &ndash; Apr 4)</div>
+    <ul class="task-list">
+      <li><span class="task-ws wsh">All</span>London Workshop &mdash; Diligent alignment, API specs, integration planning</li>
+      <li><span class="task-ws ws5">W5</span>AWS IaC start (Terraform/CDK)</li>
+      <li><span class="task-ws ws4">W4</span>Collect logo assets from Diligent brand team</li>
+    </ul>
+  </div>
+
+  <div class="week-block">
+    <div class="week-block-title"><span class="week-num">W3</span> Bedrock Complete (Apr 7 &ndash; 11)</div>
+    <ul class="task-list">
+      <li><span class="task-ws ws5">W5</span>Bedrock migration complete &mdash; all LLM calls on AWS</li>
+      <li><span class="task-ws ws1">W1</span>Audio infrastructure setup</li>
+      <li><span class="task-ws ws2">W2</span>Control test framework scaffolding</li>
+      <li><span class="task-ws ws4">W4</span>Rebrand complete &mdash; all surfaces updated</li>
+    </ul>
+  </div>
+
+  <div class="week-block">
+    <div class="week-block-title"><span class="week-num">W4</span> Pipeline Build (Apr 14 &ndash; 18)</div>
+    <ul class="task-list">
+      <li><span class="task-ws ws1">W1</span>Transcription pipeline (Whisper/Deepgram on Bedrock)</li>
+      <li><span class="task-ws ws1">W1</span>Co-Pilot frontend shell</li>
+      <li><span class="task-ws ws2">W2</span>Evidence loader &amp; document parser</li>
+      <li><span class="task-ws ws4">W4</span>Landing page design &amp; build</li>
+      <li><span class="task-ws ws5">W5</span>AWS environment provisioning (dev/staging/prod)</li>
+    </ul>
+  </div>
+
+  <div class="week-block">
+    <div class="week-block-title"><span class="week-num">W5</span> Agent Framework (Apr 21 &ndash; 25)</div>
+    <ul class="task-list">
+      <li><span class="task-ws ws1">W1</span>InterviewCoPilotAgent &mdash; real-time question generation</li>
+      <li><span class="task-ws ws1">W1</span>HITL pattern &mdash; human-in-the-loop review flow</li>
+      <li><span class="task-ws ws2">W2</span>Structured test results &amp; exception routing</li>
+      <li><span class="task-ws ws4">W4</span>Landing page complete &amp; deployed</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     7. PHASE 2 — INTEGRATION + UC3 BUILD
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="phase-2">
+  <h2 class="section-title">Phase 2 &mdash; Integration + UC3 Build</h2>
+  <div class="phase-header">
+    <span class="phase-badge">Weeks 6&ndash;9</span>
+    <span class="phase-dates">May 5 &rarr; May 30</span>
+  </div>
+
+  <div class="week-block">
+    <div class="week-block-title"><span class="week-num">W6</span> UC3 Kickoff (May 5 &ndash; 9)</div>
+    <ul class="task-list">
+      <li><span class="task-ws ws1">W1</span>Evidence auto-linking to Diligent controls</li>
+      <li><span class="task-ws ws2">W2</span>Scale testing &mdash; parallel test execution</li>
+      <li><span class="task-ws ws3">W3</span>UC3 design &mdash; 9-agent reporting graph</li>
+      <li><span class="task-ws ws3">W3</span>DiligentMCP expansion &mdash; audit report data agents</li>
+    </ul>
+  </div>
+
+  <div class="week-block">
+    <div class="week-block-title"><span class="week-num">W7</span> E2E Testing (May 12 &ndash; 16)</div>
+    <ul class="task-list">
+      <li><span class="task-ws ws1">W1</span>E2E testing UC1 &mdash; full interview &rarr; evidence flow</li>
+      <li><span class="task-ws ws2">W2</span>Test scheduling UI &amp; batch execution</li>
+      <li><span class="task-ws ws3">W3</span>UC3 Agents 4&ndash;6 implementation</li>
+    </ul>
+  </div>
+
+  <div class="week-block">
+    <div class="week-block-title"><span class="week-num">W8</span> Integration (May 19 &ndash; 23)</div>
+    <ul class="task-list">
+      <li><span class="task-ws ws1">W1</span>HITL refinement &mdash; reviewer feedback loop</li>
+      <li><span class="task-ws ws2">W2</span>Diligent sync &mdash; bi-directional control status</li>
+      <li><span class="task-ws ws3">W3</span>UC3 Agents 7&ndash;9 implementation</li>
+    </ul>
+  </div>
+
+  <div class="week-block">
+    <div class="week-block-title"><span class="week-num">W9</span> Feature Complete (May 26 &ndash; 30)</div>
+    <ul class="task-list">
+      <li><span class="task-ws ws1">W1</span>Production readiness UC1 &mdash; feature complete</li>
+      <li><span class="task-ws ws2">W2</span>Production readiness UC2 &mdash; feature complete</li>
+      <li><span class="task-ws ws3">W3</span>UC3 E2E MVP &mdash; all 9 agents working</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     8. PHASE 3 — PRODUCTION + SHIP
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="phase-3">
+  <h2 class="section-title">Phase 3 &mdash; Production + Ship</h2>
+  <div class="phase-header">
+    <span class="phase-badge">Weeks 10&ndash;13</span>
+    <span class="phase-dates">Jun 1 &rarr; Jun 18</span>
+  </div>
+
+  <div class="week-block">
+    <div class="week-block-title"><span class="week-num">W10</span> AWS Production Deploy (Jun 1 &ndash; 5)</div>
+    <ul class="task-list">
+      <li><span class="task-ws ws5">W5</span>Integration testing on AWS production infrastructure</li>
+      <li><span class="task-ws ws3">W3</span>UC3 polish &amp; demo flow refinement</li>
+      <li><span class="task-ws ws5">W5</span>AWS production deploy &mdash; blue/green cutover</li>
+    </ul>
+  </div>
+
+  <div class="week-block">
+    <div class="week-block-title"><span class="week-num">W11</span> Final Hardening (Jun 8 &ndash; 12)</div>
+    <ul class="task-list">
+      <li><span class="task-ws ws1">W1</span>Final hardening UC1 &mdash; edge cases, error handling</li>
+      <li><span class="task-ws ws2">W2</span>Final hardening UC2 &mdash; edge cases, error handling</li>
+      <li><span class="task-ws ws3">W3</span>UC3 demo rehearsal</li>
+      <li><span class="task-ws ws4">W4</span>Rebrand verification &mdash; all touchpoints audit</li>
+    </ul>
+  </div>
+
+  <div class="week-block" style="border: 2px solid var(--primary-main); background: color-mix(in srgb, var(--primary-main) 5%, var(--card-bg));">
+    <div class="week-block-title"><span class="week-num" style="background:var(--primary-main);color:#fff;">W12&ndash;W13</span> SHIP DATE (Jun 15 &ndash; 18)</div>
+    <ul class="task-list">
+      <li><span class="task-ws ws1">W1</span><strong>UC1 Interview Co-Pilot &mdash; SHIP</strong></li>
+      <li><span class="task-ws ws2">W2</span><strong>UC2 Control Testing &mdash; SHIP</strong></li>
+      <li><span class="task-ws ws3">W3</span><strong>UC3 Audit Reporting &mdash; DEMO</strong></li>
+      <li><span class="task-ws ws4">W4</span><strong>Rebrand &mdash; COMPLETE</strong></li>
+      <li><span class="task-ws ws5">W5</span><strong>AWS Production &mdash; LIVE</strong></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     9. HIRING PLAN
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="hiring">
+  <h2 class="section-title">Hiring Plan</h2>
+  <p>7 founding team roles to be filled during the execution window. Priority and target week indicate when the hire becomes critical to the plan.</p>
+
+  <div class="hire-grid">
+    <div class="hire-card">
+      <div class="hire-role">Lead Full Stack Engineer</div>
+      <div class="hire-meta">
+        <span class="badge badge-critical">Critical</span>
+        <span class="badge badge-gray">By W3</span>
+      </div>
+      <div class="hire-dept">Engineering</div>
+    </div>
+    <div class="hire-card">
+      <div class="hire-role">AI/LLM Engineer</div>
+      <div class="hire-meta">
+        <span class="badge badge-critical">Critical</span>
+        <span class="badge badge-gray">By W7</span>
+      </div>
+      <div class="hire-dept">Engineering</div>
+    </div>
+    <div class="hire-card">
+      <div class="hire-role">DevOps/Platform Engineer</div>
+      <div class="hire-meta">
+        <span class="badge badge-high">High</span>
+        <span class="badge badge-gray">By W8</span>
+      </div>
+      <div class="hire-dept">Engineering</div>
+    </div>
+    <div class="hire-card">
+      <div class="hire-role">Backend/API Engineer</div>
+      <div class="hire-meta">
+        <span class="badge badge-high">High</span>
+        <span class="badge badge-gray">By W9</span>
+      </div>
+      <div class="hire-dept">Engineering</div>
+    </div>
+    <div class="hire-card">
+      <div class="hire-role">QA/Automation Engineer</div>
+      <div class="hire-meta">
+        <span class="badge badge-high">High</span>
+        <span class="badge badge-gray">By W8</span>
+      </div>
+      <div class="hire-dept">Engineering</div>
+    </div>
+    <div class="hire-card">
+      <div class="hire-role">Product Owner</div>
+      <div class="hire-meta">
+        <span class="badge badge-medium">Medium</span>
+        <span class="badge badge-gray">By W10</span>
+      </div>
+      <div class="hire-dept">Product</div>
+    </div>
+    <div class="hire-card">
+      <div class="hire-role">UX/Product Designer</div>
+      <div class="hire-meta">
+        <span class="badge badge-medium">Medium</span>
+        <span class="badge badge-gray">By W10</span>
+      </div>
+      <div class="hire-dept">Product &amp; Design</div>
+    </div>
+    <div class="hire-card">
+      <div class="hire-role">Product Marketing Manager</div>
+      <div class="hire-meta">
+        <span class="badge badge-medium">Medium</span>
+        <span class="badge badge-gray">By W11</span>
+      </div>
+      <div class="hire-dept">Product</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     10. RISK REGISTER
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="risks">
+  <h2 class="section-title">Risk Register</h2>
+  <p>Top risks to the execution plan with impact assessment and mitigation strategies.</p>
+
+  <div class="card" style="padding:0;overflow:hidden;">
+    <table class="risk-table">
+      <thead>
+        <tr>
+          <th>Risk</th>
+          <th>Level</th>
+          <th>Impact</th>
+          <th>Mitigation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Solo execution bottleneck</td>
+          <td><span class="badge badge-critical">Critical</span></td>
+          <td>Single point of failure on all workstreams until hires land</td>
+          <td>Aggressive hiring timeline; pre-built scaffolding; contractor bridge</td>
+        </tr>
+        <tr>
+          <td>Diligent API specs not ready</td>
+          <td><span class="badge badge-critical">Critical</span></td>
+          <td>Blocks UC1 evidence linking, UC2 sync, and UC3 data agents</td>
+          <td>Prepare 8 blocking questions pre-workshop; mock API layer; escalation path</td>
+        </tr>
+        <tr>
+          <td>UC3 scope creep</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td>9-agent graph complexity exceeds timeline</td>
+          <td>UC3 is demo-only (not ship); cut to 5 agents if behind; time-box design</td>
+        </tr>
+        <tr>
+          <td>Audio latency / transcription quality</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td>Interview Co-Pilot UX degraded by slow or inaccurate transcription</td>
+          <td>Evaluate multiple providers (Whisper, Deepgram); fallback to batch mode</td>
+        </tr>
+        <tr>
+          <td>Hiring timeline slips</td>
+          <td><span class="badge badge-high">High</span></td>
+          <td>Lead Engineer not hired by W7 delays scale-out</td>
+          <td>Source from day 1; parallel recruitment channels; contractor fallback</td>
+        </tr>
+        <tr>
+          <td>Bedrock performance / cost</td>
+          <td><span class="badge badge-medium">Medium</span></td>
+          <td>AWS Bedrock latency or token costs higher than expected</td>
+          <td>Benchmark early (W0-3); model routing for cost tiers; caching layer</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     11. DOCUMENTS
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="documents">
+  <h2 class="section-title">Documents</h2>
+  <p>Key reference documents for the execution plan.</p>
+
+  <div class="doc-grid">
+    <div class="doc-card">
+      <span class="material-icons">description</span>
+      <div class="doc-title">Execution Plan</div>
+      <div class="doc-desc">This document &mdash; the master 30-60-90 day plan</div>
+    </div>
+    <div class="doc-card">
+      <span class="material-icons">api</span>
+      <div class="doc-title">Diligent API Spec Request</div>
+      <div class="doc-desc">8 blocking questions for the London workshop</div>
+    </div>
+    <div class="doc-card">
+      <span class="material-icons">architecture</span>
+      <div class="doc-title">Architecture Decision Records</div>
+      <div class="doc-desc">ADRs for Bedrock, agent framework, data model</div>
+    </div>
+    <div class="doc-card">
+      <span class="material-icons">badge</span>
+      <div class="doc-title">Hiring JD Pack</div>
+      <div class="doc-desc">Job descriptions for all 7 founding roles</div>
+    </div>
+    <div class="doc-card">
+      <span class="material-icons">cloud</span>
+      <div class="doc-title">AWS Infrastructure Runbook</div>
+      <div class="doc-desc">Terraform modules, environment configs, deploy playbook</div>
+    </div>
+    <div class="doc-card">
+      <span class="material-icons">cleaning_services</span>
+      <div class="doc-title">Review Repo Playbook</div>
+      <div class="doc-desc">Sanitization steps for the riskapture-review repo</div>
+    </div>
+  </div>
+</section>
+
+</main>
+</div><!-- .app-layout -->
+
+<script>
+// ── Theme switching ──────────────────────────────────────
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('stealthlabs-plan-theme', theme);
+  document.querySelectorAll('.theme-dot').forEach(function(d) {
+    d.classList.toggle('active', d.getAttribute('data-theme') === theme);
+  });
+  document.querySelectorAll('#themeModeGroup .cust-toggle').forEach(function(b) {
+    b.classList.toggle('active', b.getAttribute('data-theme') === theme);
+  });
+}
+
+// Restore saved theme
+(function() {
+  var saved = localStorage.getItem('stealthlabs-plan-theme');
+  if (saved) setTheme(saved);
+  else setTheme('dark');
+})();
+
+// ── Sidebar toggle ───────────────────────────────────────
+document.getElementById('sidebarToggle').addEventListener('click', function() {
+  document.getElementById('appLayout').classList.toggle('sidebar-collapsed');
+});
+
+// ── Quick Access ─────────────────────────────────────────
+var qaTimeout;
+function openQuickAccess() {
+  clearTimeout(qaTimeout);
+  document.getElementById('quickAccessPill').classList.add('open');
+  document.getElementById('quickAccessPanel').classList.add('open');
+}
+function closeQuickAccess() {
+  qaTimeout = setTimeout(function() {
+    document.getElementById('quickAccessPill').classList.remove('open');
+    document.getElementById('quickAccessPanel').classList.remove('open');
+  }, 200);
+}
+document.addEventListener('click', function(e) {
+  var wrapper = document.getElementById('quickAccessWrapper');
+  if (wrapper && !wrapper.contains(e.target)) closeQuickAccess();
+});
+
+// ── Fullscreen ──────────────────────────────────────────
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(function(){});
+  } else {
+    document.exitFullscreen().catch(function(){});
+  }
+}
+
+// ── Customization Drawer ─────────────────────────────────
+function openCustomizationDrawer() {
+  document.getElementById('custDrawer').classList.add('open');
+  document.getElementById('custBackdrop').classList.add('open');
+}
+function closeCustomizationDrawer() {
+  document.getElementById('custDrawer').classList.remove('open');
+  document.getElementById('custBackdrop').classList.remove('open');
+}
+function setSidebarMode(mode, btn) {
+  var layout = document.getElementById('appLayout');
+  layout.classList.remove('sidebar-collapsed', 'sidebar-auto');
+  if (mode === 'mini') layout.classList.add('sidebar-collapsed');
+  else if (mode === 'auto') layout.classList.add('sidebar-auto');
+  btn.parentElement.querySelectorAll('.cust-toggle').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+}
+function setRadius(val, btn) {
+  document.documentElement.style.setProperty('--radius-default', val + 'px');
+  document.documentElement.style.setProperty('--radius-card', (val + 4) + 'px');
+  document.documentElement.style.setProperty('--radius-button', Math.max(val - 4, 4) + 'px');
+  btn.parentElement.querySelectorAll('.cust-toggle').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+}
+function setAccent(color, el) {
+  document.documentElement.style.setProperty('--primary-main', color);
+  document.documentElement.style.setProperty('--primary', color);
+  el.parentElement.querySelectorAll('.cust-color').forEach(function(c) { c.classList.remove('active'); });
+  el.classList.add('active');
+}
+
+// ── Active nav highlighting on scroll ────────────────────
+var sections = document.querySelectorAll('section[id]');
+var navItems = document.querySelectorAll('.sidebar-nav .nav-item[data-section]');
+var breadcrumbEl = document.getElementById('breadcrumbCurrent');
+
+var sectionNames = {
+  'overview': 'Overview',
+  'calendar': 'Calendar',
+  'gantt': 'Gantt Chart',
+  'critical-path': 'Critical Path',
+  'phase-0': 'Phase 0: Pre-Workshop',
+  'phase-1': 'Phase 1: Foundations',
+  'phase-2': 'Phase 2: Integration',
+  'phase-3': 'Phase 3: Ship',
+  'hiring': 'Hiring Plan',
+  'risks': 'Risk Register',
+  'documents': 'Documents'
+};
+
+function onScroll() {
+  var current = '';
+  var scrollY = window.scrollY || window.pageYOffset;
+  for (var i = 0; i < sections.length; i++) {
+    var top = sections[i].offsetTop - 80;
+    if (scrollY >= top) current = sections[i].id;
+  }
+  navItems.forEach(function(item) {
+    var section = item.getAttribute('data-section');
+    item.classList.toggle('active', section === current);
+  });
+  if (breadcrumbEl && sectionNames[current]) {
+    breadcrumbEl.textContent = sectionNames[current];
+  }
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+// ── Responsive sidebar auto-collapse ─────────────────────
+function checkWidth() {
+  if (window.innerWidth < 1024) {
+    document.getElementById('appLayout').classList.add('sidebar-collapsed');
+  }
+}
+checkWidth();
+window.addEventListener('resize', checkWidth);
+
+// ── Calendar Renderer ────────────────────────────────────
+(function() {
+  var milestones = [
+    { y:2026, m:3, d:18, label:'Plan Start', cls:'ms-red' },
+    { y:2026, m:3, d:30, label:'Workshop Start', cls:'ms-red' },
+    { y:2026, m:4, d:4, label:'Workshop End', cls:'ms-red' },
+    { y:2026, m:4, d:11, label:'Bedrock Complete', cls:'ms-purple' },
+    { y:2026, m:4, d:25, label:'End Month 1', cls:'ms-gray' },
+    { y:2026, m:5, d:5, label:'UC3 Starts', cls:'ms-red' },
+    { y:2026, m:5, d:30, label:'Feature Complete', cls:'ms-green' },
+    { y:2026, m:6, d:1, label:'AWS Deploy Start', cls:'ms-purple' },
+    { y:2026, m:6, d:5, label:'AWS Deploy End', cls:'ms-purple' },
+    { y:2026, m:6, d:15, label:'Ship Week Start', cls:'ms-green' },
+    { y:2026, m:6, d:18, label:'SHIP DATE', cls:'ms-red' }
+  ];
+
+  var months = [
+    { y:2026, m:3, name:'March 2026' },
+    { y:2026, m:4, name:'April 2026' },
+    { y:2026, m:5, name:'May 2026' },
+    { y:2026, m:6, name:'June 2026' }
+  ];
+
+  var wrapper = document.getElementById('calendarWrapper');
+  var dayNames = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+  months.forEach(function(mo) {
+    var el = document.createElement('div');
+    el.className = 'cal-month';
+
+    var title = document.createElement('div');
+    title.className = 'cal-month-title';
+    title.textContent = mo.name;
+    el.appendChild(title);
+
+    var grid = document.createElement('div');
+    grid.className = 'cal-grid';
+
+    // Day headers
+    dayNames.forEach(function(dn) {
+      var h = document.createElement('div');
+      h.className = 'cal-head';
+      h.textContent = dn;
+      grid.appendChild(h);
+    });
+
+    var firstDay = new Date(mo.y, mo.m - 1, 1);
+    var daysInMonth = new Date(mo.y, mo.m, 0).getDate();
+    // JS: 0=Sun, convert to Mon-based
+    var startDow = firstDay.getDay();
+    startDow = startDow === 0 ? 6 : startDow - 1;
+
+    for (var e = 0; e < startDow; e++) {
+      var emp = document.createElement('div');
+      emp.className = 'cal-day empty';
+      grid.appendChild(emp);
+    }
+
+    for (var d = 1; d <= daysInMonth; d++) {
+      var cell = document.createElement('div');
+      cell.className = 'cal-day';
+      cell.textContent = d;
+
+      // Check milestones
+      for (var mi = 0; mi < milestones.length; mi++) {
+        var ms = milestones[mi];
+        if (ms.y === mo.y && ms.m === mo.m && ms.d === d) {
+          cell.classList.add('milestone', ms.cls);
+          cell.title = ms.label;
+          break;
+        }
+      }
+
+      // Today marker
+      var today = new Date();
+      if (today.getFullYear() === mo.y && (today.getMonth()+1) === mo.m && today.getDate() === d) {
+        cell.classList.add('today');
+      }
+
+      grid.appendChild(cell);
+    }
+
+    el.appendChild(grid);
+    wrapper.appendChild(el);
+  });
+})();
+</script>
+</body>
+</html>
