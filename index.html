@@ -759,6 +759,24 @@ code, .mono {
 .hire-card .hire-dept {
   font-size: 0.6875rem; color: var(--text-secondary);
 }
+.hire-card .jd-link {
+  display: inline-flex; align-items: center; gap: 4px; margin-top: 4px;
+  font-size: 0.75rem; font-weight: 500; color: var(--link); cursor: pointer;
+  transition: all 150ms; text-decoration: none;
+}
+.hire-card .jd-link:hover { text-decoration: underline; opacity: 0.85; }
+.hire-card .jd-link.pending {
+  color: var(--text-secondary); cursor: default; opacity: 0.6;
+  font-style: italic;
+}
+.hire-card .jd-link.pending:hover { text-decoration: none; }
+.hire-card .jd-link .material-icons { font-size: 14px; }
+.owner-tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-family: var(--font-mono); font-size: 0.625rem; font-weight: 500;
+  color: var(--text-secondary); background: var(--code-bg);
+  padding: 2px 8px; border-radius: 4px; letter-spacing: 0.02em;
+}
 
 /* ── RISK TABLE ──────────────────────────────────────── */
 .risk-table {
@@ -1310,6 +1328,7 @@ code, .mono {
       <li><span class="task-ws ws1">W1</span>Prepare Diligent API specs request (8 blocking questions)</li>
       <li><span class="task-ws ws1">W1</span>Clean up riskapture-review repo</li>
       <li><span class="task-ws wsh">Hire</span>Post JDs: Lead Engineer, AI/LLM Engineer, Product Owner, DevOps</li>
+      <li><span class="task-ws wsh">Hire</span>Publish all JDs online with public links for hiring portal <span class="owner-tag">Anmol + Avi</span></li>
     </ul>
   </div>
 </section>
@@ -1469,6 +1488,7 @@ code, .mono {
         <span class="badge badge-gray">By W3</span>
       </div>
       <div class="hire-dept">Engineering</div>
+      <span class="jd-link pending"><span class="material-icons">description</span>JD not yet posted</span>
     </div>
     <div class="hire-card">
       <div class="hire-role">AI/LLM Engineer</div>
@@ -1477,6 +1497,7 @@ code, .mono {
         <span class="badge badge-gray">By W7</span>
       </div>
       <div class="hire-dept">Engineering</div>
+      <span class="jd-link pending"><span class="material-icons">description</span>JD not yet posted</span>
     </div>
     <div class="hire-card">
       <div class="hire-role">DevOps/Platform Engineer</div>
@@ -1485,6 +1506,7 @@ code, .mono {
         <span class="badge badge-gray">By W8</span>
       </div>
       <div class="hire-dept">Engineering</div>
+      <span class="jd-link pending"><span class="material-icons">description</span>JD not yet posted</span>
     </div>
     <div class="hire-card">
       <div class="hire-role">Backend/API Engineer</div>
@@ -1493,6 +1515,7 @@ code, .mono {
         <span class="badge badge-gray">By W9</span>
       </div>
       <div class="hire-dept">Engineering</div>
+      <span class="jd-link pending"><span class="material-icons">description</span>JD not yet posted</span>
     </div>
     <div class="hire-card">
       <div class="hire-role">QA/Automation Engineer</div>
@@ -1501,6 +1524,7 @@ code, .mono {
         <span class="badge badge-gray">By W8</span>
       </div>
       <div class="hire-dept">Engineering</div>
+      <span class="jd-link pending"><span class="material-icons">description</span>JD not yet posted</span>
     </div>
     <div class="hire-card">
       <div class="hire-role">Product Owner</div>
@@ -1509,6 +1533,7 @@ code, .mono {
         <span class="badge badge-gray">By W10</span>
       </div>
       <div class="hire-dept">Product</div>
+      <span class="jd-link pending"><span class="material-icons">description</span>JD not yet posted</span>
     </div>
     <div class="hire-card">
       <div class="hire-role">UX/Product Designer</div>
@@ -1517,6 +1542,7 @@ code, .mono {
         <span class="badge badge-gray">By W10</span>
       </div>
       <div class="hire-dept">Product &amp; Design</div>
+      <span class="jd-link pending"><span class="material-icons">description</span>JD not yet posted</span>
     </div>
     <div class="hire-card">
       <div class="hire-role">Product Marketing Manager</div>
@@ -1525,6 +1551,7 @@ code, .mono {
         <span class="badge badge-gray">By W11</span>
       </div>
       <div class="hire-dept">Product</div>
+      <span class="jd-link pending"><span class="material-icons">description</span>JD not yet posted</span>
     </div>
   </div>
 </section>
