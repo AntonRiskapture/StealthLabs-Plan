@@ -787,7 +787,65 @@ code, .mono {
 }
 .hire-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
 .hire-card .hire-role {
-  font-size: 0.9375rem; font-weight: 600; color: var(--text);
+  font-size: 0.9375rem; font-weight: 600; color: var(--link); cursor: pointer;
+  transition: opacity 150ms;
+}
+.hire-card .hire-role:hover { opacity: 0.8; text-decoration: underline; }
+
+/* ── JD MODAL ──────────────────────────────────────── */
+.jd-backdrop {
+  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5); z-index: 800; backdrop-filter: blur(4px);
+}
+.jd-backdrop.open { display: flex; align-items: center; justify-content: center; }
+.jd-modal {
+  background: var(--paper); border: 1px solid var(--card-border);
+  border-radius: var(--radius-card); width: 90%; max-width: 640px;
+  max-height: 85vh; overflow-y: auto; padding: 32px;
+  box-shadow: 0 32px 64px rgba(0,0,0,0.3);
+  animation: jdSlideUp 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes jdSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.jd-modal-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 20px; gap: 16px;
+}
+.jd-modal-title { font-size: 1.25rem; font-weight: 700; color: var(--text); }
+.jd-modal-dept {
+  font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--text-secondary); margin-top: 4px;
+}
+.jd-modal-close {
+  width: 32px; height: 32px; border-radius: 8px; border: none;
+  background: var(--code-bg); color: var(--text-secondary); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 150ms; flex-shrink: 0;
+}
+.jd-modal-close:hover { background: rgba(238,49,46,0.15); color: var(--primary-main); }
+.jd-modal-badges { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+.jd-modal-section {
+  margin-bottom: 16px;
+}
+.jd-modal-section-title {
+  font-family: var(--font-mono); font-size: 0.625rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary);
+  margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--divider);
+}
+.jd-modal-section p, .jd-modal-section li {
+  font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.6;
+}
+.jd-modal-section ul {
+  list-style: none; padding: 0;
+}
+.jd-modal-section li {
+  padding: 4px 0 4px 16px; position: relative;
+}
+.jd-modal-section li::before {
+  content: ''; position: absolute; left: 0; top: 11px;
+  width: 6px; height: 6px; border-radius: 2px; background: var(--primary-main); opacity: 0.5;
 }
 .hire-card .hire-meta {
   display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
@@ -1534,7 +1592,7 @@ code, .mono {
 
   <div class="hire-grid">
     <div class="hire-card" style="border-top: 3px solid var(--primary-main);">
-      <div class="hire-role">Director of Product</div>
+      <div class="hire-role" onclick="openJdModal('Director of Product')">Director of Product</div>
       <div class="hire-meta">
         <span class="badge badge-critical">Critical</span>
         <span class="badge badge-gray">By W2</span>
@@ -1543,7 +1601,7 @@ code, .mono {
       <span class="jd-link pending"><span class="material-icons">description</span>JD not yet posted</span>
     </div>
     <div class="hire-card">
-      <div class="hire-role">Lead Full Stack Engineer</div>
+      <div class="hire-role" onclick="openJdModal('Lead Full Stack Engineer')">Lead Full Stack Engineer</div>
       <div class="hire-meta">
         <span class="badge badge-critical">Critical</span>
         <span class="badge badge-gray">By W3</span>
@@ -1552,7 +1610,7 @@ code, .mono {
       <span class="jd-link pending"><span class="material-icons">description</span>JD not yet posted</span>
     </div>
     <div class="hire-card">
-      <div class="hire-role">AI/LLM Engineer</div>
+      <div class="hire-role" onclick="openJdModal('AI/LLM Engineer')">AI/LLM Engineer</div>
       <div class="hire-meta">
         <span class="badge badge-critical">Critical</span>
         <span class="badge badge-gray">By W7</span>
@@ -1561,7 +1619,7 @@ code, .mono {
       <span class="jd-link pending"><span class="material-icons">description</span>JD not yet posted</span>
     </div>
     <div class="hire-card">
-      <div class="hire-role">DevOps/Platform Engineer</div>
+      <div class="hire-role" onclick="openJdModal('DevOps/Platform Engineer')">DevOps/Platform Engineer</div>
       <div class="hire-meta">
         <span class="badge badge-high">High</span>
         <span class="badge badge-gray">By W8</span>
@@ -1570,7 +1628,7 @@ code, .mono {
       <span class="jd-link pending"><span class="material-icons">description</span>JD not yet posted</span>
     </div>
     <div class="hire-card">
-      <div class="hire-role">Backend/API Engineer</div>
+      <div class="hire-role" onclick="openJdModal('Backend/API Engineer')">Backend/API Engineer</div>
       <div class="hire-meta">
         <span class="badge badge-high">High</span>
         <span class="badge badge-gray">By W9</span>
@@ -1579,7 +1637,7 @@ code, .mono {
       <span class="jd-link pending"><span class="material-icons">description</span>JD not yet posted</span>
     </div>
     <div class="hire-card">
-      <div class="hire-role">QA/Automation Engineer</div>
+      <div class="hire-role" onclick="openJdModal('QA/Automation Engineer')">QA/Automation Engineer</div>
       <div class="hire-meta">
         <span class="badge badge-high">High</span>
         <span class="badge badge-gray">By W8</span>
@@ -1588,7 +1646,7 @@ code, .mono {
       <span class="jd-link pending"><span class="material-icons">description</span>JD not yet posted</span>
     </div>
     <div class="hire-card">
-      <div class="hire-role">UX/Product Designer</div>
+      <div class="hire-role" onclick="openJdModal('UX/Product Designer')">UX/Product Designer</div>
       <div class="hire-meta">
         <span class="badge badge-medium">Medium</span>
         <span class="badge badge-gray">By W10</span>
@@ -1597,7 +1655,7 @@ code, .mono {
       <span class="jd-link pending"><span class="material-icons">description</span>JD not yet posted</span>
     </div>
     <div class="hire-card">
-      <div class="hire-role">Product Marketing Manager</div>
+      <div class="hire-role" onclick="openJdModal('Product Marketing Manager')">Product Marketing Manager</div>
       <div class="hire-meta">
         <span class="badge badge-medium">Medium</span>
         <span class="badge badge-gray">By W11</span>
@@ -1710,6 +1768,21 @@ code, .mono {
 
 </main>
 </div><!-- .app-layout -->
+
+<!-- JD MODAL -->
+<div class="jd-backdrop" id="jdBackdrop" onclick="closeJdModal()">
+  <div class="jd-modal" id="jdModal" onclick="event.stopPropagation()">
+    <div class="jd-modal-header">
+      <div>
+        <div class="jd-modal-title" id="jdTitle"></div>
+        <div class="jd-modal-dept" id="jdDept"></div>
+      </div>
+      <button class="jd-modal-close" onclick="closeJdModal()"><span class="material-icons" style="font-size:18px;">close</span></button>
+    </div>
+    <div class="jd-modal-badges" id="jdBadges"></div>
+    <div id="jdBody"></div>
+  </div>
+</div>
 
 <script>
 // ── Theme switching ──────────────────────────────────────
@@ -1843,6 +1916,211 @@ function checkWidth() {
 }
 checkWidth();
 window.addEventListener('resize', checkWidth);
+
+// ── JD Modal ─────────────────────────────────────────────
+var jdData = {
+  'Director of Product': {
+    dept: 'Product — Cross-workstream delivery lead',
+    priority: 'Critical', week: 'By W2',
+    summary: 'Owns cross-workstream coordination, delivery management, and stakeholder communications across all 5 parallel workstreams. Reports to Head of Stealth Labs. This is the #1 hire — without this role, Anton is a single point of failure across delivery, hiring, and stakeholder management.',
+    responsibilities: [
+      'Own day-to-day delivery management across all 5 workstreams (UC1, UC2, UC3, Rebrand, AWS Migration)',
+      'Run sprint ceremonies, stand-ups, and cross-team dependency resolution',
+      'Manage hiring pipeline alongside Head of Stealth Labs — screen candidates, coordinate interviews, close offers',
+      'Own backlog prioritisation and trade-off decisions when workstreams compete for shared resources',
+      'Coordinate with Diligent stakeholders — workshop prep, API spec follow-ups, integration alignment',
+      'Track and escalate risks from the risk register; own mitigation execution',
+      'Prepare weekly status reports and board-level summaries for Diligent leadership'
+    ],
+    requirements: [
+      '8+ years in product management, with 3+ in a Director or Senior PM role',
+      'Experience managing multiple parallel workstreams in a startup or scale-up environment',
+      'Strong technical literacy — can engage with engineering on architecture, API design, and infrastructure decisions',
+      'GRC, audit, or compliance domain experience is a strong plus',
+      'Proven ability to operate autonomously and make trade-off decisions under ambiguity',
+      'Experience with AI/ML product delivery is highly desirable',
+      'London-based or willing to relocate; on-site at Diligent London office'
+    ]
+  },
+  'Lead Full Stack Engineer': {
+    dept: 'Engineering',
+    priority: 'Critical', week: 'By W3',
+    summary: 'Owns portal architecture, multi-tenant DB design, integration points with GRC Brain and Agentic Cortex. Blocker for UC1 and UC2 feature delivery at scale.',
+    responsibilities: [
+      'Own the full-stack architecture of the Stealth Labs GRC portal (React + Node/Python)',
+      'Design and implement multi-tenant database schema and data isolation',
+      'Build integration points between the portal frontend, GRC Brain (AI backend), and Agentic Cortex (agent orchestration)',
+      'Lead UC1 Interview Co-Pilot frontend — real-time transcript + agent suggestions split view',
+      'Lead UC2 Automated Control Testing UI — test scheduling, results dashboard, exception queue',
+      'Mentor and onboard subsequent engineering hires as the team scales'
+    ],
+    requirements: [
+      '6+ years full-stack development with React and a backend language (Python or Node.js)',
+      'Strong PostgreSQL / relational DB design skills including multi-tenant patterns',
+      'Experience with real-time data (WebSockets, streaming) is a strong plus',
+      'Comfortable owning architecture decisions in a small, fast-moving team',
+      'GRC or enterprise SaaS experience is a plus'
+    ]
+  },
+  'AI/LLM Engineer': {
+    dept: 'Engineering',
+    priority: 'Critical', week: 'By W7',
+    summary: 'Owns GRC Brain and Agentic Cortex. UC3 9-agent orchestration graph is their primary deliverable. Must onboard by Week 7 at the latest to deliver UC3 MVP.',
+    responsibilities: [
+      'Own the GRC Brain (AI reasoning layer) and Agentic Cortex (agent orchestration framework)',
+      'Build the UC3 Automated Audit Reporting 9-agent LangGraph orchestration graph',
+      'Design and implement agent patterns: Board Concierge, Intelligence Scout, Risk Synthesizer, Narrator, CAE Steering, Forensic Analyst, Confidence Calibrator, Board Pack Curator, CAE Sign-off',
+      'Implement HITL (Human-in-the-Loop) gates across all agent workflows',
+      'Tune prompts and confidence scoring for Bedrock-hosted models',
+      'Own agent evaluation framework — measuring quality, latency, and reliability'
+    ],
+    requirements: [
+      '4+ years in ML/AI engineering with 2+ years working with LLMs',
+      'Production experience with LangChain, LangGraph, or similar agent orchestration frameworks',
+      'Strong Python skills; experience with async workflows and streaming',
+      'Experience with AWS Bedrock, Anthropic Claude, or similar hosted LLM providers',
+      'Understanding of RAG patterns, embedding models, and vector stores',
+      'GRC domain knowledge is a significant plus but not required'
+    ]
+  },
+  'DevOps/Platform Engineer': {
+    dept: 'Engineering',
+    priority: 'High', week: 'By W8',
+    summary: 'Owns AWS EKS, RDS, CI/CD pipelines, and Bedrock infrastructure. Critical for production deployment in June without solo execution bottleneck.',
+    responsibilities: [
+      'Own AWS infrastructure — EKS clusters, RDS PostgreSQL, ElastiCache, OpenSearch',
+      'Build and maintain Terraform IaC modules for all environments',
+      'Design and implement CI/CD pipelines (GitHub Actions → EKS)',
+      'Manage the Hetzner → AWS migration including DMS data migration',
+      'Configure AWS Bedrock model access and monitoring',
+      'Own production deployment, DNS cutover, and zero-downtime deploy strategy',
+      'Set up monitoring, alerting, and incident response procedures'
+    ],
+    requirements: [
+      '4+ years in DevOps / Platform Engineering',
+      'Deep AWS experience — EKS, RDS, IAM, VPC, Bedrock',
+      'Strong Terraform skills; experience with infrastructure-as-code at scale',
+      'Experience with Kubernetes in production',
+      'CI/CD pipeline design (GitHub Actions preferred)',
+      'Experience with database migration tools (AWS DMS or similar)'
+    ]
+  },
+  'Backend/API Engineer': {
+    dept: 'Engineering',
+    priority: 'High', week: 'By W9',
+    summary: 'Owns Data Hub, DiligentMCP expansion (15 new tools), and evidence store connectors. Frees the Lead Engineer from integration work in Month 2.',
+    responsibilities: [
+      'Own the Data Hub — central data integration layer between Stealth Labs and Diligent',
+      'Expand DiligentMCP with 15+ new tools covering Frameworks, ERM, Compliance Maps, 3rd Party Risk, Vault',
+      'Build evidence store connectors for bidirectional sync with Diligent Projects',
+      'Implement API adapters for Diligent authentication, evidence storage, test plans, and board reporting',
+      'Design and build the data pipeline for UC2 control test results sync',
+      'Own API documentation and integration testing'
+    ],
+    requirements: [
+      '4+ years backend development (Python or Node.js)',
+      'Strong API design skills — RESTful and/or GraphQL',
+      'Experience building integration layers / middleware between enterprise systems',
+      'Database skills — PostgreSQL, query optimisation',
+      'Experience with MCP (Model Context Protocol) or similar tool-use patterns is a plus',
+      'GRC or enterprise software integration experience is a plus'
+    ]
+  },
+  'QA/Automation Engineer': {
+    dept: 'Engineering',
+    priority: 'High', week: 'By W8',
+    summary: 'Multi-tenant isolation testing is the most critical QA surface. Also owns test strategy for non-deterministic agent behaviour. Needed before production hardening phase.',
+    responsibilities: [
+      'Own the test strategy for the entire Stealth Labs platform',
+      'Design and implement multi-tenant isolation tests — the most critical QA surface',
+      'Build test frameworks for non-deterministic agent behaviour (LLM outputs, confidence scores)',
+      'Create end-to-end test suites for UC1 (Interview Co-Pilot) and UC2 (Control Testing)',
+      'Establish performance benchmarks and regression testing for agent quality',
+      'Own production hardening test plan for the June ship date'
+    ],
+    requirements: [
+      '4+ years in QA / Test Automation',
+      'Experience with testing AI/ML systems or non-deterministic outputs',
+      'Strong automation skills — Playwright, Cypress, or similar',
+      'Experience with multi-tenant SaaS testing patterns',
+      'API testing experience (Postman, REST-assured, or similar)',
+      'Security testing awareness (PII handling, data isolation)'
+    ]
+  },
+  'UX/Product Designer': {
+    dept: 'Product & Design',
+    priority: 'Medium', week: 'By W10',
+    summary: 'Owns the design system, agent UX patterns (confidence indicators, HITL approval flows), and AI Assistant experience. Impact is highest from Month 2 onward.',
+    responsibilities: [
+      'Own the Stealth Labs GRC design system — extending the Diligent brand foundation',
+      'Design agent UX patterns: confidence indicators, HITL approval flows, suggestion cards',
+      'Design the AI Assistant / Co-Pilot experience for UC1 Interview Co-Pilot',
+      'Create the control testing dashboard and exception review queue UX for UC2',
+      'Design the board pack report viewer for UC3',
+      'Collaborate with engineering on component implementation using MUI'
+    ],
+    requirements: [
+      '5+ years in UX/Product Design for SaaS products',
+      'Strong design system experience — Figma, component libraries, token-based theming',
+      'Experience designing for AI-powered products (confidence UX, HITL patterns)',
+      'Enterprise / B2B design experience preferred',
+      'Ability to work closely with engineers and ship iteratively'
+    ]
+  },
+  'Product Marketing Manager': {
+    dept: 'Product',
+    priority: 'Medium', week: 'By W11',
+    summary: 'GTM positioning, sales enablement, and launch coordination for UC1 and UC2 ship date. Can onboard in final two weeks and still shape the launch narrative.',
+    responsibilities: [
+      'Own GTM positioning for UC1 Interview Co-Pilot and UC2 Automated Control Testing',
+      'Create sales enablement materials — pitch decks, one-pagers, demo scripts',
+      'Coordinate the June 18 launch with Diligent marketing',
+      'Define competitive positioning against existing GRC tools',
+      'Build customer-facing messaging for the Stealth Labs brand',
+      'Plan post-launch campaigns and customer onboarding materials'
+    ],
+    requirements: [
+      '4+ years in Product Marketing for B2B SaaS',
+      'Experience in GRC, audit, compliance, or enterprise risk management space',
+      'Strong writing skills — can produce compelling narratives for technical products',
+      'Experience with product launches and coordinating across sales, product, and engineering',
+      'Familiarity with AI/ML product messaging is a plus'
+    ]
+  }
+};
+
+function openJdModal(roleName) {
+  var jd = jdData[roleName];
+  if (!jd) return;
+  document.getElementById('jdTitle').textContent = roleName;
+  document.getElementById('jdDept').textContent = jd.dept;
+
+  var badgesEl = document.getElementById('jdBadges');
+  var pClass = jd.priority === 'Critical' ? 'badge-critical' : jd.priority === 'High' ? 'badge-high' : 'badge-medium';
+  badgesEl.innerHTML = '<span class="badge ' + pClass + '">' + jd.priority + '</span><span class="badge badge-gray">' + jd.week + '</span>';
+
+  var body = '';
+  body += '<div class="jd-modal-section"><div class="jd-modal-section-title">Role Summary</div><p>' + jd.summary + '</p></div>';
+  body += '<div class="jd-modal-section"><div class="jd-modal-section-title">Responsibilities</div><ul>';
+  jd.responsibilities.forEach(function(r) { body += '<li>' + r + '</li>'; });
+  body += '</ul></div>';
+  body += '<div class="jd-modal-section"><div class="jd-modal-section-title">Requirements</div><ul>';
+  jd.requirements.forEach(function(r) { body += '<li>' + r + '</li>'; });
+  body += '</ul></div>';
+  document.getElementById('jdBody').innerHTML = body;
+
+  document.getElementById('jdBackdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeJdModal() {
+  document.getElementById('jdBackdrop').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeJdModal();
+});
 
 // ── Calendar Renderer ────────────────────────────────────
 (function() {
