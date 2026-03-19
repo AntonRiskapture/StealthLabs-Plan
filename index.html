@@ -2281,7 +2281,7 @@ var jdData = {
       'Design and implement CI/CD pipelines (GitHub Actions → EKS)',
       'Manage the Hetzner → AWS migration including DMS data migration',
       'Configure AWS Bedrock model access and monitoring',
-      'Own production deployment, DNS cutover, and zero-downtime deploy strategy',
+      'Own production deployment, DNS cutover, and deploy strategy with planned downtime windows',
       'Set up monitoring, alerting, and incident response procedures'
     ],
     requirements: [
@@ -2507,17 +2507,17 @@ var wsData = {
     title: 'AWS / Bedrock Migration',
     subtitle: 'Hetzner \u2192 AWS EKS · Anthropic direct \u2192 Bedrock · VoyageAI \u2192 Cohere',
     target: 'Production', targetDate: 'June 18',
-    description: 'A full infrastructure migration from Hetzner bare-metal to AWS EKS, with all LLM calls moved from direct Anthropic API to AWS Bedrock, and embedding model swapped from VoyageAI to Cohere via Bedrock. This is a zero-downtime migration using AWS DMS for data, Terraform IaC for infrastructure provisioning, and a blue/green deployment strategy for the cutover.',
+    description: 'A full infrastructure migration from Hetzner bare-metal to AWS EKS, with all LLM calls moved from direct Anthropic API to AWS Bedrock, and embedding model swapped from VoyageAI to Cohere via Bedrock. Migration will involve planned downtime windows coordinated with stakeholders. AWS DMS handles data migration, Terraform IaC for infrastructure provisioning, and a blue/green deployment strategy for the cutover.',
     problem: 'The current infrastructure is on Hetzner bare-metal with direct Anthropic API calls. This doesn\u2019t meet Diligent\u2019s enterprise requirements for AWS-native hosting, Bedrock model governance, and SOC 2 compliant infrastructure.',
     capabilities: [
       'AWS EKS cluster with RDS PostgreSQL, ElastiCache, and OpenSearch',
       'All LLM calls via AWS Bedrock \u2014 no direct Anthropic API calls remaining',
       'Cohere embedding adapter (1024-dim) replacing VoyageAI via Bedrock',
       'Terraform IaC for all infrastructure provisioning',
-      'AWS DMS for zero-downtime data migration from Hetzner',
+      'AWS DMS for data migration from Hetzner (planned downtime window)',
       'CI/CD pipeline: GitHub Actions \u2192 EKS',
       'Monitoring, alerting, and incident response procedures',
-      'DNS cutover with zero-downtime blue/green deployment'
+      'DNS cutover with blue/green deployment and planned downtime coordination'
     ],
     hitl: [],
     dependencies: ['AWS account and Bedrock model access provisioned by Diligent', 'Agreement on AWS topology at London workshop'],
@@ -2644,7 +2644,7 @@ var taskData = {
     title: 'Start Bedrock Provider Swap',
     ws: 'W5 — AWS/Bedrock Infra', wsColor: '#8b5cf6',
     dateStart: '20260318', dateEnd: '20260329',
-    owner: 'Anton Merk', phase: 'Phase 0',
+    owner: 'Anmol', phase: 'Phase 0',
     description: 'Begin migrating all LLM API calls from direct Anthropic API to AWS Bedrock. This involves refactoring the Python and Java service layers that currently call Claude via Anthropic\'s SDK to instead use the Bedrock runtime client. Bedrock is Diligent\'s required model hosting layer — it provides enterprise-grade model governance, usage tracking, and SOC 2 compliance. This must complete by W3 as every AI feature downstream depends on it.',
     risks: ['Bedrock performance / cost']
   },
@@ -2652,7 +2652,7 @@ var taskData = {
     title: 'Start Cohere Embedding Adapter',
     ws: 'W5 — AWS/Bedrock Infra', wsColor: '#8b5cf6',
     dateStart: '20260318', dateEnd: '20260329',
-    owner: 'Anton Merk', phase: 'Phase 0',
+    owner: 'Anmol', phase: 'Phase 0',
     description: 'Build an embedding adapter to replace VoyageAI with Cohere via Bedrock. The existing vector store uses 1024-dimensional embeddings — Cohere\'s Embed model on Bedrock natively outputs 1024-dim vectors, so no pgvector resize is needed. This adapter abstracts the embedding provider so future model swaps require only config changes.',
     risks: ['Bedrock performance / cost']
   },
@@ -2716,7 +2716,7 @@ var taskData = {
     title: 'AWS IaC Start',
     ws: 'W5 — AWS/Bedrock Infra', wsColor: '#8b5cf6',
     dateStart: '20260330', dateEnd: '20260405',
-    owner: 'Anton Merk', phase: 'Phase 1',
+    owner: 'Anmol', phase: 'Phase 1',
     description: 'Begin Infrastructure-as-Code development for the AWS environment using Terraform. This covers EKS cluster configuration, RDS PostgreSQL, ElastiCache, and OpenSearch provisioning. The topology must be agreed at the workshop before finalising the Terraform modules.',
     risks: []
   },
@@ -2732,7 +2732,7 @@ var taskData = {
     title: 'Bedrock Migration Complete',
     ws: 'W5 — AWS/Bedrock Infra', wsColor: '#8b5cf6',
     dateStart: '20260407', dateEnd: '20260412',
-    owner: 'Anton Merk', phase: 'Phase 1',
+    owner: 'Anmol', phase: 'Phase 1',
     description: 'Complete the Bedrock migration — all LLM calls must be verified working on AWS Bedrock by end of this week. This is a hard deadline because every AI feature (UC1 interview suggestions, UC2 test execution, UC3 report generation) depends on the Bedrock runtime. If this slips, the entire plan shifts right.',
     risks: ['Bedrock performance / cost']
   },
@@ -2796,7 +2796,7 @@ var taskData = {
     title: 'AWS Environment Provisioning',
     ws: 'W5 — AWS/Bedrock Infra', wsColor: '#8b5cf6',
     dateStart: '20260414', dateEnd: '20260419',
-    owner: 'Anton Merk', phase: 'Phase 1',
+    owner: 'Anmol', phase: 'Phase 1',
     description: 'Complete AWS environment provisioning — dev, staging, and production environments all running on EKS with RDS PostgreSQL, ElastiCache, and OpenSearch. CI/CD pipeline connected via GitHub Actions.',
     risks: []
   },
@@ -2956,8 +2956,8 @@ var taskData = {
     title: 'AWS Production Deploy',
     ws: 'W5 — AWS/Bedrock Infra', wsColor: '#8b5cf6',
     dateStart: '20260601', dateEnd: '20260606',
-    owner: 'DevOps Engineer (TBH)', phase: 'Phase 3',
-    description: 'AWS production deployment — DNS cutover planning, DMS data migration from Hetzner. Blue/green deployment strategy for zero-downtime cutover.',
+    owner: 'Anmol', phase: 'Phase 3',
+    description: 'AWS production deployment — DNS cutover planning, DMS data migration from Hetzner. Blue/green deployment strategy with planned downtime window coordinated with stakeholders.',
     risks: []
   },
   'p3-hardening-uc1': {
@@ -3028,7 +3028,7 @@ var taskData = {
     title: 'AWS/Bedrock PRODUCTION — LIVE',
     ws: 'W5 — AWS/Bedrock Infra', wsColor: '#8b5cf6',
     dateStart: '20260615', dateEnd: '20260619',
-    owner: 'DevOps Engineer (TBH)', phase: 'Phase 3',
+    owner: 'Anmol', phase: 'Phase 3',
     description: 'AWS/Bedrock PRODUCTION — all traffic on AWS EKS, no direct Anthropic API calls remaining. Hetzner decommission ready.',
     risks: []
   }
@@ -3106,7 +3106,7 @@ function downloadICS(taskId) {
       owner:'Anton Merk + Diligent Team' },
     { y:2026, m:4, d:11, label:'Bedrock Migration Complete', cls:'ms-purple', ws:'W5 Infra', wsColor:'#8b5cf6',
       desc:'All LLM calls verified on AWS Bedrock. Python + Java layers migrated. No direct Anthropic calls remaining.',
-      owner:'Anton Merk' },
+      owner:'Anmol' },
     { y:2026, m:4, d:25, label:'End of Month 1', cls:'ms-gray', ws:'General', wsColor:'#94A3B8',
       desc:'UC1 and UC2 agent cores done. Rebrand string replacement complete. Tenant landing page built. AWS environment provisioned.',
       owner:'Anton Merk' },
@@ -3118,10 +3118,10 @@ function downloadICS(taskId) {
       owner:'Anton Merk + Lead Engineer (TBH)' },
     { y:2026, m:6, d:1, label:'AWS Production Deploy', cls:'ms-purple', ws:'W5 Infra', wsColor:'#8b5cf6',
       desc:'AWS production environment live. DNS cutover planning. DMS data migration from Hetzner begins.',
-      owner:'DevOps Engineer (TBH)' },
+      owner:'Anmol' },
     { y:2026, m:6, d:5, label:'AWS Deploy Complete', cls:'ms-purple', ws:'W5 Infra', wsColor:'#8b5cf6',
       desc:'All traffic routes through AWS EKS + Bedrock. Hetzner decommission ready. Monitoring and alerting active.',
-      owner:'DevOps Engineer (TBH)' },
+      owner:'Anmol' },
     { y:2026, m:6, d:15, label:'Ship Week Begins', cls:'ms-green', ws:'All', wsColor:'#22c55e',
       desc:'Final ship week. UC1 + UC2 production launch. UC3 demo delivered. Rebrand verified across all portals.',
       owner:'Anton Merk + Full Team' },
