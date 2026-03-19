@@ -667,9 +667,73 @@ code, .mono {
   border-bottom: 3px solid;
 }
 .gantt-label {
-  font-size: 0.8125rem; font-weight: 600; color: var(--text);
+  font-size: 0.8125rem; font-weight: 600; color: var(--link);
   padding: 12px 8px; display: flex; align-items: center; gap: 8px;
+  border-bottom: 1px solid var(--divider); cursor: pointer; transition: opacity 150ms;
+}
+.gantt-label:hover { opacity: 0.75; text-decoration: underline; }
+
+/* ── RESIZABLE WS POPUP ────────────────────────────────── */
+.ws-popup-backdrop {
+  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5); z-index: 800; backdrop-filter: blur(4px);
+  align-items: center; justify-content: center;
+}
+.ws-popup-backdrop.open { display: flex; }
+.ws-popup {
+  background: var(--paper); border: 1px solid var(--card-border);
+  border-radius: var(--radius-card); width: 680px; min-width: 380px; min-height: 300px;
+  max-width: 90vw; max-height: 85vh;
+  box-shadow: 0 32px 64px rgba(0,0,0,0.3);
+  animation: jdSlideUp 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex; flex-direction: column;
+  resize: both; overflow: hidden;
+  position: relative;
+}
+.ws-popup-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 24px 16px; flex-shrink: 0;
   border-bottom: 1px solid var(--divider);
+  cursor: move;
+}
+.ws-popup-header-left { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
+.ws-popup-title { font-size: 1.125rem; font-weight: 700; color: var(--text); }
+.ws-popup-tag {
+  font-family: var(--font-mono); font-size: 0.5625rem; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 10px;
+  border-radius: 100px; flex-shrink: 0;
+}
+.ws-popup-close {
+  width: 32px; height: 32px; border-radius: 8px; border: none;
+  background: var(--code-bg); color: var(--text-secondary); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 150ms; flex-shrink: 0; margin-left: 12px;
+}
+.ws-popup-close:hover { background: rgba(238,49,46,0.15); color: var(--primary-main); }
+.ws-popup-body {
+  flex: 1; overflow-y: auto; padding: 20px 24px 24px;
+}
+.ws-popup-section { margin-bottom: 16px; }
+.ws-popup-section-title {
+  font-family: var(--font-mono); font-size: 0.625rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary);
+  margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--divider);
+}
+.ws-popup-section p { font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.65; }
+.ws-popup-section ul { list-style: none; padding: 0; }
+.ws-popup-section li {
+  padding: 4px 0 4px 16px; position: relative;
+  font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.6;
+}
+.ws-popup-section li::before {
+  content: ''; position: absolute; left: 0; top: 11px;
+  width: 6px; height: 6px; border-radius: 2px; opacity: 0.5;
+  background: var(--dot-color, var(--primary));
+}
+.ws-popup-resize-hint {
+  position: absolute; bottom: 4px; right: 8px;
+  font-family: var(--font-mono); font-size: 0.5rem; color: var(--text-secondary);
+  opacity: 0.4; pointer-events: none;
 }
 .gantt-label .ws-dot {
   width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0;
@@ -1317,7 +1381,7 @@ code, .mono {
       <div class="gantt-header">W13</div>
 
       <!-- W1 Interview Co-Pilot: Weeks 0-13 -->
-      <div class="gantt-label"><span class="ws-dot" style="background:#22c55e;"></span>W1 Interview Co-Pilot</div>
+      <div class="gantt-label" onclick="openWsPopup('w1')"><span class="ws-dot" style="background:#22c55e;"></span>W1 Interview Co-Pilot</div>
       <div class="gantt-cell"><div class="gantt-bar bar-start" style="background:#22c55e;border-color:#22c55e;"></div></div>
       <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#22c55e;border-color:#22c55e;"></div></div>
       <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#22c55e;border-color:#22c55e;"></div></div>
@@ -1334,7 +1398,7 @@ code, .mono {
       <div class="gantt-cell"><div class="gantt-bar bar-end" style="background:#22c55e;border-color:#22c55e;"></div></div>
 
       <!-- W2 Control Testing: Weeks 3-13 -->
-      <div class="gantt-label"><span class="ws-dot" style="background:#f59e0b;"></span>W2 Control Testing</div>
+      <div class="gantt-label" onclick="openWsPopup('w2')"><span class="ws-dot" style="background:#f59e0b;"></span>W2 Control Testing</div>
       <div class="gantt-cell"></div>
       <div class="gantt-cell"></div>
       <div class="gantt-cell"></div>
@@ -1351,7 +1415,7 @@ code, .mono {
       <div class="gantt-cell"><div class="gantt-bar bar-end" style="background:#f59e0b;border-color:#f59e0b;"></div></div>
 
       <!-- W3 Audit Reporting: Weeks 6-13 -->
-      <div class="gantt-label"><span class="ws-dot" style="background:#EE312E;"></span>W3 Audit Reporting</div>
+      <div class="gantt-label" onclick="openWsPopup('w3')"><span class="ws-dot" style="background:#EE312E;"></span>W3 Audit Reporting</div>
       <div class="gantt-cell"></div>
       <div class="gantt-cell"></div>
       <div class="gantt-cell"></div>
@@ -1368,7 +1432,7 @@ code, .mono {
       <div class="gantt-cell"><div class="gantt-bar bar-end" style="background:#EE312E;border-color:#EE312E;"></div></div>
 
       <!-- W4 Rebrand + Landing: Weeks 0-11 -->
-      <div class="gantt-label"><span class="ws-dot" style="background:#3b82f6;"></span>W4 Rebrand + Landing</div>
+      <div class="gantt-label" onclick="openWsPopup('w4')"><span class="ws-dot" style="background:#3b82f6;"></span>W4 Rebrand + Landing</div>
       <div class="gantt-cell"><div class="gantt-bar bar-start" style="background:#3b82f6;border-color:#3b82f6;"></div></div>
       <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#3b82f6;border-color:#3b82f6;"></div></div>
       <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#3b82f6;border-color:#3b82f6;"></div></div>
@@ -1385,7 +1449,7 @@ code, .mono {
       <div class="gantt-cell"></div>
 
       <!-- W5 AWS/Bedrock Infra: Weeks 0-10 -->
-      <div class="gantt-label"><span class="ws-dot" style="background:#8b5cf6;"></span>W5 AWS/Bedrock Infra</div>
+      <div class="gantt-label" onclick="openWsPopup('w5')"><span class="ws-dot" style="background:#8b5cf6;"></span>W5 AWS/Bedrock Infra</div>
       <div class="gantt-cell"><div class="gantt-bar bar-start" style="background:#8b5cf6;border-color:#8b5cf6;"></div></div>
       <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#8b5cf6;border-color:#8b5cf6;"></div></div>
       <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#8b5cf6;border-color:#8b5cf6;"></div></div>
@@ -1993,6 +2057,21 @@ code, .mono {
   </div>
 </div>
 
+<!-- WS POPUP (resizable) -->
+<div class="ws-popup-backdrop" id="wsPopupBackdrop" onclick="closeWsPopup()">
+  <div class="ws-popup" id="wsPopup" onclick="event.stopPropagation()">
+    <div class="ws-popup-header" id="wsPopupHeader">
+      <div class="ws-popup-header-left">
+        <span class="ws-popup-tag" id="wsPopupTag"></span>
+        <div class="ws-popup-title" id="wsPopupTitle"></div>
+      </div>
+      <button class="ws-popup-close" onclick="closeWsPopup()"><span class="material-icons" style="font-size:18px;">close</span></button>
+    </div>
+    <div class="ws-popup-body" id="wsPopupBody"></div>
+    <div class="ws-popup-resize-hint">drag corner to resize</div>
+  </div>
+</div>
+
 <script>
 // ── Theme switching ──────────────────────────────────────
 function setTheme(theme) {
@@ -2494,6 +2573,70 @@ function closeWsModal() {
   // Uses same backdrop as JD modal
   closeJdModal();
 }
+
+// ── WS Popup (resizable, from Gantt) ─────────────────────
+function openWsPopup(wsKey) {
+  var ws = wsData[wsKey];
+  if (!ws) return;
+  document.getElementById('wsPopupTag').textContent = ws.tag;
+  document.getElementById('wsPopupTag').style.background = ws.tagColor + '22';
+  document.getElementById('wsPopupTag').style.color = ws.tagColor;
+  document.getElementById('wsPopupTitle').textContent = ws.title;
+
+  var body = '';
+  body += '<div class="ws-popup-section"><div class="ws-popup-section-title">Overview</div><p>' + ws.description + '</p></div>';
+  if (ws.subtitle) {
+    body += '<div class="ws-popup-section" style="margin-top:-8px;"><p style="font-style:italic;border-left:3px solid ' + ws.tagColor + ';padding-left:12px;">' + ws.subtitle + '</p></div>';
+  }
+  body += '<div class="ws-popup-section"><div class="ws-popup-section-title">Current State Problem</div><p>' + ws.problem + '</p></div>';
+  body += '<div class="ws-popup-section"><div class="ws-popup-section-title">Key Capabilities</div><ul>';
+  ws.capabilities.forEach(function(c) { body += '<li style="--dot-color:' + ws.tagColor + ';">' + c + '</li>'; });
+  body += '</ul></div>';
+  if (ws.hitl && ws.hitl.length > 0) {
+    body += '<div class="ws-popup-section"><div class="ws-popup-section-title">Human-in-the-Loop Gates</div><ul>';
+    ws.hitl.forEach(function(h) { body += '<li style="--dot-color:' + ws.tagColor + ';">' + h + '</li>'; });
+    body += '</ul></div>';
+  }
+  if (ws.agents) {
+    body += '<div class="ws-popup-section"><div class="ws-popup-section-title">Agent Architecture</div><div style="display:flex;flex-wrap:wrap;gap:6px;">';
+    ws.agents.forEach(function(a, i) {
+      var isHitl = a.indexOf('HITL') > -1;
+      var bg = isHitl ? 'rgba(238,49,46,0.1)' : 'var(--code-bg)';
+      var color = isHitl ? 'var(--primary-main)' : 'var(--text)';
+      body += '<span style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:6px;font-size:0.75rem;background:' + bg + ';color:' + color + ';"><span style="font-family:var(--font-mono);font-size:0.625rem;font-weight:600;opacity:0.6;">' + (isHitl ? '\u21B5' : (i+1)) + '</span>' + a.replace(' (HITL)','') + '</span>';
+    });
+    body += '</div></div>';
+  }
+  body += '<div class="ws-popup-section"><div class="ws-popup-section-title">Diligent API Dependencies</div><ul>';
+  ws.dependencies.forEach(function(d) { body += '<li style="--dot-color:' + ws.tagColor + ';">' + d + '</li>'; });
+  body += '</ul></div>';
+  body += '<div class="ws-popup-section"><div class="ws-popup-section-title">Timeline</div><p style="font-family:var(--font-mono);font-size:0.75rem;line-height:1.8;background:var(--code-bg);padding:12px 16px;border-radius:8px;">' + ws.phases.replace(/\|/g, '<br>') + '</p></div>';
+
+  document.getElementById('wsPopupBody').innerHTML = body;
+
+  // Set bullet colors
+  document.querySelectorAll('#wsPopupBody li').forEach(function(li) {
+    var c = li.style.getPropertyValue('--dot-color') || ws.tagColor;
+    li.style.setProperty('--dot-color', c);
+  });
+
+  // Reset size and position
+  var popup = document.getElementById('wsPopup');
+  popup.style.width = '';
+  popup.style.height = '';
+
+  document.getElementById('wsPopupBackdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeWsPopup() {
+  document.getElementById('wsPopupBackdrop').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeWsPopup();
+});
 
 // ── Task Detail Data & Modal ─────────────────────────────
 var taskData = {
