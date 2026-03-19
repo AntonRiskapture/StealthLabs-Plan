@@ -849,6 +849,7 @@ code, .mono {
 .task-ws.ws3 { background: rgba(238,49,46,0.15); color: #EE312E; }
 .task-ws.ws4 { background: rgba(59,130,246,0.15); color: #3b82f6; }
 .task-ws.ws5 { background: rgba(139,92,246,0.15); color: #8b5cf6; }
+.task-ws.ws6 { background: rgba(20,184,166,0.15); color: #14b8a6; }
 .task-ws.wsh { background: rgba(148,163,184,0.15); color: #94A3B8; }
 
 /* ── HIRING CARDS ────────────────────────────────────── */
@@ -1273,9 +1274,9 @@ code, .mono {
       <div class="stat-sub">3 months</div>
     </div>
     <div class="stat-card">
-      <div class="stat-value">5</div>
+      <div class="stat-value">6</div>
       <div class="stat-label">Workstreams</div>
-      <div class="stat-sub">parallel tracks</div>
+      <div class="stat-sub">parallel tracks + integration layer</div>
     </div>
     <div class="stat-card">
       <div class="stat-value">3</div>
@@ -1321,6 +1322,11 @@ code, .mono {
       <div class="ws-name" onclick="openWsModal('w5')">AWS/Bedrock Infra</div>
       <div class="ws-target"><span class="badge badge-purple">Production June 18</span></div>
     </div>
+    <div class="ws-card" style="border-top-color:#14b8a6;">
+      <div class="ws-tag" style="color:#14b8a6;">W6</div>
+      <div class="ws-name" onclick="openWsModal('w6')">DiligentMCP</div>
+      <div class="ws-target"><span class="badge" style="background:rgba(20,184,166,0.12);color:#14b8a6;">231 Tools · 14 Domains</span></div>
+    </div>
   </div>
 </section>
 
@@ -1340,6 +1346,7 @@ code, .mono {
     <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#22c55e;"></div>W1 Interview Co-Pilot</div>
     <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#f59e0b;"></div>W2 Control Testing</div>
     <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#8b5cf6;"></div>W5 Bedrock/AWS</div>
+    <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#14b8a6;"></div>W6 DiligentMCP</div>
     <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#3b82f6;"></div>W4 Rebrand</div>
     <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#94A3B8;"></div>General</div>
   </div>
@@ -1350,7 +1357,7 @@ code, .mono {
      ═══════════════════════════════════════════════════════════════════ -->
 <section class="section" id="gantt">
   <h2 class="section-title">Gantt Chart</h2>
-  <p>All 5 workstreams plus hiring across 13 weeks, overlaid with phase zones.</p>
+  <p>All 6 workstreams plus hiring across 13 weeks, overlaid with phase zones.</p>
 
   <div class="gantt-wrapper">
     <!-- Phase zone labels -->
@@ -1465,6 +1472,23 @@ code, .mono {
       <div class="gantt-cell"></div>
       <div class="gantt-cell"></div>
 
+      <!-- W6 DiligentMCP: Weeks 0-13 -->
+      <div class="gantt-label" onclick="openWsPopup('w6')"><span class="ws-dot" style="background:#14b8a6;"></span>W6 DiligentMCP</div>
+      <div class="gantt-cell"><div class="gantt-bar bar-start" style="background:#14b8a6;border-color:#14b8a6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#14b8a6;border-color:#14b8a6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#14b8a6;border-color:#14b8a6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#14b8a6;border-color:#14b8a6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#14b8a6;border-color:#14b8a6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#14b8a6;border-color:#14b8a6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#14b8a6;border-color:#14b8a6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#14b8a6;border-color:#14b8a6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#14b8a6;border-color:#14b8a6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#14b8a6;border-color:#14b8a6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#14b8a6;border-color:#14b8a6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#14b8a6;border-color:#14b8a6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-mid" style="background:#14b8a6;border-color:#14b8a6;"></div></div>
+      <div class="gantt-cell"><div class="gantt-bar bar-end" style="background:#14b8a6;border-color:#14b8a6;"></div></div>
+
       <!-- Hiring: Weeks 0-13 -->
       <div class="gantt-label"><span class="ws-dot" style="background:#94A3B8;"></span>Hiring</div>
       <div class="gantt-cell"><div class="gantt-bar bar-start" style="background:#94A3B8;border-color:#94A3B8;"></div></div>
@@ -1524,6 +1548,24 @@ code, .mono {
       </div>
     </div>
 
+    <div class="cp-row-label">Integration Layer Dependencies</div>
+    <div class="cp-row">
+      <div class="cp-node" style="border-color:#14b8a6;">
+        <div class="cp-label" style="color:#14b8a6;">DiligentMCP (231 tools)</div>
+        <div class="cp-timing">Already built &mdash; needs validation</div>
+      </div>
+      <div class="cp-arrow">&rarr;</div>
+      <div class="cp-node" style="border-color:#f59e0b;">
+        <div class="cp-label">Product team sign-off per domain</div>
+        <div class="cp-timing">Balazs &middot; Tolu &middot; Bram &middot; Tom</div>
+      </div>
+      <div class="cp-arrow">&rarr;</div>
+      <div class="cp-node" style="border-color:#94A3B8;">
+        <div class="cp-label">UC1 Evidence Linking<br>UC2 Test Plan Sync<br>UC3 Data Harvest</div>
+        <div class="cp-timing">Blocked until validated</div>
+      </div>
+    </div>
+
     <div class="cp-row-label">Hiring Dependencies</div>
     <div class="cp-row">
       <div class="cp-node" style="border-color:#EE312E; background: color-mix(in srgb, #EE312E 8%, var(--card-bg));">
@@ -1533,7 +1575,7 @@ code, .mono {
       <div class="cp-arrow">&rarr;</div>
       <div class="cp-node" style="border-color:#94A3B8;">
         <div class="cp-label">Blocks cross-workstream coordination</div>
-        <div class="cp-timing">All 5 workstreams</div>
+        <div class="cp-timing">All 6 workstreams</div>
       </div>
       <div class="cp-arrow">&rarr;</div>
       <div class="cp-node" style="border-color:#94A3B8;">
@@ -1603,6 +1645,8 @@ code, .mono {
       <li data-task="p0-string-replacement" onclick="openTaskModal('p0-string-replacement')"><span class="task-ws ws4">W4</span>Begin string replacement across codebase</li>
       <li data-task="p0-api-spec-prep" onclick="openTaskModal('p0-api-spec-prep')"><span class="task-ws ws1">W1</span>Prepare Diligent API specs request (8 blocking questions)</li>
       <li data-task="p0-review-repo" onclick="openTaskModal('p0-review-repo')"><span class="task-ws ws1">W1</span>Clean up riskapture-review repo</li>
+      <li data-task="p0-mcp-audit-review" onclick="openTaskModal('p0-mcp-audit-review')"><span class="task-ws ws6">W6</span>MCP audit domain review with Balazs (Projects/Audit tools)</li>
+      <li data-task="p0-mcp-test-plan" onclick="openTaskModal('p0-mcp-test-plan')"><span class="task-ws ws6">W6</span>Define MCP validation test plan across all 14 domains</li>
       <li data-task="p0-post-jds" onclick="openTaskModal('p0-post-jds')"><span class="task-ws wsh">Hire</span>Post JDs: Director of Product (priority #1), Lead Engineer, AI/LLM Engineer, DevOps</li>
       <li data-task="p0-publish-jds" onclick="openTaskModal('p0-publish-jds')"><span class="task-ws wsh">Hire</span>Publish all JDs online with public links for hiring portal <span class="owner-tag">Anmol + Avi</span></li>
     </ul>
@@ -1623,6 +1667,7 @@ code, .mono {
     <div class="week-block-title"><span class="week-num">W2</span> London Workshop (Mar 30 &ndash; Apr 4)</div>
     <ul class="task-list">
       <li data-task="p1-workshop" onclick="openTaskModal('p1-workshop')"><span class="task-ws wsh">All</span>London Workshop &mdash; Diligent alignment, API specs, integration planning</li>
+      <li data-task="p1-mcp-workshop-validation" onclick="openTaskModal('p1-mcp-workshop-validation')"><span class="task-ws ws6">W6</span>Validate MCP tools against live Diligent APIs at workshop</li>
       <li data-task="p1-aws-iac" onclick="openTaskModal('p1-aws-iac')"><span class="task-ws ws5">W5</span>AWS IaC start (Terraform/CDK)</li>
       <li data-task="p1-logo-assets" onclick="openTaskModal('p1-logo-assets')"><span class="task-ws ws4">W4</span>Collect logo assets from Diligent brand team</li>
     </ul>
@@ -1635,6 +1680,7 @@ code, .mono {
       <li data-task="p1-audio-infra" onclick="openTaskModal('p1-audio-infra')"><span class="task-ws ws1">W1</span>Audio infrastructure setup</li>
       <li data-task="p1-control-framework" onclick="openTaskModal('p1-control-framework')"><span class="task-ws ws2">W2</span>Control test framework scaffolding</li>
       <li data-task="p1-rebrand-complete" onclick="openTaskModal('p1-rebrand-complete')"><span class="task-ws ws4">W4</span>Rebrand complete &mdash; all surfaces updated</li>
+      <li data-task="p1-mcp-policy-review" onclick="openTaskModal('p1-mcp-policy-review')"><span class="task-ws ws6">W6</span>MCP Policy &amp; Entities review with Tolu (91+20 tools)</li>
     </ul>
   </div>
 
@@ -1646,6 +1692,8 @@ code, .mono {
       <li data-task="p1-evidence-loader" onclick="openTaskModal('p1-evidence-loader')"><span class="task-ws ws2">W2</span>Evidence loader &amp; document parser</li>
       <li data-task="p1-landing-design" onclick="openTaskModal('p1-landing-design')"><span class="task-ws ws4">W4</span>Landing page design &amp; build</li>
       <li data-task="p1-aws-provisioning" onclick="openTaskModal('p1-aws-provisioning')"><span class="task-ws ws5">W5</span>AWS environment provisioning (dev/staging/prod)</li>
+      <li data-task="p1-mcp-risk-review" onclick="openTaskModal('p1-mcp-risk-review')"><span class="task-ws ws6">W6</span>MCP Risk Management review with Tom (ERM + Risk tools)</li>
+      <li data-task="p1-mcp-tprm-review" onclick="openTaskModal('p1-mcp-tprm-review')"><span class="task-ws ws6">W6</span>MCP 3rd Party Risk review with Bram (TPRM 20 tools)</li>
     </ul>
   </div>
 
@@ -1656,6 +1704,7 @@ code, .mono {
       <li data-task="p1-hitl" onclick="openTaskModal('p1-hitl')"><span class="task-ws ws1">W1</span>HITL pattern &mdash; human-in-the-loop review flow</li>
       <li data-task="p1-structured-results" onclick="openTaskModal('p1-structured-results')"><span class="task-ws ws2">W2</span>Structured test results &amp; exception routing</li>
       <li data-task="p1-landing-complete" onclick="openTaskModal('p1-landing-complete')"><span class="task-ws ws4">W4</span>Landing page complete &amp; deployed</li>
+      <li data-task="p1-mcp-uc1-integration" onclick="openTaskModal('p1-mcp-uc1-integration')"><span class="task-ws ws6">W6</span>Wire UC1 evidence linking through MCP Audit tools</li>
     </ul>
   </div>
 </section>
@@ -1677,6 +1726,7 @@ code, .mono {
       <li data-task="p2-scale-testing" onclick="openTaskModal('p2-scale-testing')"><span class="task-ws ws2">W2</span>Scale testing &mdash; parallel test execution</li>
       <li data-task="p2-uc3-design" onclick="openTaskModal('p2-uc3-design')"><span class="task-ws ws3">W3</span>UC3 design &mdash; 9-agent reporting graph</li>
       <li data-task="p2-mcp-expansion" onclick="openTaskModal('p2-mcp-expansion')"><span class="task-ws ws3">W3</span>DiligentMCP expansion &mdash; audit report data agents</li>
+      <li data-task="p2-mcp-uc2-integration" onclick="openTaskModal('p2-mcp-uc2-integration')"><span class="task-ws ws6">W6</span>Wire UC2 test results through MCP Audit + Compliance tools</li>
     </ul>
   </div>
 
@@ -1686,6 +1736,7 @@ code, .mono {
       <li data-task="p2-e2e-uc1" onclick="openTaskModal('p2-e2e-uc1')"><span class="task-ws ws1">W1</span>E2E testing UC1 &mdash; full interview &rarr; evidence flow</li>
       <li data-task="p2-test-scheduling" onclick="openTaskModal('p2-test-scheduling')"><span class="task-ws ws2">W2</span>Test scheduling UI &amp; batch execution</li>
       <li data-task="p2-uc3-agents-456" onclick="openTaskModal('p2-uc3-agents-456')"><span class="task-ws ws3">W3</span>UC3 Agents 4&ndash;6 implementation</li>
+      <li data-task="p2-mcp-uc3-wiring" onclick="openTaskModal('p2-mcp-uc3-wiring')"><span class="task-ws ws6">W6</span>Wire UC3 agents to MCP &mdash; ERM, TPRM, Policy, Entities, Compliance</li>
     </ul>
   </div>
 
@@ -1695,6 +1746,7 @@ code, .mono {
       <li data-task="p2-hitl-refinement" onclick="openTaskModal('p2-hitl-refinement')"><span class="task-ws ws1">W1</span>HITL refinement &mdash; reviewer feedback loop</li>
       <li data-task="p2-diligent-sync" onclick="openTaskModal('p2-diligent-sync')"><span class="task-ws ws2">W2</span>Diligent sync &mdash; bi-directional control status</li>
       <li data-task="p2-uc3-agents-789" onclick="openTaskModal('p2-uc3-agents-789')"><span class="task-ws ws3">W3</span>UC3 Agents 7&ndash;9 implementation</li>
+      <li data-task="p2-mcp-boards-stub" onclick="openTaskModal('p2-mcp-boards-stub')"><span class="task-ws ws6">W6</span>Build Boards API integration (currently stub only &mdash; needed for UC3 report delivery)</li>
     </ul>
   </div>
 
@@ -1704,6 +1756,7 @@ code, .mono {
       <li data-task="p2-prod-ready-uc1" onclick="openTaskModal('p2-prod-ready-uc1')"><span class="task-ws ws1">W1</span>Production readiness UC1 &mdash; feature complete</li>
       <li data-task="p2-prod-ready-uc2" onclick="openTaskModal('p2-prod-ready-uc2')"><span class="task-ws ws2">W2</span>Production readiness UC2 &mdash; feature complete</li>
       <li data-task="p2-uc3-mvp" onclick="openTaskModal('p2-uc3-mvp')"><span class="task-ws ws3">W3</span>UC3 E2E MVP &mdash; all 9 agents working</li>
+      <li data-task="p2-mcp-regression" onclick="openTaskModal('p2-mcp-regression')"><span class="task-ws ws6">W6</span>MCP full regression test &mdash; all 231 tools against production APIs</li>
     </ul>
   </div>
 </section>
@@ -1724,6 +1777,7 @@ code, .mono {
       <li data-task="p3-integration-testing" onclick="openTaskModal('p3-integration-testing')"><span class="task-ws ws5">W5</span>Integration testing on AWS production infrastructure</li>
       <li data-task="p3-uc3-polish" onclick="openTaskModal('p3-uc3-polish')"><span class="task-ws ws3">W3</span>UC3 polish &amp; demo flow refinement</li>
       <li data-task="p3-aws-deploy" onclick="openTaskModal('p3-aws-deploy')"><span class="task-ws ws5">W5</span>AWS production deploy &mdash; blue/green cutover</li>
+      <li data-task="p3-mcp-prod-deploy" onclick="openTaskModal('p3-mcp-prod-deploy')"><span class="task-ws ws6">W6</span>Deploy MCP to AWS production &mdash; HTTP transport mode</li>
     </ul>
   </div>
 
@@ -1855,7 +1909,7 @@ code, .mono {
           <tr>
             <td>Solo execution bottleneck</td>
             <td><span class="badge badge-critical">Critical</span></td>
-            <td>Single point of failure on all workstreams until hires land. Anton cannot manage delivery, hiring, stakeholders, and 5 parallel streams solo.</td>
+            <td>Single point of failure on all workstreams until hires land. Anton cannot manage delivery, hiring, stakeholders, and 6 parallel streams solo.</td>
             <td><strong>Director of Product hire by W2 is the #1 mitigation.</strong> Shares cross-workstream coordination, hiring pipeline, and stakeholder comms. Aggressive hiring for remaining roles; contractor bridge if needed.</td>
           </tr>
           <tr>
@@ -1914,7 +1968,7 @@ code, .mono {
           <div class="heatmap-dot dot-critical">
             <div class="heatmap-tooltip">
               <div class="heatmap-tooltip-title">Solo execution bottleneck</div>
-              <div class="heatmap-tooltip-desc">Single point of failure. Anton cannot manage delivery, hiring, stakeholders, and 5 parallel streams solo. Director of Product hire by W2 is the #1 mitigation.</div>
+              <div class="heatmap-tooltip-desc">Single point of failure. Anton cannot manage delivery, hiring, stakeholders, and 6 parallel streams solo. Director of Product hire by W2 is the #1 mitigation.</div>
             </div>
           </div>
         </div>
@@ -2210,9 +2264,9 @@ var jdData = {
   'Director of Product': {
     dept: 'Product — Cross-workstream delivery lead',
     priority: 'Critical', week: 'By W2',
-    summary: 'Owns cross-workstream coordination, delivery management, and stakeholder communications across all 5 parallel workstreams. Reports to Head of Stealth Labs. This is the #1 hire — without this role, Anton is a single point of failure across delivery, hiring, and stakeholder management.',
+    summary: 'Owns cross-workstream coordination, delivery management, and stakeholder communications across all 6 parallel workstreams. Reports to Head of Stealth Labs. This is the #1 hire — without this role, Anton is a single point of failure across delivery, hiring, and stakeholder management.',
     responsibilities: [
-      'Own day-to-day delivery management across all 5 workstreams (UC1, UC2, UC3, Rebrand, AWS Migration)',
+      'Own day-to-day delivery management across all 6 workstreams (UC1, UC2, UC3, Rebrand, AWS Migration, DiligentMCP)',
       'Run sprint ceremonies, stand-ups, and cross-team dependency resolution',
       'Manage hiring pipeline alongside Head of Stealth Labs — screen candidates, coordinate interviews, close offers',
       'Own backlog prioritisation and trade-off decisions when workstreams compete for shared resources',
@@ -2522,6 +2576,34 @@ var wsData = {
     hitl: [],
     dependencies: ['AWS account and Bedrock model access provisioned by Diligent', 'Agreement on AWS topology at London workshop'],
     phases: 'W0\u2013W1: Bedrock provider swap + Cohere adapter | W2: AWS topology agreed | W3: Bedrock migration complete | W4: AWS environment provisioned | W5: Java Bedrock adapter | W10: Production deploy + DNS cutover | W12\u2013W13: Production live'
+  },
+  w6: {
+    tag: 'Workstream 6 \u00b7 Integration', tagColor: '#14b8a6',
+    title: 'DiligentMCP',
+    subtitle: 'The integration layer between Stealth Labs and the entire Diligent platform',
+    target: '231 Tools', targetDate: 'Validated by June 18',
+    description: 'DiligentMCP is a Model Context Protocol (MCP) server that provides unified API access to the entire Diligent One platform ecosystem. It contains 231 tools across 14 fully-implemented domains \u2014 Audit, Risk, Compliance, Issues, IT Risk, Entities, Results, Platform, ERM, ERM Service, Robots, Entities GraphQL, Third-Party Risk (TPRM), and Policy Manager. The server is already built and operational. The workstream focus for this plan is validation, testing, and production deployment \u2014 ensuring every tool works correctly against production Diligent APIs, with sign-off from each product domain owner.',
+    problem: 'UC1, UC2, and UC3 all need to read from and write to the Diligent platform. Without a validated integration layer, each use case would need to implement its own API calls \u2014 duplicating auth, rate limiting, error handling, and data formatting logic. The MCP centralises this into a single, tested, rate-limited gateway that all agents call through.',
+    capabilities: [
+      '231 tools across 14 Diligent product domains',
+      '12 AI agents across 4 domain packs (Audit, Risk, Compliance, IT Risk)',
+      'Dual transport: stdio (CLI) and HTTP (hosted server with API key auth)',
+      'Built-in rate limiting: 600 req/hr sustained, 6 req/sec burst (HighBond); 60 req/min (TPRM)',
+      'Write safety guards \u2014 DELETE operations blocked, required field validation enforced',
+      'Human-readable name resolution \u2014 tools accept names, resolve to IDs internally with caching',
+      'Multi-auth: Bearer token (HighBond), OIDC session via Playwright (Policy Manager), GraphQL (Entities), separate token (TPRM)',
+      'Comprehensive knowledge base: 12 API reference docs, 39 crawled Policy Manager help pages',
+      'Docker container with production deployment support (EKS-ready)'
+    ],
+    hitl: [],
+    agents: [],
+    dependencies: [
+      'Product team validation: Balazs (Audit/Projects), Tolu (Policy/Entities), Bram (3rd Party Risk), Tom (Risk Management)',
+      'Boards API spec or integration path from Diligent (currently stub only)',
+      'Production API tokens and org access for all 14 domains',
+      'Backend/API Engineer hire (by W9) to take over expansion and maintenance'
+    ],
+    phases: 'W0\u2013W1: Audit domain review with Balazs, validation test plan | W2: Workshop validation against live APIs | W3: Policy & Entities review with Tolu | W4: Risk review with Tom, TPRM review with Bram | W5: UC1 integration | W6: UC2 integration | W7: UC3 full stack wiring | W8: Boards stub build | W9: Full 231-tool regression test | W10: Production deploy to AWS'
   }
 };
 
@@ -3030,6 +3112,114 @@ var taskData = {
     dateStart: '20260615', dateEnd: '20260619',
     owner: 'Anmol', phase: 'Phase 3',
     description: 'AWS/Bedrock PRODUCTION — all traffic on AWS EKS, no direct Anthropic API calls remaining. Hetzner decommission ready.',
+    risks: []
+  },
+  'p0-mcp-audit-review': {
+    title: 'MCP Audit Domain Review with Balazs',
+    ws: 'W6 — DiligentMCP', wsColor: '#14b8a6',
+    dateStart: '20260318', dateEnd: '20260329',
+    owner: 'Anton Merk + Balazs',
+    phase: 'Phase 0',
+    description: 'Review the 11 existing MCP Audit tools (projects, objectives, RCM, summaries) with Balazs from the Diligent Projects team. Validate that the tool inputs, outputs, and data shapes match what UC1 and UC2 need for evidence linking and test plan execution. The MCP already has these tools built — this is about confirming they work correctly against the production Diligent Audit API and identifying any gaps.',
+    risks: ['Diligent API specs not ready']
+  },
+  'p0-mcp-test-plan': {
+    title: 'Define MCP Validation Test Plan',
+    ws: 'W6 — DiligentMCP', wsColor: '#14b8a6',
+    dateStart: '20260318', dateEnd: '20260329',
+    owner: 'Anton Merk',
+    phase: 'Phase 0',
+    description: 'Create a structured test plan to validate all 231 MCP tools across 14 domains against the live Diligent APIs. The MCP server is already built with comprehensive tool coverage — but has only been tested against the C Labs sandbox instance. This test plan defines which tools are critical-path for each use case, the expected inputs/outputs, and the success criteria for production readiness. The plan will be executed domain-by-domain with the respective product team owners.',
+    risks: []
+  },
+  'p1-mcp-workshop-validation': {
+    title: 'Validate MCP Tools at London Workshop',
+    ws: 'W6 — DiligentMCP', wsColor: '#14b8a6',
+    dateStart: '20260330', dateEnd: '20260405',
+    owner: 'Anton Merk + Diligent Team',
+    phase: 'Phase 1',
+    description: 'Use the London workshop to run the MCP tools against live Diligent APIs with the engineering team in the room. This is the fastest way to identify API mismatches, authentication issues, and data shape differences between the C Labs sandbox and production. Priority tools: Audit (evidence upload/link), Compliance (framework mapping), and ERM (risk register queries). The 8 blocking API questions from the spec request document map directly to MCP tool domains.',
+    risks: ['Diligent API specs not ready']
+  },
+  'p1-mcp-policy-review': {
+    title: 'MCP Policy & Entities Review with Tolu',
+    ws: 'W6 — DiligentMCP', wsColor: '#14b8a6',
+    dateStart: '20260407', dateEnd: '20260412',
+    owner: 'Anton Merk + Tolu',
+    phase: 'Phase 1',
+    description: 'Review the 91 Policy Manager tools and 20 Entities tools (16 GraphQL + 4 legacy) with Tolu from the Diligent Policy & Entities team. The Policy Manager domain is the largest in the MCP — covering document management, review cycles, regulations, components, templates, and admin functions. Tolu needs to validate that the tool coverage matches the actual API capabilities and that the OIDC session authentication (via headless Playwright) is production-ready. The Entities tools use a GraphQL client for corporate structure queries (companies, individuals, partners) which UC3 needs for organizational context.',
+    risks: []
+  },
+  'p1-mcp-risk-review': {
+    title: 'MCP Risk Management Review with Tom',
+    ws: 'W6 — DiligentMCP', wsColor: '#14b8a6',
+    dateStart: '20260414', dateEnd: '20260419',
+    owner: 'Anton Merk + Tom',
+    phase: 'Phase 1',
+    description: 'Review the ERM Service tools (29), ERM tools (9), and Risk tools (7) with Tom from the Diligent Risk Management team — 45 tools total covering risks, controls, assessments, mitigations, workshops, heat maps, and unmitigated risk tracking. UC3\'s Intelligence Scout and Risk Synthesizer agents depend heavily on these tools to harvest risk data and cross-reference findings across domains. Tom needs to confirm the data shapes, risk taxonomy configurability, and risk-to-control linkage model match what the production ERM module exposes.',
+    risks: []
+  },
+  'p1-mcp-tprm-review': {
+    title: 'MCP 3rd Party Risk Review with Bram',
+    ws: 'W6 — DiligentMCP', wsColor: '#14b8a6',
+    dateStart: '20260414', dateEnd: '20260419',
+    owner: 'Anton Merk + Bram',
+    phase: 'Phase 1',
+    description: 'Review the 20 3rdRisk TPRM tools with Bram from the Diligent Third-Party Risk team. These tools cover third-party management, risk assessments, issues, contracts, and dashboards. UC3\'s Risk Synthesizer agent needs third-party risk data to identify where vendor risk compounds internal control weaknesses — a key regulatory concern. Bram needs to validate the TPRM API authentication (separate bearer token), rate limits (60 req/min), and data model against the production 3rdRisk instance.',
+    risks: []
+  },
+  'p1-mcp-uc1-integration': {
+    title: 'Wire UC1 Evidence Linking Through MCP',
+    ws: 'W6 — DiligentMCP', wsColor: '#14b8a6',
+    dateStart: '20260421', dateEnd: '20260426',
+    owner: 'Anton Merk',
+    phase: 'Phase 1',
+    description: 'Connect UC1 (Interview Co-Pilot) to the MCP Audit tools so that interview transcripts, auto-drafted findings, and evidence links are stored directly into Diligent Projects via the MCP server. This is the "last mile" integration — the Co-Pilot agent generates the evidence, and the MCP tools handle the API calls to store it in the right engagement, linked to the right control. Uses the MCP\'s existing audit_create and audit_update tools.',
+    risks: ['Diligent API specs not ready']
+  },
+  'p2-mcp-uc2-integration': {
+    title: 'Wire UC2 Test Results Through MCP',
+    ws: 'W6 — DiligentMCP', wsColor: '#14b8a6',
+    dateStart: '20260505', dateEnd: '20260510',
+    owner: 'Anton Merk',
+    phase: 'Phase 2',
+    description: 'Connect UC2 (Automated Control Testing) to the MCP Audit and Compliance tools so that test results are pushed back into Diligent Projects. The ControlTestAgent produces structured pass/fail/exception results — the MCP tools handle writing these to the correct test plan, linking evidence, and updating control status in Diligent. Also uses Compliance tools to map test results against regulatory framework requirements.',
+    risks: ['Diligent API specs not ready']
+  },
+  'p2-mcp-uc3-wiring': {
+    title: 'Wire UC3 Agents to Full MCP Stack',
+    ws: 'W6 — DiligentMCP', wsColor: '#14b8a6',
+    dateStart: '20260512', dateEnd: '20260517',
+    owner: 'AI/LLM Engineer (TBH)',
+    phase: 'Phase 2',
+    description: 'Connect all 9 UC3 agents to the MCP tool stack. The Intelligence Scout agent needs access to: ERM (risk register), TPRM (third-party risks), Policy Manager (document status), Entities (organizational structure), Compliance (framework mappings), and Audit (engagement history). This is the heaviest MCP integration — UC3 queries across all 14 domains simultaneously. The MCP\'s built-in rate limiting (600 req/hr for HighBond, 60 req/min for TPRM) will need load testing to ensure the 9-agent workflow doesn\'t hit throttle limits.',
+    risks: ['UC3 scope creep', 'Diligent API specs not ready']
+  },
+  'p2-mcp-boards-stub': {
+    title: 'Build Boards API Integration in MCP',
+    ws: 'W6 — DiligentMCP', wsColor: '#14b8a6',
+    dateStart: '20260519', dateEnd: '20260524',
+    owner: 'Backend/API Engineer (TBH)',
+    phase: 'Phase 2',
+    description: 'The Diligent Boards domain is currently a stub in the MCP (interface definition only, no implementation). UC3\'s Board Pack Curator agent needs to deliver the final report into Diligent Boards. This task implements the Boards tools — likely PDF upload or structured data submission. Boards uses a separate authentication mechanism from the rest of Diligent One, so this may require a new auth client. If the Boards API is not yet available, build a mock that outputs to a shared drive as a fallback.',
+    risks: ['Diligent API specs not ready']
+  },
+  'p2-mcp-regression': {
+    title: 'MCP Full Regression Test — All 231 Tools',
+    ws: 'W6 — DiligentMCP', wsColor: '#14b8a6',
+    dateStart: '20260526', dateEnd: '20260531',
+    owner: 'Anton Merk + Backend/API Engineer (TBH)',
+    phase: 'Phase 2',
+    description: 'Run a full regression test across all 231 MCP tools against the production Diligent APIs. This is the gate before production hardening — every tool must return expected results, handle errors gracefully, and respect rate limits. The test covers: all 14 domains, both auth mechanisms (bearer token + OIDC session), both transports (stdio + HTTP), and the write safety guards (no DELETE operations, required field validation). Results documented per domain with sign-off from the respective product team owner.',
+    risks: []
+  },
+  'p3-mcp-prod-deploy': {
+    title: 'Deploy MCP to AWS Production',
+    ws: 'W6 — DiligentMCP', wsColor: '#14b8a6',
+    dateStart: '20260601', dateEnd: '20260606',
+    owner: 'Anmol',
+    phase: 'Phase 3',
+    description: 'Deploy the DiligentMCP server to the AWS production environment in HTTP transport mode (Express server with API key authentication). This includes: Docker container build, EKS deployment, environment variable configuration for all Diligent API endpoints and tokens, rate limit tuning for production load, and monitoring/alerting for API failures. The MCP becomes the central integration gateway — all UC1, UC2, and UC3 traffic to Diligent flows through it.',
     risks: []
   }
 };
