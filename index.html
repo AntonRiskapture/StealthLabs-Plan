@@ -760,10 +760,21 @@ code, .mono {
 .task-list { list-style: none; padding: 0; margin: 0; }
 .task-list li {
   display: flex; align-items: flex-start; gap: 10px;
-  padding: 6px 0; font-size: 0.8125rem; color: var(--text);
+  padding: 6px 8px; font-size: 0.8125rem; color: var(--text);
   border-bottom: 1px solid color-mix(in srgb, var(--divider) 50%, transparent);
+  cursor: pointer; transition: all 150ms; border-radius: 6px; margin: 0 -8px;
 }
+.task-list li:hover { background: var(--sidebar-hover); }
 .task-list li:last-child { border-bottom: none; }
+.ics-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 8px; border: 1px solid var(--divider);
+  background: var(--code-bg); color: var(--text); font-size: 0.75rem;
+  font-weight: 600; cursor: pointer; transition: all 150ms;
+  font-family: var(--font-primary); margin-top: 12px;
+}
+.ics-btn:hover { border-color: var(--primary-main); color: var(--primary-main); }
+.ics-btn .material-icons { font-size: 16px; }
 .task-ws {
   font-size: 0.5625rem; font-weight: 700; text-transform: uppercase;
   letter-spacing: 0.06em; padding: 2px 6px; border-radius: 4px;
@@ -1522,14 +1533,14 @@ code, .mono {
   <div class="week-block">
     <div class="week-block-title"><span class="week-num">W0&ndash;W1</span> Pre-Workshop Sprint</div>
     <ul class="task-list">
-      <li><span class="task-ws ws5">W5</span>Start Bedrock provider swap</li>
-      <li><span class="task-ws ws5">W5</span>Start Cohere embedding adapter</li>
-      <li><span class="task-ws ws4">W4</span>Rebrand token integration</li>
-      <li><span class="task-ws ws4">W4</span>Begin string replacement across codebase</li>
-      <li><span class="task-ws ws1">W1</span>Prepare Diligent API specs request (8 blocking questions)</li>
-      <li><span class="task-ws ws1">W1</span>Clean up riskapture-review repo</li>
-      <li><span class="task-ws wsh">Hire</span>Post JDs: Director of Product (priority #1), Lead Engineer, AI/LLM Engineer, DevOps</li>
-      <li><span class="task-ws wsh">Hire</span>Publish all JDs online with public links for hiring portal <span class="owner-tag">Anmol + Avi</span></li>
+      <li data-task="p0-bedrock-swap" onclick="openTaskModal('p0-bedrock-swap')"><span class="task-ws ws5">W5</span>Start Bedrock provider swap</li>
+      <li data-task="p0-cohere-adapter" onclick="openTaskModal('p0-cohere-adapter')"><span class="task-ws ws5">W5</span>Start Cohere embedding adapter</li>
+      <li data-task="p0-rebrand-tokens" onclick="openTaskModal('p0-rebrand-tokens')"><span class="task-ws ws4">W4</span>Rebrand token integration</li>
+      <li data-task="p0-string-replacement" onclick="openTaskModal('p0-string-replacement')"><span class="task-ws ws4">W4</span>Begin string replacement across codebase</li>
+      <li data-task="p0-api-spec-prep" onclick="openTaskModal('p0-api-spec-prep')"><span class="task-ws ws1">W1</span>Prepare Diligent API specs request (8 blocking questions)</li>
+      <li data-task="p0-review-repo" onclick="openTaskModal('p0-review-repo')"><span class="task-ws ws1">W1</span>Clean up riskapture-review repo</li>
+      <li data-task="p0-post-jds" onclick="openTaskModal('p0-post-jds')"><span class="task-ws wsh">Hire</span>Post JDs: Director of Product (priority #1), Lead Engineer, AI/LLM Engineer, DevOps</li>
+      <li data-task="p0-publish-jds" onclick="openTaskModal('p0-publish-jds')"><span class="task-ws wsh">Hire</span>Publish all JDs online with public links for hiring portal <span class="owner-tag">Anmol + Avi</span></li>
     </ul>
   </div>
 </section>
@@ -1547,40 +1558,40 @@ code, .mono {
   <div class="week-block">
     <div class="week-block-title"><span class="week-num">W2</span> London Workshop (Mar 30 &ndash; Apr 4)</div>
     <ul class="task-list">
-      <li><span class="task-ws wsh">All</span>London Workshop &mdash; Diligent alignment, API specs, integration planning</li>
-      <li><span class="task-ws ws5">W5</span>AWS IaC start (Terraform/CDK)</li>
-      <li><span class="task-ws ws4">W4</span>Collect logo assets from Diligent brand team</li>
+      <li data-task="p1-workshop" onclick="openTaskModal('p1-workshop')"><span class="task-ws wsh">All</span>London Workshop &mdash; Diligent alignment, API specs, integration planning</li>
+      <li data-task="p1-aws-iac" onclick="openTaskModal('p1-aws-iac')"><span class="task-ws ws5">W5</span>AWS IaC start (Terraform/CDK)</li>
+      <li data-task="p1-logo-assets" onclick="openTaskModal('p1-logo-assets')"><span class="task-ws ws4">W4</span>Collect logo assets from Diligent brand team</li>
     </ul>
   </div>
 
   <div class="week-block">
     <div class="week-block-title"><span class="week-num">W3</span> Bedrock Complete (Apr 7 &ndash; 11)</div>
     <ul class="task-list">
-      <li><span class="task-ws ws5">W5</span>Bedrock migration complete &mdash; all LLM calls on AWS</li>
-      <li><span class="task-ws ws1">W1</span>Audio infrastructure setup</li>
-      <li><span class="task-ws ws2">W2</span>Control test framework scaffolding</li>
-      <li><span class="task-ws ws4">W4</span>Rebrand complete &mdash; all surfaces updated</li>
+      <li data-task="p1-bedrock-complete" onclick="openTaskModal('p1-bedrock-complete')"><span class="task-ws ws5">W5</span>Bedrock migration complete &mdash; all LLM calls on AWS</li>
+      <li data-task="p1-audio-infra" onclick="openTaskModal('p1-audio-infra')"><span class="task-ws ws1">W1</span>Audio infrastructure setup</li>
+      <li data-task="p1-control-framework" onclick="openTaskModal('p1-control-framework')"><span class="task-ws ws2">W2</span>Control test framework scaffolding</li>
+      <li data-task="p1-rebrand-complete" onclick="openTaskModal('p1-rebrand-complete')"><span class="task-ws ws4">W4</span>Rebrand complete &mdash; all surfaces updated</li>
     </ul>
   </div>
 
   <div class="week-block">
     <div class="week-block-title"><span class="week-num">W4</span> Pipeline Build (Apr 14 &ndash; 18)</div>
     <ul class="task-list">
-      <li><span class="task-ws ws1">W1</span>Transcription pipeline (Whisper/Deepgram on Bedrock)</li>
-      <li><span class="task-ws ws1">W1</span>Co-Pilot frontend shell</li>
-      <li><span class="task-ws ws2">W2</span>Evidence loader &amp; document parser</li>
-      <li><span class="task-ws ws4">W4</span>Landing page design &amp; build</li>
-      <li><span class="task-ws ws5">W5</span>AWS environment provisioning (dev/staging/prod)</li>
+      <li data-task="p1-transcription" onclick="openTaskModal('p1-transcription')"><span class="task-ws ws1">W1</span>Transcription pipeline (Whisper/Deepgram on Bedrock)</li>
+      <li data-task="p1-copilot-frontend" onclick="openTaskModal('p1-copilot-frontend')"><span class="task-ws ws1">W1</span>Co-Pilot frontend shell</li>
+      <li data-task="p1-evidence-loader" onclick="openTaskModal('p1-evidence-loader')"><span class="task-ws ws2">W2</span>Evidence loader &amp; document parser</li>
+      <li data-task="p1-landing-design" onclick="openTaskModal('p1-landing-design')"><span class="task-ws ws4">W4</span>Landing page design &amp; build</li>
+      <li data-task="p1-aws-provisioning" onclick="openTaskModal('p1-aws-provisioning')"><span class="task-ws ws5">W5</span>AWS environment provisioning (dev/staging/prod)</li>
     </ul>
   </div>
 
   <div class="week-block">
     <div class="week-block-title"><span class="week-num">W5</span> Agent Framework (Apr 21 &ndash; 25)</div>
     <ul class="task-list">
-      <li><span class="task-ws ws1">W1</span>InterviewCoPilotAgent &mdash; real-time question generation</li>
-      <li><span class="task-ws ws1">W1</span>HITL pattern &mdash; human-in-the-loop review flow</li>
-      <li><span class="task-ws ws2">W2</span>Structured test results &amp; exception routing</li>
-      <li><span class="task-ws ws4">W4</span>Landing page complete &amp; deployed</li>
+      <li data-task="p1-copilot-agent" onclick="openTaskModal('p1-copilot-agent')"><span class="task-ws ws1">W1</span>InterviewCoPilotAgent &mdash; real-time question generation</li>
+      <li data-task="p1-hitl" onclick="openTaskModal('p1-hitl')"><span class="task-ws ws1">W1</span>HITL pattern &mdash; human-in-the-loop review flow</li>
+      <li data-task="p1-structured-results" onclick="openTaskModal('p1-structured-results')"><span class="task-ws ws2">W2</span>Structured test results &amp; exception routing</li>
+      <li data-task="p1-landing-complete" onclick="openTaskModal('p1-landing-complete')"><span class="task-ws ws4">W4</span>Landing page complete &amp; deployed</li>
     </ul>
   </div>
 </section>
@@ -1598,37 +1609,37 @@ code, .mono {
   <div class="week-block">
     <div class="week-block-title"><span class="week-num">W6</span> UC3 Kickoff (May 5 &ndash; 9)</div>
     <ul class="task-list">
-      <li><span class="task-ws ws1">W1</span>Evidence auto-linking to Diligent controls</li>
-      <li><span class="task-ws ws2">W2</span>Scale testing &mdash; parallel test execution</li>
-      <li><span class="task-ws ws3">W3</span>UC3 design &mdash; 9-agent reporting graph</li>
-      <li><span class="task-ws ws3">W3</span>DiligentMCP expansion &mdash; audit report data agents</li>
+      <li data-task="p2-evidence-linking" onclick="openTaskModal('p2-evidence-linking')"><span class="task-ws ws1">W1</span>Evidence auto-linking to Diligent controls</li>
+      <li data-task="p2-scale-testing" onclick="openTaskModal('p2-scale-testing')"><span class="task-ws ws2">W2</span>Scale testing &mdash; parallel test execution</li>
+      <li data-task="p2-uc3-design" onclick="openTaskModal('p2-uc3-design')"><span class="task-ws ws3">W3</span>UC3 design &mdash; 9-agent reporting graph</li>
+      <li data-task="p2-mcp-expansion" onclick="openTaskModal('p2-mcp-expansion')"><span class="task-ws ws3">W3</span>DiligentMCP expansion &mdash; audit report data agents</li>
     </ul>
   </div>
 
   <div class="week-block">
     <div class="week-block-title"><span class="week-num">W7</span> E2E Testing (May 12 &ndash; 16)</div>
     <ul class="task-list">
-      <li><span class="task-ws ws1">W1</span>E2E testing UC1 &mdash; full interview &rarr; evidence flow</li>
-      <li><span class="task-ws ws2">W2</span>Test scheduling UI &amp; batch execution</li>
-      <li><span class="task-ws ws3">W3</span>UC3 Agents 4&ndash;6 implementation</li>
+      <li data-task="p2-e2e-uc1" onclick="openTaskModal('p2-e2e-uc1')"><span class="task-ws ws1">W1</span>E2E testing UC1 &mdash; full interview &rarr; evidence flow</li>
+      <li data-task="p2-test-scheduling" onclick="openTaskModal('p2-test-scheduling')"><span class="task-ws ws2">W2</span>Test scheduling UI &amp; batch execution</li>
+      <li data-task="p2-uc3-agents-456" onclick="openTaskModal('p2-uc3-agents-456')"><span class="task-ws ws3">W3</span>UC3 Agents 4&ndash;6 implementation</li>
     </ul>
   </div>
 
   <div class="week-block">
     <div class="week-block-title"><span class="week-num">W8</span> Integration (May 19 &ndash; 23)</div>
     <ul class="task-list">
-      <li><span class="task-ws ws1">W1</span>HITL refinement &mdash; reviewer feedback loop</li>
-      <li><span class="task-ws ws2">W2</span>Diligent sync &mdash; bi-directional control status</li>
-      <li><span class="task-ws ws3">W3</span>UC3 Agents 7&ndash;9 implementation</li>
+      <li data-task="p2-hitl-refinement" onclick="openTaskModal('p2-hitl-refinement')"><span class="task-ws ws1">W1</span>HITL refinement &mdash; reviewer feedback loop</li>
+      <li data-task="p2-diligent-sync" onclick="openTaskModal('p2-diligent-sync')"><span class="task-ws ws2">W2</span>Diligent sync &mdash; bi-directional control status</li>
+      <li data-task="p2-uc3-agents-789" onclick="openTaskModal('p2-uc3-agents-789')"><span class="task-ws ws3">W3</span>UC3 Agents 7&ndash;9 implementation</li>
     </ul>
   </div>
 
   <div class="week-block">
     <div class="week-block-title"><span class="week-num">W9</span> Feature Complete (May 26 &ndash; 30)</div>
     <ul class="task-list">
-      <li><span class="task-ws ws1">W1</span>Production readiness UC1 &mdash; feature complete</li>
-      <li><span class="task-ws ws2">W2</span>Production readiness UC2 &mdash; feature complete</li>
-      <li><span class="task-ws ws3">W3</span>UC3 E2E MVP &mdash; all 9 agents working</li>
+      <li data-task="p2-prod-ready-uc1" onclick="openTaskModal('p2-prod-ready-uc1')"><span class="task-ws ws1">W1</span>Production readiness UC1 &mdash; feature complete</li>
+      <li data-task="p2-prod-ready-uc2" onclick="openTaskModal('p2-prod-ready-uc2')"><span class="task-ws ws2">W2</span>Production readiness UC2 &mdash; feature complete</li>
+      <li data-task="p2-uc3-mvp" onclick="openTaskModal('p2-uc3-mvp')"><span class="task-ws ws3">W3</span>UC3 E2E MVP &mdash; all 9 agents working</li>
     </ul>
   </div>
 </section>
@@ -1646,30 +1657,30 @@ code, .mono {
   <div class="week-block">
     <div class="week-block-title"><span class="week-num">W10</span> AWS Production Deploy (Jun 1 &ndash; 5)</div>
     <ul class="task-list">
-      <li><span class="task-ws ws5">W5</span>Integration testing on AWS production infrastructure</li>
-      <li><span class="task-ws ws3">W3</span>UC3 polish &amp; demo flow refinement</li>
-      <li><span class="task-ws ws5">W5</span>AWS production deploy &mdash; blue/green cutover</li>
+      <li data-task="p3-integration-testing" onclick="openTaskModal('p3-integration-testing')"><span class="task-ws ws5">W5</span>Integration testing on AWS production infrastructure</li>
+      <li data-task="p3-uc3-polish" onclick="openTaskModal('p3-uc3-polish')"><span class="task-ws ws3">W3</span>UC3 polish &amp; demo flow refinement</li>
+      <li data-task="p3-aws-deploy" onclick="openTaskModal('p3-aws-deploy')"><span class="task-ws ws5">W5</span>AWS production deploy &mdash; blue/green cutover</li>
     </ul>
   </div>
 
   <div class="week-block">
     <div class="week-block-title"><span class="week-num">W11</span> Final Hardening (Jun 8 &ndash; 12)</div>
     <ul class="task-list">
-      <li><span class="task-ws ws1">W1</span>Final hardening UC1 &mdash; edge cases, error handling</li>
-      <li><span class="task-ws ws2">W2</span>Final hardening UC2 &mdash; edge cases, error handling</li>
-      <li><span class="task-ws ws3">W3</span>UC3 demo rehearsal</li>
-      <li><span class="task-ws ws4">W4</span>Rebrand verification &mdash; all touchpoints audit</li>
+      <li data-task="p3-hardening-uc1" onclick="openTaskModal('p3-hardening-uc1')"><span class="task-ws ws1">W1</span>Final hardening UC1 &mdash; edge cases, error handling</li>
+      <li data-task="p3-hardening-uc2" onclick="openTaskModal('p3-hardening-uc2')"><span class="task-ws ws2">W2</span>Final hardening UC2 &mdash; edge cases, error handling</li>
+      <li data-task="p3-uc3-rehearsal" onclick="openTaskModal('p3-uc3-rehearsal')"><span class="task-ws ws3">W3</span>UC3 demo rehearsal</li>
+      <li data-task="p3-rebrand-verify" onclick="openTaskModal('p3-rebrand-verify')"><span class="task-ws ws4">W4</span>Rebrand verification &mdash; all touchpoints audit</li>
     </ul>
   </div>
 
   <div class="week-block" style="border: 2px solid var(--primary-main); background: color-mix(in srgb, var(--primary-main) 5%, var(--card-bg));">
     <div class="week-block-title"><span class="week-num" style="background:var(--primary-main);color:#fff;">W12&ndash;W13</span> SHIP DATE (Jun 15 &ndash; 18)</div>
     <ul class="task-list">
-      <li><span class="task-ws ws1">W1</span><strong>UC1 Interview Co-Pilot &mdash; SHIP</strong></li>
-      <li><span class="task-ws ws2">W2</span><strong>UC2 Control Testing &mdash; SHIP</strong></li>
-      <li><span class="task-ws ws3">W3</span><strong>UC3 Audit Reporting &mdash; DEMO</strong></li>
-      <li><span class="task-ws ws4">W4</span><strong>Rebrand &mdash; COMPLETE</strong></li>
-      <li><span class="task-ws ws5">W5</span><strong>AWS Production &mdash; LIVE</strong></li>
+      <li data-task="p3-ship-uc1" onclick="openTaskModal('p3-ship-uc1')"><span class="task-ws ws1">W1</span><strong>UC1 Interview Co-Pilot &mdash; SHIP</strong></li>
+      <li data-task="p3-ship-uc2" onclick="openTaskModal('p3-ship-uc2')"><span class="task-ws ws2">W2</span><strong>UC2 Control Testing &mdash; SHIP</strong></li>
+      <li data-task="p3-demo-uc3" onclick="openTaskModal('p3-demo-uc3')"><span class="task-ws ws3">W3</span><strong>UC3 Audit Reporting &mdash; DEMO</strong></li>
+      <li data-task="p3-rebrand-done" onclick="openTaskModal('p3-rebrand-done')"><span class="task-ws ws4">W4</span><strong>Rebrand &mdash; COMPLETE</strong></li>
+      <li data-task="p3-aws-live" onclick="openTaskModal('p3-aws-live')"><span class="task-ws ws5">W5</span><strong>AWS Production &mdash; LIVE</strong></li>
     </ul>
   </div>
 </section>
@@ -2482,6 +2493,460 @@ function openWsModal(wsKey) {
 function closeWsModal() {
   // Uses same backdrop as JD modal
   closeJdModal();
+}
+
+// ── Task Detail Data & Modal ─────────────────────────────
+var taskData = {
+  'p0-bedrock-swap': {
+    title: 'Start Bedrock Provider Swap',
+    ws: 'W5 — AWS/Bedrock Infra', wsColor: '#8b5cf6',
+    dateStart: '20260318', dateEnd: '20260329',
+    owner: 'Anton Merk', phase: 'Phase 0',
+    description: 'Begin migrating all LLM API calls from direct Anthropic API to AWS Bedrock. This involves refactoring the Python and Java service layers that currently call Claude via Anthropic\'s SDK to instead use the Bedrock runtime client. Bedrock is Diligent\'s required model hosting layer — it provides enterprise-grade model governance, usage tracking, and SOC 2 compliance. This must complete by W3 as every AI feature downstream depends on it.',
+    risks: ['Bedrock performance / cost']
+  },
+  'p0-cohere-adapter': {
+    title: 'Start Cohere Embedding Adapter',
+    ws: 'W5 — AWS/Bedrock Infra', wsColor: '#8b5cf6',
+    dateStart: '20260318', dateEnd: '20260329',
+    owner: 'Anton Merk', phase: 'Phase 0',
+    description: 'Build an embedding adapter to replace VoyageAI with Cohere via Bedrock. The existing vector store uses 1024-dimensional embeddings — Cohere\'s Embed model on Bedrock natively outputs 1024-dim vectors, so no pgvector resize is needed. This adapter abstracts the embedding provider so future model swaps require only config changes.',
+    risks: ['Bedrock performance / cost']
+  },
+  'p0-rebrand-tokens': {
+    title: 'Rebrand Token Integration',
+    ws: 'W4 — Rebrand & Landing', wsColor: '#3b82f6',
+    dateStart: '20260318', dateEnd: '20260329',
+    owner: 'Anton Merk', phase: 'Phase 0',
+    description: 'Integrate Diligent\'s brand colour system into the portal theme tokens. This replaces Riskapture\'s colour palette (primary reds, secondary greys) with Diligent\'s official brand tokens across all four portals (Customer, Builder, Admin, Demo). The theme token system uses CSS custom properties and MUI theme overrides, so this is a controlled, non-breaking change.',
+    risks: []
+  },
+  'p0-string-replacement': {
+    title: 'Begin String Replacement Across Codebase',
+    ws: 'W4 — Rebrand & Landing', wsColor: '#3b82f6',
+    dateStart: '20260318', dateEnd: '20260329',
+    owner: 'Anton Merk', phase: 'Phase 0',
+    description: 'Begin replacing all 51+ occurrences of \'Riskapture\' with \'Diligent\' across the codebase — page titles, headers, email templates, API responses, documentation, and marketing surfaces. This is tracked via grep and must cover all four portals plus the marketing site.',
+    risks: []
+  },
+  'p0-api-spec-prep': {
+    title: 'Prepare Diligent API Specs Request',
+    ws: 'W1 — UC1 Interview Co-Pilot', wsColor: '#22c55e',
+    dateStart: '20260318', dateEnd: '20260329',
+    owner: 'Anton Merk', phase: 'Phase 0',
+    description: 'Prepare the 8 blocking API questions document for the London workshop. These questions cover authentication/federation, evidence storage, test plans, ERM, boards, compliance frameworks, third-party risk, and vault APIs. Without answers, the team cannot build the integration layer between Stealth Labs and Diligent. The document must be circulated to Diligent tech leadership before the workshop.',
+    risks: ['Diligent API specs not ready']
+  },
+  'p0-review-repo': {
+    title: 'Clean Up riskapture-review Repo',
+    ws: 'W1 — UC1 Interview Co-Pilot', wsColor: '#22c55e',
+    dateStart: '20260318', dateEnd: '20260329',
+    owner: 'Anton Merk', phase: 'Phase 0',
+    description: 'Clean up and prepare the riskapture-review handoff repository. This involves sanitising the codebase for Diligent review — removing dates, contributor references, and git history per the established playbook. The review repo is how Diligent engineering evaluates the platform\'s code quality and architecture.',
+    risks: []
+  },
+  'p0-post-jds': {
+    title: 'Post Job Descriptions',
+    ws: 'Hiring', wsColor: '#94A3B8',
+    dateStart: '20260318', dateEnd: '20260329',
+    owner: 'Anton Merk', phase: 'Phase 0',
+    description: 'Post job descriptions for the four highest-priority roles: Director of Product (#1 priority), Lead Full Stack Engineer, AI/LLM Engineer, and DevOps Engineer. These must go live immediately to maximise the hiring window — the Director of Product is needed by W2 and the Lead Engineer by W3.',
+    risks: ['Hiring timeline slips']
+  },
+  'p0-publish-jds': {
+    title: 'Publish All JDs Online',
+    ws: 'Hiring', wsColor: '#94A3B8',
+    dateStart: '20260318', dateEnd: '20260329',
+    owner: 'Anmol + Avi', phase: 'Phase 0',
+    description: 'Publish all job descriptions online with public URLs so they can be linked from the hiring portal, LinkedIn, and recruitment channels. Each JD needs a permanent shareable link. This is a prerequisite for the hiring cards in the planning portal to become clickable.',
+    risks: ['Hiring timeline slips']
+  },
+  'p1-workshop': {
+    title: 'London Workshop',
+    ws: 'All Workstreams', wsColor: '#EE312E',
+    dateStart: '20260330', dateEnd: '20260405',
+    owner: 'Anton Merk + Diligent Team', phase: 'Phase 1',
+    description: 'Five-day on-site workshop at Diligent\'s London office. The primary objective is to get answers to the 8 blocking API questions and agree on the integration architecture. Secondary objectives include aligning on AWS topology, transcription service selection (AWS Transcribe vs Deepgram), and authentication federation approach. This is the single most important event in the entire plan — every API-dependent feature is blocked until these specs are confirmed.',
+    risks: ['Diligent API specs not ready']
+  },
+  'p1-aws-iac': {
+    title: 'AWS IaC Start',
+    ws: 'W5 — AWS/Bedrock Infra', wsColor: '#8b5cf6',
+    dateStart: '20260330', dateEnd: '20260405',
+    owner: 'Anton Merk', phase: 'Phase 1',
+    description: 'Begin Infrastructure-as-Code development for the AWS environment using Terraform. This covers EKS cluster configuration, RDS PostgreSQL, ElastiCache, and OpenSearch provisioning. The topology must be agreed at the workshop before finalising the Terraform modules.',
+    risks: []
+  },
+  'p1-logo-assets': {
+    title: 'Collect Logo Assets from Diligent',
+    ws: 'W4 — Rebrand & Landing', wsColor: '#3b82f6',
+    dateStart: '20260330', dateEnd: '20260405',
+    owner: 'Anton Merk', phase: 'Phase 1',
+    description: 'Collect official Diligent SVG logo assets from the brand team at the London workshop. These are needed for all portal headers, login screens, favicons, and email templates. Without the official assets, the rebrand cannot be completed.',
+    risks: []
+  },
+  'p1-bedrock-complete': {
+    title: 'Bedrock Migration Complete',
+    ws: 'W5 — AWS/Bedrock Infra', wsColor: '#8b5cf6',
+    dateStart: '20260407', dateEnd: '20260412',
+    owner: 'Anton Merk', phase: 'Phase 1',
+    description: 'Complete the Bedrock migration — all LLM calls must be verified working on AWS Bedrock by end of this week. This is a hard deadline because every AI feature (UC1 interview suggestions, UC2 test execution, UC3 report generation) depends on the Bedrock runtime. If this slips, the entire plan shifts right.',
+    risks: ['Bedrock performance / cost']
+  },
+  'p1-audio-infra': {
+    title: 'Audio Infrastructure Setup',
+    ws: 'W1 — UC1 Interview Co-Pilot', wsColor: '#22c55e',
+    dateStart: '20260407', dateEnd: '20260412',
+    owner: 'Anton Merk', phase: 'Phase 1',
+    description: 'Set up the audio infrastructure for UC1 — WebSocket endpoint for real-time streaming, InterviewSession entity in the database, and the connection pipeline between the browser\'s microphone and the transcription service. This is the plumbing that makes the Interview Co-Pilot possible.',
+    risks: ['Audio latency / transcription quality']
+  },
+  'p1-control-framework': {
+    title: 'Control Test Framework Scaffolding',
+    ws: 'W2 — UC2 Control Testing', wsColor: '#f59e0b',
+    dateStart: '20260407', dateEnd: '20260412',
+    owner: 'Anton Merk', phase: 'Phase 1',
+    description: 'Scaffold the control test framework — ControlTestPlan and ControlTestResult data models, ControlTestAgent skeleton. This defines the data structures that UC2 will use to receive test plans, execute tests against evidence, and record results. The agent skeleton establishes the interface contract.',
+    risks: []
+  },
+  'p1-rebrand-complete': {
+    title: 'Rebrand Complete',
+    ws: 'W4 — Rebrand & Landing', wsColor: '#3b82f6',
+    dateStart: '20260407', dateEnd: '20260412',
+    owner: 'Anton Merk', phase: 'Phase 1',
+    description: 'Complete the string replacement across all frontends. Every user-visible occurrence of \'Riskapture\' should now read \'Diligent\'. This covers all four portals, the marketing site, email templates, and API error messages. Verified by running the grep checklist from the review repo playbook.',
+    risks: []
+  },
+  'p1-transcription': {
+    title: 'Transcription Pipeline',
+    ws: 'W1 — UC1 Interview Co-Pilot', wsColor: '#22c55e',
+    dateStart: '20260414', dateEnd: '20260419',
+    owner: 'Anton Merk', phase: 'Phase 1',
+    description: 'Build the transcription pipeline — integrate AWS Transcribe Streaming for real-time speech-to-text, implement partial result handling (words appear as they\'re spoken), and connect the AuditScopeContext loader so the agent knows which controls are in scope for this interview.',
+    risks: ['Audio latency / transcription quality']
+  },
+  'p1-copilot-frontend': {
+    title: 'Co-Pilot Frontend Shell',
+    ws: 'W1 — UC1 Interview Co-Pilot', wsColor: '#22c55e',
+    dateStart: '20260414', dateEnd: '20260419',
+    owner: 'Anton Merk', phase: 'Phase 1',
+    description: 'Build the Interview Co-Pilot frontend panel — a split-view UI showing the live transcript on one side and agent suggestions (follow-up questions, finding drafts, evidence gaps) on the other. This is the primary UI that auditors interact with during interviews.',
+    risks: []
+  },
+  'p1-evidence-loader': {
+    title: 'Evidence Loader & Document Parser',
+    ws: 'W2 — UC2 Control Testing', wsColor: '#f59e0b',
+    dateStart: '20260414', dateEnd: '20260419',
+    owner: 'Anton Merk', phase: 'Phase 1',
+    description: 'Build the evidence population loader — fetches all evidence items for a given control/test plan from Diligent\'s evidence store. This is the input pipeline for UC2: the agent needs the full evidence set to test against, not a sample.',
+    risks: ['Diligent API specs not ready']
+  },
+  'p1-landing-design': {
+    title: 'Landing Page Design & Build',
+    ws: 'W4 — Rebrand & Landing', wsColor: '#3b82f6',
+    dateStart: '20260414', dateEnd: '20260419',
+    owner: 'Anton Merk', phase: 'Phase 1',
+    description: 'Design and build the unified tenant landing page — a dashboard with aggregated metrics, configurable widget grid, and quick navigation to all platform modules. This replaces the current Riskapture dashboard with a Diligent-branded experience.',
+    risks: []
+  },
+  'p1-aws-provisioning': {
+    title: 'AWS Environment Provisioning',
+    ws: 'W5 — AWS/Bedrock Infra', wsColor: '#8b5cf6',
+    dateStart: '20260414', dateEnd: '20260419',
+    owner: 'Anton Merk', phase: 'Phase 1',
+    description: 'Complete AWS environment provisioning — dev, staging, and production environments all running on EKS with RDS PostgreSQL, ElastiCache, and OpenSearch. CI/CD pipeline connected via GitHub Actions.',
+    risks: []
+  },
+  'p1-copilot-agent': {
+    title: 'InterviewCoPilotAgent',
+    ws: 'W1 — UC1 Interview Co-Pilot', wsColor: '#22c55e',
+    dateStart: '20260421', dateEnd: '20260426',
+    owner: 'Anton Merk', phase: 'Phase 1',
+    description: 'Build the InterviewCoPilotAgent — takes real-time transcript and audit scope context as inputs, generates follow-up questions, drafts findings when control gaps emerge, and identifies evidence opportunities. This is the core AI component of UC1.',
+    risks: []
+  },
+  'p1-hitl': {
+    title: 'HITL Pattern — Human-in-the-Loop',
+    ws: 'W1 — UC1 Interview Co-Pilot', wsColor: '#22c55e',
+    dateStart: '20260421', dateEnd: '20260426',
+    owner: 'Anton Merk', phase: 'Phase 1',
+    description: 'Implement the HITL (Human-in-the-Loop) pattern for UC1 — agent suggestions are presented as proposals that the auditor can confirm, dismiss, or edit. Nothing is auto-committed. This is critical for auditor trust and regulatory defensibility.',
+    risks: []
+  },
+  'p1-structured-results': {
+    title: 'Structured Test Results & Exception Routing',
+    ws: 'W2 — UC2 Control Testing', wsColor: '#f59e0b',
+    dateStart: '20260421', dateEnd: '20260426',
+    owner: 'Anton Merk', phase: 'Phase 1',
+    description: 'Build the structured test result format and audit trail for UC2 — every test step is logged, timestamped, and re-executable. Results are structured as pass/fail/exception with supporting rationale. Exception routing surfaces failures to the auditor review queue.',
+    risks: []
+  },
+  'p1-landing-complete': {
+    title: 'Landing Page Complete & Deployed',
+    ws: 'W4 — Rebrand & Landing', wsColor: '#3b82f6',
+    dateStart: '20260421', dateEnd: '20260426',
+    owner: 'Anton Merk', phase: 'Phase 1',
+    description: 'Complete and deploy the tenant landing page. Verified across all portals with Diligent branding, aggregated metrics pulling from real data sources, and responsive layout.',
+    risks: []
+  },
+  'p2-evidence-linking': {
+    title: 'Evidence Auto-Linking to Diligent Controls',
+    ws: 'W1 — UC1 Interview Co-Pilot', wsColor: '#22c55e',
+    dateStart: '20260505', dateEnd: '20260510',
+    owner: 'Anton Merk', phase: 'Phase 2',
+    description: 'Build evidence auto-linking for UC1 — transcript segments and identified gaps are automatically mapped to controls in the engagement and linked to Diligent\'s evidence storage. This is the \'last mile\' that makes interview output directly useful in the audit workflow.',
+    risks: ['Diligent API specs not ready']
+  },
+  'p2-scale-testing': {
+    title: 'Scale Testing — Parallel Test Execution',
+    ws: 'W2 — UC2 Control Testing', wsColor: '#f59e0b',
+    dateStart: '20260505', dateEnd: '20260510',
+    owner: 'Anton Merk', phase: 'Phase 2',
+    description: 'Scale testing for UC2 — verify the system handles 100+ evidence items per control with batch LLM calls and parallel processing. This is where we validate that automated testing is genuinely faster than manual review, not just differently slow.',
+    risks: []
+  },
+  'p2-uc3-design': {
+    title: 'UC3 Design — 9-Agent Reporting Graph',
+    ws: 'W3 — UC3 Audit Reporting', wsColor: '#EE312E',
+    dateStart: '20260505', dateEnd: '20260510',
+    owner: 'Anton Merk', phase: 'Phase 2',
+    description: 'Design the UC3 9-agent LangGraph orchestration graph and build the first 3 agents: Board Concierge (frames the scope), Intelligence Scout (harvests signals from all connected systems), and Risk Synthesizer (cross-references findings across domains). This is the architectural foundation for the reporting use case.',
+    risks: ['UC3 scope creep']
+  },
+  'p2-mcp-expansion': {
+    title: 'DiligentMCP Expansion',
+    ws: 'W3 — UC3 Audit Reporting', wsColor: '#EE312E',
+    dateStart: '20260505', dateEnd: '20260510',
+    owner: 'Anton Merk', phase: 'Phase 2',
+    description: 'Expand DiligentMCP with UC3-specific query tools — Frameworks, ERM, Compliance Maps, 3rd Party Risk, and Vault data access. These tools are what the Intelligence Scout agent uses to harvest data from Diligent\'s modules.',
+    risks: ['Diligent API specs not ready']
+  },
+  'p2-e2e-uc1': {
+    title: 'E2E Testing UC1',
+    ws: 'W1 — UC1 Interview Co-Pilot', wsColor: '#22c55e',
+    dateStart: '20260512', dateEnd: '20260517',
+    owner: 'Anton Merk + Lead Engineer (TBH)', phase: 'Phase 2',
+    description: 'End-to-end testing of UC1 — simulate a full interview from microphone input through transcription, agent processing, finding generation, and evidence storage in Diligent. Latency target is under 3-5 seconds per suggestion. This is the make-or-break test for the Interview Co-Pilot.',
+    risks: ['Audio latency / transcription quality']
+  },
+  'p2-test-scheduling': {
+    title: 'Test Scheduling UI & Batch Execution',
+    ws: 'W2 — UC2 Control Testing', wsColor: '#f59e0b',
+    dateStart: '20260512', dateEnd: '20260517',
+    owner: 'Anton Merk + Lead Engineer (TBH)', phase: 'Phase 2',
+    description: 'Build the test scheduling UI and batch execution engine for UC2 — auditors can schedule control tests, review results in a dashboard, and see results integrated into the Controls and Evidence Health dashboards.',
+    risks: []
+  },
+  'p2-uc3-agents-456': {
+    title: 'UC3 Agents 4-6 Implementation',
+    ws: 'W3 — UC3 Audit Reporting', wsColor: '#EE312E',
+    dateStart: '20260512', dateEnd: '20260517',
+    owner: 'AI/LLM Engineer (TBH)', phase: 'Phase 2',
+    description: 'Build UC3 Agents 4-6: Narrator (tags statements as FACT/ASSUMPTION/EMERGING RISK), CAE Steering (human-in-the-loop gate where the CAE reviews and redirects), and Forensic Analyst (runs targeted deep-dives on flagged areas).',
+    risks: ['UC3 scope creep']
+  },
+  'p2-hitl-refinement': {
+    title: 'HITL Refinement',
+    ws: 'W1 — UC1 Interview Co-Pilot', wsColor: '#22c55e',
+    dateStart: '20260519', dateEnd: '20260524',
+    owner: 'Anton Merk + Lead Engineer (TBH)', phase: 'Phase 2',
+    description: 'Refine the HITL experience for UC1 — finding review queue, evidence confirmation flow, and interview session management. This is about making the auditor experience smooth and trustworthy, not just functional.',
+    risks: []
+  },
+  'p2-diligent-sync': {
+    title: 'Diligent Sync — Bi-directional Control Status',
+    ws: 'W2 — UC2 Control Testing', wsColor: '#f59e0b',
+    dateStart: '20260519', dateEnd: '20260524',
+    owner: 'Backend/API Engineer (TBH)', phase: 'Phase 2',
+    description: 'Build bidirectional sync between UC2 test results and Diligent Projects — results push to Diligent via the DiligentAdapter, and control status updates flow back. This ensures auditors see test results in their normal Diligent workflow.',
+    risks: ['Diligent API specs not ready']
+  },
+  'p2-uc3-agents-789': {
+    title: 'UC3 Agents 7-9 Implementation',
+    ws: 'W3 — UC3 Audit Reporting', wsColor: '#EE312E',
+    dateStart: '20260519', dateEnd: '20260524',
+    owner: 'AI/LLM Engineer (TBH)', phase: 'Phase 2',
+    description: 'Build UC3 Agents 7-9: Confidence Calibrator (scores every conclusion as HIGH/MEDIUM/LOW), Board Pack Curator (assembles the final report), and CAE Sign-off (final HITL gate). Wire all 5 HITL gates across the full 9-agent graph.',
+    risks: ['UC3 scope creep']
+  },
+  'p2-prod-ready-uc1': {
+    title: 'Production Readiness UC1',
+    ws: 'W1 — UC1 Interview Co-Pilot', wsColor: '#22c55e',
+    dateStart: '20260526', dateEnd: '20260531',
+    owner: 'Anton Merk + Lead Engineer (TBH)', phase: 'Phase 2',
+    description: 'Production readiness for UC1 — audio/PII security review, load testing, failover handling, and monitoring setup. UC1 must be feature-complete and hardened by end of this week.',
+    risks: ['Solo execution bottleneck']
+  },
+  'p2-prod-ready-uc2': {
+    title: 'Production Readiness UC2',
+    ws: 'W2 — UC2 Control Testing', wsColor: '#f59e0b',
+    dateStart: '20260526', dateEnd: '20260531',
+    owner: 'Anton Merk + Lead Engineer (TBH)', phase: 'Phase 2',
+    description: 'Production readiness for UC2 — regression testing, audit trail verification, performance benchmarks. UC2 must be feature-complete and hardened by end of this week.',
+    risks: ['Solo execution bottleneck']
+  },
+  'p2-uc3-mvp': {
+    title: 'UC3 E2E MVP',
+    ws: 'W3 — UC3 Audit Reporting', wsColor: '#EE312E',
+    dateStart: '20260526', dateEnd: '20260531',
+    owner: 'AI/LLM Engineer (TBH)', phase: 'Phase 2',
+    description: 'UC3 end-to-end MVP — all 9 agents wired and running on synthetic data. Full demo run-through to validate the report quality and agent orchestration. Not yet polished, but the complete workflow must be demonstrable.',
+    risks: ['UC3 scope creep']
+  },
+  'p3-integration-testing': {
+    title: 'Integration Testing on AWS Production',
+    ws: 'W1+W2 — UC1 & UC2', wsColor: '#22c55e',
+    dateStart: '20260601', dateEnd: '20260606',
+    owner: 'Full Team', phase: 'Phase 3',
+    description: 'Integration testing of UC1 and UC2 on the production AWS environment — EKS, RDS, Bedrock. Verify everything works end-to-end in the real infrastructure, not just dev/staging.',
+    risks: []
+  },
+  'p3-uc3-polish': {
+    title: 'UC3 Polish & Demo Flow Refinement',
+    ws: 'W3 — UC3 Audit Reporting', wsColor: '#EE312E',
+    dateStart: '20260601', dateEnd: '20260606',
+    owner: 'AI/LLM Engineer (TBH)', phase: 'Phase 3',
+    description: 'Polish UC3 agent quality — prompt tuning, confidence scoring calibration, and report formatting. The demo must be compelling enough for Diligent leadership.',
+    risks: ['UC3 scope creep']
+  },
+  'p3-aws-deploy': {
+    title: 'AWS Production Deploy',
+    ws: 'W5 — AWS/Bedrock Infra', wsColor: '#8b5cf6',
+    dateStart: '20260601', dateEnd: '20260606',
+    owner: 'DevOps Engineer (TBH)', phase: 'Phase 3',
+    description: 'AWS production deployment — DNS cutover planning, DMS data migration from Hetzner. Blue/green deployment strategy for zero-downtime cutover.',
+    risks: []
+  },
+  'p3-hardening-uc1': {
+    title: 'Final Hardening UC1',
+    ws: 'W1 — UC1 Interview Co-Pilot', wsColor: '#22c55e',
+    dateStart: '20260608', dateEnd: '20260613',
+    owner: 'Full Team', phase: 'Phase 3',
+    description: 'Final hardening for UC1 — edge cases, error handling, monitoring dashboards, alerting rules, security review sign-off. No new features — only stability and reliability work.',
+    risks: []
+  },
+  'p3-hardening-uc2': {
+    title: 'Final Hardening UC2',
+    ws: 'W2 — UC2 Control Testing', wsColor: '#f59e0b',
+    dateStart: '20260608', dateEnd: '20260613',
+    owner: 'Full Team', phase: 'Phase 3',
+    description: 'Final hardening for UC2 — edge cases, error handling, monitoring dashboards, alerting rules, security review sign-off. No new features — only stability and reliability work.',
+    risks: []
+  },
+  'p3-uc3-rehearsal': {
+    title: 'UC3 Demo Rehearsal',
+    ws: 'W3 — UC3 Audit Reporting', wsColor: '#EE312E',
+    dateStart: '20260608', dateEnd: '20260613',
+    owner: 'Anton Merk + AI/LLM Engineer (TBH)', phase: 'Phase 3',
+    description: 'UC3 demo rehearsal — full run-through with realistic data, backup demo video recorded. The demo must work flawlessly for Diligent leadership presentation.',
+    risks: []
+  },
+  'p3-rebrand-verify': {
+    title: 'Rebrand Verification',
+    ws: 'W4 — Rebrand & Landing', wsColor: '#3b82f6',
+    dateStart: '20260608', dateEnd: '20260613',
+    owner: 'Anton Merk', phase: 'Phase 3',
+    description: 'Final rebrand and landing page verification across all 3 portals. Every screen, email, and API response must show Diligent branding. Final sign-off before ship.',
+    risks: []
+  },
+  'p3-ship-uc1': {
+    title: 'UC1 Interview Co-Pilot — PRODUCTION LAUNCH',
+    ws: 'W1 — UC1 Interview Co-Pilot', wsColor: '#22c55e',
+    dateStart: '20260615', dateEnd: '20260619',
+    owner: 'Anton Merk + Full Team', phase: 'Phase 3',
+    description: 'UC1 AI Interview Co-Pilot — PRODUCTION LAUNCH. Real auditors can use the Co-Pilot in live interviews. Monitoring active, on-call rotation established, rollback plan documented.',
+    risks: []
+  },
+  'p3-ship-uc2': {
+    title: 'UC2 Automated Control Testing — PRODUCTION LAUNCH',
+    ws: 'W2 — UC2 Control Testing', wsColor: '#f59e0b',
+    dateStart: '20260615', dateEnd: '20260619',
+    owner: 'Anton Merk + Full Team', phase: 'Phase 3',
+    description: 'UC2 Automated Control Testing — PRODUCTION LAUNCH. Agents can execute control tests against real evidence populations. Full audit trail, Diligent sync active.',
+    risks: []
+  },
+  'p3-demo-uc3': {
+    title: 'UC3 Automated Audit Reporting — DEMO',
+    ws: 'W3 — UC3 Audit Reporting', wsColor: '#EE312E',
+    dateStart: '20260615', dateEnd: '20260619',
+    owner: 'Anton Merk', phase: 'Phase 3',
+    description: 'UC3 Automated Audit Reporting — DEMO DELIVERED to Diligent leadership. Complete 9-agent workflow demonstrated with realistic scenario.',
+    risks: []
+  },
+  'p3-rebrand-done': {
+    title: 'Rebrand COMPLETE',
+    ws: 'W4 — Rebrand & Landing', wsColor: '#3b82f6',
+    dateStart: '20260615', dateEnd: '20260619',
+    owner: 'Anton Merk', phase: 'Phase 3',
+    description: 'Rebrand COMPLETE — all portals verified, Diligent branding across every touchpoint. No Riskapture references remain.',
+    risks: []
+  },
+  'p3-aws-live': {
+    title: 'AWS/Bedrock PRODUCTION — LIVE',
+    ws: 'W5 — AWS/Bedrock Infra', wsColor: '#8b5cf6',
+    dateStart: '20260615', dateEnd: '20260619',
+    owner: 'DevOps Engineer (TBH)', phase: 'Phase 3',
+    description: 'AWS/Bedrock PRODUCTION — all traffic on AWS EKS, no direct Anthropic API calls remaining. Hetzner decommission ready.',
+    risks: []
+  }
+};
+
+function openTaskModal(taskId) {
+  var t = taskData[taskId];
+  if (!t) return;
+  document.getElementById('jdTitle').textContent = t.title;
+  document.getElementById('jdDept').textContent = t.ws + '  |  ' + t.phase;
+  // Badges
+  var badges = '<span class="jd-badge" style="background:' + t.wsColor + '20;color:' + t.wsColor + ';border:1px solid ' + t.wsColor + '40;padding:4px 10px;border-radius:6px;font-size:0.6875rem;font-weight:600;">' + t.ws + '</span>';
+  // Format dates for display
+  var ds = t.dateStart, de = t.dateEnd;
+  var startStr = ds.substring(0,4) + '-' + ds.substring(4,6) + '-' + ds.substring(6,8);
+  var endDate = new Date(parseInt(de.substring(0,4)), parseInt(de.substring(4,6))-1, parseInt(de.substring(6,8)));
+  endDate.setDate(endDate.getDate() - 1);
+  var endStr = endDate.getFullYear() + '-' + String(endDate.getMonth()+1).padStart(2,'0') + '-' + String(endDate.getDate()).padStart(2,'0');
+  badges += ' <span class="jd-badge" style="background:var(--code-bg);color:var(--text-secondary);padding:4px 10px;border-radius:6px;font-size:0.6875rem;font-weight:600;"><span class="material-icons" style="font-size:13px;vertical-align:-2px;margin-right:4px;">date_range</span>' + startStr + ' \u2192 ' + endStr + '</span>';
+  document.getElementById('jdBadges').innerHTML = badges;
+  // Body
+  var body = '';
+  body += '<div class="jd-modal-section"><div class="jd-modal-section-title">Owner</div><p>' + t.owner + '</p></div>';
+  body += '<div class="jd-modal-section"><div class="jd-modal-section-title">Description</div><p>' + t.description + '</p></div>';
+  if (t.risks.length > 0) {
+    body += '<div class="jd-modal-section"><div class="jd-modal-section-title">Related Risks</div><ul>';
+    t.risks.forEach(function(r) { body += '<li>' + r + '</li>'; });
+    body += '</ul></div>';
+  }
+  body += '<div class="jd-modal-section"><button class="ics-btn" onclick="downloadICS(\'' + taskId + '\')"><span class="material-icons">event</span>Add to Calendar</button></div>';
+  document.getElementById('jdBody').innerHTML = body;
+  document.getElementById('jdBackdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function downloadICS(taskId) {
+  var t = taskData[taskId];
+  if (!t) return;
+  var dtStart = t.dateStart;
+  var dtEnd = t.dateEnd;
+  var ics = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Stealth Labs//Plan//EN',
+    'BEGIN:VEVENT',
+    'DTSTART;VALUE=DATE:' + dtStart,
+    'DTEND;VALUE=DATE:' + dtEnd,
+    'SUMMARY:' + t.title,
+    'DESCRIPTION:' + t.description.replace(/\n/g, '\\n'),
+    'CATEGORIES:' + t.ws,
+    'X-MICROSOFT-CDO-BUSYSTATUS:TENTATIVE',
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ].join('\r\n');
+  var blob = new Blob([ics], { type: 'text/calendar' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = taskId + '.ics';
+  a.click();
+  URL.revokeObjectURL(url);
 }
 
 // ── Calendar Renderer ────────────────────────────────────
