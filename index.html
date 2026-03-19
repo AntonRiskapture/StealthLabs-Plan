@@ -887,6 +887,93 @@ code, .mono {
 .risk-table td { color: var(--text); }
 .risk-table tr:hover td { background: var(--sidebar-hover); }
 
+/* ── RISK REGISTER LAYOUT ─────────────────────────────── */
+.risk-layout {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start;
+}
+@media (max-width: 1100px) { .risk-layout { grid-template-columns: 1fr; } }
+
+/* ── RISK HEATMAP ─────────────────────────────────────── */
+.heatmap-card {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: var(--radius-card); padding: 20px; box-shadow: var(--card-shadow);
+}
+.heatmap-title {
+  font-family: var(--font-mono); font-size: 0.625rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+.heatmap-grid {
+  display: grid; grid-template-columns: auto repeat(5, 1fr); grid-template-rows: auto repeat(5, 1fr);
+  gap: 3px;
+}
+.heatmap-axis-label {
+  font-family: var(--font-mono); font-size: 0.5625rem; font-weight: 600;
+  color: var(--text-secondary); display: flex; align-items: center; justify-content: center;
+  padding: 4px; white-space: nowrap;
+}
+.heatmap-axis-label.y-axis {
+  writing-mode: vertical-rl; transform: rotate(180deg); letter-spacing: 0.06em;
+}
+.heatmap-col-label {
+  font-family: var(--font-mono); font-size: 0.5rem; color: var(--text-secondary);
+  text-align: center; padding: 2px 0;
+}
+.heatmap-row-label {
+  font-family: var(--font-mono); font-size: 0.5rem; color: var(--text-secondary);
+  display: flex; align-items: center; justify-content: flex-end; padding-right: 6px;
+}
+.heatmap-cell {
+  aspect-ratio: 1; border-radius: 6px; position: relative;
+  transition: all 150ms; min-height: 40px;
+}
+.heatmap-cell.severity-low { background: rgba(34,197,94,0.12); }
+.heatmap-cell.severity-med { background: rgba(245,158,11,0.12); }
+.heatmap-cell.severity-high { background: rgba(239,68,68,0.18); }
+.heatmap-cell.severity-crit { background: rgba(239,68,68,0.30); }
+.heatmap-dot {
+  position: absolute; width: 14px; height: 14px; border-radius: 50%;
+  border: 2px solid; cursor: pointer;
+  transition: all 200ms; z-index: 2;
+}
+.heatmap-dot:hover {
+  transform: scale(1.5); z-index: 10;
+  box-shadow: 0 0 12px rgba(0,0,0,0.3);
+}
+.heatmap-dot.dot-critical { background: #ef4444; border-color: #dc2626; }
+.heatmap-dot.dot-high { background: #f59e0b; border-color: #d97706; }
+.heatmap-dot.dot-medium { background: #22c55e; border-color: #16a34a; }
+.heatmap-tooltip {
+  display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  z-index: 400; width: 220px; padding: 10px 12px;
+  background: var(--paper); border: 1px solid var(--card-border);
+  border-radius: var(--radius-default); box-shadow: var(--dropdown-shadow);
+  pointer-events: none;
+}
+.heatmap-dot:hover .heatmap-tooltip { display: block; }
+.heatmap-tooltip::after {
+  content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+  border: 5px solid transparent; border-top-color: var(--paper);
+}
+.heatmap-tooltip-title {
+  font-size: 0.75rem; font-weight: 600; color: var(--text); margin-bottom: 4px;
+}
+.heatmap-tooltip-desc {
+  font-size: 0.6875rem; color: var(--text-secondary); line-height: 1.4;
+}
+.heatmap-legend {
+  display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap;
+  font-size: 0.625rem; color: var(--text-secondary); align-items: center;
+}
+.heatmap-legend-item { display: flex; align-items: center; gap: 4px; }
+.heatmap-legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+.heatmap-y-title, .heatmap-x-title {
+  font-family: var(--font-mono); font-size: 0.5625rem; font-weight: 600;
+  color: var(--text-secondary); text-align: center; letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.heatmap-x-title { margin-top: 8px; }
+
 /* ── DOCUMENT CARDS ──────────────────────────────────── */
 .doc-grid {
   display: grid;
@@ -1673,55 +1760,162 @@ code, .mono {
   <h2 class="section-title">Risk Register</h2>
   <p>Top risks to the execution plan with impact assessment and mitigation strategies.</p>
 
-  <div class="card" style="padding:0;overflow:hidden;">
-    <table class="risk-table">
-      <thead>
-        <tr>
-          <th>Risk</th>
-          <th>Level</th>
-          <th>Impact</th>
-          <th>Mitigation</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Solo execution bottleneck</td>
-          <td><span class="badge badge-critical">Critical</span></td>
-          <td>Single point of failure on all workstreams until hires land. Anton cannot manage delivery, hiring, stakeholders, and 5 parallel streams solo.</td>
-          <td><strong>Director of Product hire by W2 is the #1 mitigation.</strong> Shares cross-workstream coordination, hiring pipeline, and stakeholder comms. Aggressive hiring for remaining roles; contractor bridge if needed.</td>
-        </tr>
-        <tr>
-          <td>Diligent API specs not ready</td>
-          <td><span class="badge badge-critical">Critical</span></td>
-          <td>Blocks UC1 evidence linking, UC2 sync, and UC3 data agents</td>
-          <td>Prepare 8 blocking questions pre-workshop; mock API layer; escalation path</td>
-        </tr>
-        <tr>
-          <td>UC3 scope creep</td>
-          <td><span class="badge badge-high">High</span></td>
-          <td>9-agent graph complexity exceeds timeline</td>
-          <td>UC3 is demo-only (not ship); cut to 5 agents if behind; time-box design</td>
-        </tr>
-        <tr>
-          <td>Audio latency / transcription quality</td>
-          <td><span class="badge badge-high">High</span></td>
-          <td>Interview Co-Pilot UX degraded by slow or inaccurate transcription</td>
-          <td>Evaluate multiple providers (Whisper, Deepgram); fallback to batch mode</td>
-        </tr>
-        <tr>
-          <td>Hiring timeline slips</td>
-          <td><span class="badge badge-high">High</span></td>
-          <td>Lead Engineer not hired by W7 delays scale-out</td>
-          <td>Source from day 1; parallel recruitment channels; contractor fallback</td>
-        </tr>
-        <tr>
-          <td>Bedrock performance / cost</td>
-          <td><span class="badge badge-medium">Medium</span></td>
-          <td>AWS Bedrock latency or token costs higher than expected</td>
-          <td>Benchmark early (W0-3); model routing for cost tiers; caching layer</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="risk-layout">
+    <!-- Column 1: Table -->
+    <div class="card" style="padding:0;overflow:hidden;">
+      <table class="risk-table">
+        <thead>
+          <tr>
+            <th>Risk</th>
+            <th>Level</th>
+            <th>Impact</th>
+            <th>Mitigation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Solo execution bottleneck</td>
+            <td><span class="badge badge-critical">Critical</span></td>
+            <td>Single point of failure on all workstreams until hires land. Anton cannot manage delivery, hiring, stakeholders, and 5 parallel streams solo.</td>
+            <td><strong>Director of Product hire by W2 is the #1 mitigation.</strong> Shares cross-workstream coordination, hiring pipeline, and stakeholder comms. Aggressive hiring for remaining roles; contractor bridge if needed.</td>
+          </tr>
+          <tr>
+            <td>Diligent API specs not ready</td>
+            <td><span class="badge badge-critical">Critical</span></td>
+            <td>Blocks UC1 evidence linking, UC2 sync, and UC3 data agents</td>
+            <td>Prepare 8 blocking questions pre-workshop; mock API layer; escalation path</td>
+          </tr>
+          <tr>
+            <td>UC3 scope creep</td>
+            <td><span class="badge badge-high">High</span></td>
+            <td>9-agent graph complexity exceeds timeline</td>
+            <td>UC3 is demo-only (not ship); cut to 5 agents if behind; time-box design</td>
+          </tr>
+          <tr>
+            <td>Audio latency / transcription quality</td>
+            <td><span class="badge badge-high">High</span></td>
+            <td>Interview Co-Pilot UX degraded by slow or inaccurate transcription</td>
+            <td>Evaluate multiple providers (Whisper, Deepgram); fallback to batch mode</td>
+          </tr>
+          <tr>
+            <td>Hiring timeline slips</td>
+            <td><span class="badge badge-high">High</span></td>
+            <td>Lead Engineer not hired by W7 delays scale-out</td>
+            <td>Source from day 1; parallel recruitment channels; contractor fallback</td>
+          </tr>
+          <tr>
+            <td>Bedrock performance / cost</td>
+            <td><span class="badge badge-medium">Medium</span></td>
+            <td>AWS Bedrock latency or token costs higher than expected</td>
+            <td>Benchmark early (W0-3); model routing for cost tiers; caching layer</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Column 2: Heatmap -->
+    <div class="heatmap-card">
+      <div class="heatmap-title">Risk Heatmap &mdash; Likelihood vs Impact</div>
+      <div class="heatmap-grid">
+        <!-- Corner -->
+        <div></div>
+        <!-- Column headers (Likelihood) -->
+        <div class="heatmap-col-label">Rare</div>
+        <div class="heatmap-col-label">Unlikely</div>
+        <div class="heatmap-col-label">Possible</div>
+        <div class="heatmap-col-label">Likely</div>
+        <div class="heatmap-col-label">Almost Certain</div>
+
+        <!-- Row 5: Catastrophic -->
+        <div class="heatmap-row-label">Catastrophic</div>
+        <div class="heatmap-cell severity-high"></div>
+        <div class="heatmap-cell severity-high"></div>
+        <div class="heatmap-cell severity-crit"></div>
+        <div class="heatmap-cell severity-crit" style="display:flex;align-items:center;justify-content:center;">
+          <div class="heatmap-dot dot-critical">
+            <div class="heatmap-tooltip">
+              <div class="heatmap-tooltip-title">Solo execution bottleneck</div>
+              <div class="heatmap-tooltip-desc">Single point of failure. Anton cannot manage delivery, hiring, stakeholders, and 5 parallel streams solo. Director of Product hire by W2 is the #1 mitigation.</div>
+            </div>
+          </div>
+        </div>
+        <div class="heatmap-cell severity-crit"></div>
+
+        <!-- Row 4: Major -->
+        <div class="heatmap-row-label">Major</div>
+        <div class="heatmap-cell severity-med"></div>
+        <div class="heatmap-cell severity-high"></div>
+        <div class="heatmap-cell severity-high" style="display:flex;align-items:center;justify-content:center;">
+          <div class="heatmap-dot dot-high">
+            <div class="heatmap-tooltip">
+              <div class="heatmap-tooltip-title">Hiring timeline slips</div>
+              <div class="heatmap-tooltip-desc">Lead Engineer or AI/LLM Engineer not hired by W7 delays scale-out. Mitigate by sourcing from day 1 and contractor fallback.</div>
+            </div>
+          </div>
+        </div>
+        <div class="heatmap-cell severity-crit" style="display:flex;align-items:center;justify-content:center;">
+          <div class="heatmap-dot dot-critical">
+            <div class="heatmap-tooltip">
+              <div class="heatmap-tooltip-title">Diligent API specs not ready</div>
+              <div class="heatmap-tooltip-desc">Blocks UC1 evidence linking, UC2 sync, and UC3 data agents. Prepare 8 blocking questions pre-workshop; build mock API stubs.</div>
+            </div>
+          </div>
+        </div>
+        <div class="heatmap-cell severity-crit"></div>
+
+        <!-- Row 3: Moderate -->
+        <div class="heatmap-row-label">Moderate</div>
+        <div class="heatmap-cell severity-low"></div>
+        <div class="heatmap-cell severity-med"></div>
+        <div class="heatmap-cell severity-high" style="display:flex;align-items:center;justify-content:center;">
+          <div class="heatmap-dot dot-high" style="left:calc(50% - 14px);">
+            <div class="heatmap-tooltip">
+              <div class="heatmap-tooltip-title">UC3 scope creep</div>
+              <div class="heatmap-tooltip-desc">9-agent graph complexity exceeds timeline. UC3 is demo-only; cut to 5 agents if behind by W8.</div>
+            </div>
+          </div>
+          <div class="heatmap-dot dot-high" style="left:calc(50% + 4px);">
+            <div class="heatmap-tooltip">
+              <div class="heatmap-tooltip-title">Audio latency / transcription</div>
+              <div class="heatmap-tooltip-desc">Interview Co-Pilot UX degraded by slow or inaccurate transcription. Evaluate Whisper, Deepgram; fallback to batch mode.</div>
+            </div>
+          </div>
+        </div>
+        <div class="heatmap-cell severity-high"></div>
+        <div class="heatmap-cell severity-crit"></div>
+
+        <!-- Row 2: Minor -->
+        <div class="heatmap-row-label">Minor</div>
+        <div class="heatmap-cell severity-low"></div>
+        <div class="heatmap-cell severity-low" style="display:flex;align-items:center;justify-content:center;">
+          <div class="heatmap-dot dot-medium">
+            <div class="heatmap-tooltip">
+              <div class="heatmap-tooltip-title">Bedrock performance / cost</div>
+              <div class="heatmap-tooltip-desc">AWS Bedrock latency or token costs higher than expected. Benchmark early (W0-3); model routing for cost tiers; caching layer.</div>
+            </div>
+          </div>
+        </div>
+        <div class="heatmap-cell severity-med"></div>
+        <div class="heatmap-cell severity-med"></div>
+        <div class="heatmap-cell severity-high"></div>
+
+        <!-- Row 1: Insignificant -->
+        <div class="heatmap-row-label">Insignificant</div>
+        <div class="heatmap-cell severity-low"></div>
+        <div class="heatmap-cell severity-low"></div>
+        <div class="heatmap-cell severity-low"></div>
+        <div class="heatmap-cell severity-med"></div>
+        <div class="heatmap-cell severity-med"></div>
+      </div>
+      <div class="heatmap-x-title">Likelihood &rarr;</div>
+
+      <div class="heatmap-legend">
+        <div class="heatmap-legend-item"><div class="heatmap-legend-dot" style="background:#ef4444;"></div>Critical</div>
+        <div class="heatmap-legend-item"><div class="heatmap-legend-dot" style="background:#f59e0b;"></div>High</div>
+        <div class="heatmap-legend-item"><div class="heatmap-legend-dot" style="background:#22c55e;"></div>Medium</div>
+        <span style="margin-left:auto;font-style:italic;">Hover dots for details</span>
+      </div>
+    </div>
   </div>
 </section>
 
