@@ -138,6 +138,65 @@ a:hover { text-decoration: underline; }
   width: 6px; height: 6px; border-radius: 50%;
   background: var(--text-secondary); opacity: 0.4;
 }
+
+/* Question cards */
+.q-card {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: var(--radius-card); box-shadow: var(--card-shadow);
+  padding: 24px 28px; margin-bottom: 20px;
+  border-left: 4px solid var(--primary);
+}
+.q-num {
+  font-family: var(--font-mono); font-size: 0.625rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--primary);
+  margin-bottom: 6px;
+}
+.q-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+.q-context { font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 14px; }
+.q-question {
+  font-size: 0.875rem; font-weight: 600; color: var(--text); line-height: 1.5;
+  background: var(--code-bg); padding: 12px 16px; border-radius: 8px;
+  margin-bottom: 12px;
+}
+.q-question::before {
+  content: 'QUESTION'; display: block;
+  font-family: var(--font-mono); font-size: 0.5625rem; font-weight: 600;
+  letter-spacing: 0.1em; color: var(--primary); margin-bottom: 4px;
+}
+.q-sub {
+  font-size: 0.75rem; color: var(--text-secondary); line-height: 1.6;
+}
+.q-sub strong { color: var(--text); }
+.q-sub ul { list-style: none; padding: 0; margin: 6px 0 0; }
+.q-sub li { padding: 3px 0 3px 14px; position: relative; }
+.q-sub li::before {
+  content: ''; position: absolute; left: 0; top: 10px;
+  width: 5px; height: 5px; border-radius: 50%; background: var(--text-secondary); opacity: 0.4;
+}
+.q-blocker {
+  display: inline-flex; align-items: center; gap: 4px; margin-top: 10px;
+  font-family: var(--font-mono); font-size: 0.5625rem; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 100px;
+}
+.q-blocker.blocks-uc1 { background: rgba(34,197,94,0.12); color: #22c55e; }
+.q-blocker.blocks-uc2 { background: rgba(245,158,11,0.12); color: #f59e0b; }
+.q-blocker.blocks-uc3 { background: rgba(238,49,46,0.12); color: #EE312E; }
+.q-blocker.blocks-infra { background: rgba(139,92,246,0.12); color: #8b5cf6; }
+.q-blocker.blocks-all { background: rgba(238,49,46,0.12); color: #EE312E; }
+.exec-summary {
+  font-size: 0.875rem; color: var(--text-secondary); line-height: 1.7;
+  max-width: none;
+}
+.exec-summary strong { color: var(--text); }
+.status-bar {
+  display: flex; gap: 16px; flex-wrap: wrap; margin: 16px 0;
+  font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.04em;
+  color: var(--text-secondary);
+}
+.status-bar .status-item { display: flex; align-items: center; gap: 6px; }
+.status-dot { width: 8px; height: 8px; border-radius: 50%; }
+.page-content { max-width: 800px; }
 </style>
 </head>
 <body>
@@ -161,25 +220,179 @@ a:hover { text-decoration: underline; }
       <div class="card-icon"><span class="material-icons">api</span></div>
       <div class="card-title-group">
         <div class="card-title">Diligent API Spec Request</div>
-        <span class="badge-draft">Draft &mdash; Content Coming Soon</span>
+        <span class="badge-draft" style="background:rgba(238,49,46,0.12);color:#EE312E;">Pre-Workshop &mdash; Action Required</span>
       </div>
     </div>
-    <div class="card-desc">8 blocking questions that must be answered at the London workshop (w/c 30 March) to unblock UC1, UC2, and UC3 delivery.</div>
-    <div class="card-meta">Last updated: Not yet created</div>
+    <div class="exec-summary">
+      <p>This document contains <strong>8 blocking questions</strong> that must be answered at or before the London workshop (w/c 30 March 2026). Each question maps directly to a delivery dependency &mdash; without answers, the Stealth Labs team cannot build the integration layer between our AI capabilities and the Diligent platform.</p>
+      <p style="margin-top:10px;">We have built our platform to be <strong>Diligent-native from day one</strong>. That means every use case reads from, writes to, and syncs with Diligent. But to do that, we need to know <em>how</em> Diligent exposes its data. These questions are not theoretical &mdash; they are the exact specs our engineers need to write code against.</p>
+      <p style="margin-top:10px;"><strong>Audience:</strong> Diligent Engineering &amp; Product leadership. <strong>Deadline:</strong> Answers needed by end of London workshop (4 April 2026). <strong>Format:</strong> For each question, we need either API documentation, Swagger/OpenAPI specs, or a named technical contact who can walk us through the integration.</p>
+    </div>
+    <div class="status-bar">
+      <div class="status-item"><div class="status-dot" style="background:#EE312E;"></div>8 questions open</div>
+      <div class="status-item"><div class="status-dot" style="background:#f59e0b;"></div>Workshop: 30 Mar &ndash; 4 Apr</div>
+      <div class="status-item"><div class="status-dot" style="background:#94A3B8;"></div>Last updated: 19 Mar 2026</div>
+    </div>
   </div>
 
-  <div class="card">
-    <div class="section-title">Planned Contents</div>
-    <ul class="planned-list">
-      <li>Authentication &amp; Token Federation</li>
-      <li>Evidence Storage API (upload, link, retrieve)</li>
-      <li>Test Plan &amp; Test Result API</li>
-      <li>ERM Risk Register API</li>
-      <li>Board Reporting / Boards API</li>
-      <li>Compliance Framework Mapping API</li>
-      <li>Third-Party Risk Management API</li>
-      <li>Vault / Document Management API</li>
-    </ul>
+  <!-- Q1 -->
+  <div class="q-card">
+    <div class="q-num">Question 1 of 8</div>
+    <div class="q-title">Authentication &amp; Token Federation</div>
+    <div class="q-context">Stealth Labs operates as a separate application that needs to call Diligent APIs on behalf of authenticated users. Today our users log in via Auth0. We need to understand how to authenticate against Diligent&rsquo;s APIs &mdash; whether that&rsquo;s OAuth2 client credentials, a service account model, SAML federation, or a token exchange mechanism. This is foundational &mdash; nothing works without it.</div>
+    <div class="q-question">How does Diligent authenticate third-party applications calling its APIs? Is there an OAuth2 token endpoint, a service account model, or a federation mechanism that would let our Auth0-issued tokens be exchanged for Diligent API tokens? What scopes or permissions model applies?</div>
+    <div class="q-sub">
+      <strong>What we need back:</strong>
+      <ul>
+        <li>Auth flow documentation (OAuth2, API keys, or SAML)</li>
+        <li>Token endpoint URL and registration process for a new client application</li>
+        <li>Permission / scope model &mdash; can we request per-module access (e.g., Evidence only, ERM only)?</li>
+        <li>Rate limits and throttling policy</li>
+      </ul>
+    </div>
+    <span class="q-blocker blocks-all">Blocks: All use cases</span>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-card">
+    <div class="q-num">Question 2 of 8</div>
+    <div class="q-title">Evidence Storage API</div>
+    <div class="q-context">UC1 (Interview Co-Pilot) generates evidence during auditor interviews &mdash; transcripts, auto-drafted findings, and evidence links. UC2 (Control Testing) produces test results and exception reports. Both need to <strong>store evidence into Diligent</strong> and <strong>link it to the correct engagement, control, or finding</strong>. We cannot build the &ldquo;last mile&rdquo; of either use case without knowing how Diligent&rsquo;s evidence store works.</div>
+    <div class="q-question">Does Diligent expose an API for uploading evidence documents, linking evidence to engagements/controls/findings, and retrieving evidence metadata? What are the supported file types, size limits, and entity relationship model?</div>
+    <div class="q-sub">
+      <strong>What we need back:</strong>
+      <ul>
+        <li>Upload endpoint &mdash; multipart file upload or pre-signed URL pattern?</li>
+        <li>Linking model &mdash; how do we associate an uploaded file with a specific engagement, control, or finding? Is it a foreign key, a tag, or a dedicated link endpoint?</li>
+        <li>Retrieval &mdash; can we list and download evidence by engagement/control?</li>
+        <li>File type restrictions and maximum file size</li>
+        <li>Versioning &mdash; does Diligent track evidence versions?</li>
+      </ul>
+    </div>
+    <span class="q-blocker blocks-uc1">Blocks: UC1</span>
+    <span class="q-blocker blocks-uc2">Blocks: UC2</span>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-card">
+    <div class="q-num">Question 3 of 8</div>
+    <div class="q-title">Test Plan &amp; Test Result API</div>
+    <div class="q-context">UC2 (Automated Control Testing) runs agent-driven tests across the full evidence population for a given control. The agent produces structured pass/fail/exception results. These results need to be <strong>written back into Diligent&rsquo;s control testing module</strong> so auditors see them in their normal workflow &mdash; not in a separate tool.</div>
+    <div class="q-question">Does Diligent have APIs for reading test plans (the set of controls to be tested and their test procedures) and writing test results (pass/fail/exception per control, per evidence item)? Can we create new test runs programmatically?</div>
+    <div class="q-sub">
+      <strong>What we need back:</strong>
+      <ul>
+        <li>Read: How to fetch test plans &mdash; list of controls, associated test procedures, evidence requirements</li>
+        <li>Write: How to submit a test result &mdash; pass/fail/exception status, supporting notes, linked evidence</li>
+        <li>Can we create a new &ldquo;test run&rdquo; or &ldquo;test execution&rdquo; programmatically, or must it be initiated in the Diligent UI?</li>
+        <li>Audit trail &mdash; does Diligent record who/what submitted the result? Can we tag it as &ldquo;AI-assisted&rdquo;?</li>
+        <li>Status sync &mdash; if we update a result, does it propagate to the control&rsquo;s overall status?</li>
+      </ul>
+    </div>
+    <span class="q-blocker blocks-uc2">Blocks: UC2</span>
+  </div>
+
+  <!-- Q4 -->
+  <div class="q-card">
+    <div class="q-num">Question 4 of 8</div>
+    <div class="q-title">ERM Risk Register API</div>
+    <div class="q-context">UC3 (Automated Audit Reporting) needs to pull risk data from Diligent&rsquo;s Enterprise Risk Management module to inform the Intelligence Scout and Risk Synthesizer agents. The report quality depends entirely on whether we can access the organisation&rsquo;s current risk landscape &mdash; risk descriptions, ratings, owners, and linkages to controls and processes.</div>
+    <div class="q-question">Does Diligent expose an API for reading the ERM risk register? Can we query risks by category, rating, owner, or linked control? What fields are available, and is the taxonomy configurable per tenant?</div>
+    <div class="q-sub">
+      <strong>What we need back:</strong>
+      <ul>
+        <li>List/search endpoint for risks &mdash; filterable by category, rating, status</li>
+        <li>Risk entity schema &mdash; what fields exist (description, inherent/residual rating, owner, linked controls, linked processes)?</li>
+        <li>Is the risk taxonomy (categories, rating scales) configurable per tenant? If so, how do we discover the current configuration?</li>
+        <li>Can we read risk-to-control linkages?</li>
+      </ul>
+    </div>
+    <span class="q-blocker blocks-uc3">Blocks: UC3</span>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-card">
+    <div class="q-num">Question 5 of 8</div>
+    <div class="q-title">Board Reporting / Boards API</div>
+    <div class="q-context">UC3&rsquo;s end product is a board-ready audit report. The Board Pack Curator agent needs to understand what format Diligent Boards expects &mdash; whether it&rsquo;s a PDF upload, a structured data payload, or a native Diligent Boards document. Ideally, we deliver reports directly into the board portal so committee members see them without manual handoff.</div>
+    <div class="q-question">Is there an API for publishing content to Diligent Boards? Can we programmatically create or update a board book / report pack? What format does it accept &mdash; structured JSON, PDF, or both?</div>
+    <div class="q-sub">
+      <strong>What we need back:</strong>
+      <ul>
+        <li>Is there a &ldquo;publish to Boards&rdquo; API endpoint?</li>
+        <li>Accepted formats &mdash; PDF upload, structured data, or native Boards template?</li>
+        <li>Access model &mdash; who can publish? Is it restricted to specific roles?</li>
+        <li>If no API exists today, what is the recommended integration path? (e.g., shared drive, email, manual upload)</li>
+      </ul>
+    </div>
+    <span class="q-blocker blocks-uc3">Blocks: UC3</span>
+  </div>
+
+  <!-- Q6 -->
+  <div class="q-card">
+    <div class="q-num">Question 6 of 8</div>
+    <div class="q-title">Compliance Framework Mapping API</div>
+    <div class="q-context">The Intelligence Scout agent in UC3 needs to understand which regulatory frameworks apply to the organisation and how controls map to framework requirements. This is how the agent determines whether a control gap represents a <em>regulatory</em> risk versus an operational one. Without this, the report cannot distinguish between &ldquo;nice to fix&rdquo; and &ldquo;regulator will flag this.&rdquo;</div>
+    <div class="q-question">Does Diligent maintain compliance framework mappings (e.g., SOX, ISO 27001, PCI-DSS mapped to controls)? Is there an API to read the framework library, the mapping between framework requirements and controls, and the compliance status per requirement?</div>
+    <div class="q-sub">
+      <strong>What we need back:</strong>
+      <ul>
+        <li>List of supported frameworks and whether they are tenant-configurable</li>
+        <li>Mapping model &mdash; how are framework requirements linked to controls?</li>
+        <li>Compliance status per requirement &mdash; is there a calculated or manually set status?</li>
+        <li>Can we read the full mapping in bulk, or must we query per-control?</li>
+      </ul>
+    </div>
+    <span class="q-blocker blocks-uc3">Blocks: UC3</span>
+  </div>
+
+  <!-- Q7 -->
+  <div class="q-card">
+    <div class="q-num">Question 7 of 8</div>
+    <div class="q-title">Third-Party Risk Management API</div>
+    <div class="q-context">Modern audit reports must account for third-party risk &mdash; vendor dependencies, outsourced processes, and supply chain exposure. The Risk Synthesizer agent needs to pull third-party risk assessments from Diligent to flag where vendor risk compounds internal control weaknesses. This is increasingly what regulators ask about.</div>
+    <div class="q-question">Does Diligent expose an API for its Third-Party Risk Management module? Can we read vendor risk assessments, due diligence status, and the linkage between vendors and internal controls or processes?</div>
+    <div class="q-sub">
+      <strong>What we need back:</strong>
+      <ul>
+        <li>Vendor/third-party entity list with risk ratings</li>
+        <li>Due diligence and assessment status per vendor</li>
+        <li>Linkage model &mdash; how are vendors connected to controls, processes, or risk categories?</li>
+        <li>Is this module available in all Diligent tiers, or is it an add-on?</li>
+      </ul>
+    </div>
+    <span class="q-blocker blocks-uc3">Blocks: UC3</span>
+  </div>
+
+  <!-- Q8 -->
+  <div class="q-card">
+    <div class="q-num">Question 8 of 8</div>
+    <div class="q-title">Vault / Document Management API</div>
+    <div class="q-context">All three use cases generate documents that need to be stored persistently &mdash; interview transcripts (UC1), test result packs (UC2), and board-ready reports (UC3). If Diligent has a central document vault, we&rsquo;d prefer to store directly there rather than maintaining a parallel document store. This also matters for data residency and retention compliance.</div>
+    <div class="q-question">Does Diligent have a Vault or document management system with API access? Can we upload, tag, version, and retrieve documents programmatically? What are the data residency and retention policies?</div>
+    <div class="q-sub">
+      <strong>What we need back:</strong>
+      <ul>
+        <li>Upload, retrieve, and delete endpoints</li>
+        <li>Tagging / metadata model &mdash; can we tag documents by use case, engagement, or control?</li>
+        <li>Versioning &mdash; does the vault track document versions?</li>
+        <li>Data residency &mdash; where is data stored? Is it tenant-configurable (EU, UK, US)?</li>
+        <li>Retention policies &mdash; automatic expiry or manual management?</li>
+        <li>Access control &mdash; can we set per-document permissions?</li>
+      </ul>
+    </div>
+    <span class="q-blocker blocks-uc1">Blocks: UC1</span>
+    <span class="q-blocker blocks-uc2">Blocks: UC2</span>
+    <span class="q-blocker blocks-uc3">Blocks: UC3</span>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--primary);">
+    <div class="section-title">Next Steps</div>
+    <div class="exec-summary">
+      <p><strong>Before the workshop:</strong> Please circulate this document to the relevant technical leads so they come prepared with answers or documentation. If full API docs exist, sharing them in advance would let us arrive with specific follow-up questions rather than starting from scratch.</p>
+      <p style="margin-top:8px;"><strong>At the workshop:</strong> We propose a 2-hour deep-dive session dedicated to these 8 questions, with the relevant API owners in the room. Our goal is to leave London with either Swagger/OpenAPI specs or a named contact per API domain.</p>
+      <p style="margin-top:8px;"><strong>If an API doesn&rsquo;t exist yet:</strong> That&rsquo;s fine &mdash; we need to know that too. We will build mock stubs and iterate when the real API ships. The worst outcome is discovering the gap <em>after</em> the workshop.</p>
+    </div>
   </div>
 </div>
 
